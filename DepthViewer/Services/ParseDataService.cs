@@ -30,7 +30,8 @@ namespace DepthViewer.Services
                     localMeasurements.Add(newLocalMeasurement);
                 }
 
-                var newLocalMapping = new Mapping(new List<Measurement>(localMeasurements), mapping.CreatedAt.Value);
+                var mappingId = mapping.ObjectId;
+                var newLocalMapping = new Mapping(mappingId, new List<Measurement>(localMeasurements), mapping.CreatedAt.Value);
                 mappings.Add(newLocalMapping);
             }
 

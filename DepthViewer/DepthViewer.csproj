@@ -137,6 +137,7 @@
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="Bootstrap\FileSystemPluginBootstrap.cs" />
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
+    <Compile Include="Contracts\ILocalMappingServices.cs" />
     <Compile Include="Contracts\IParseConfig.cs" />
     <Compile Include="Contracts\IParseDataService.cs" />
     <Compile Include="DebugTrace.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Models\Measurement.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\LocalMappingService.cs" />
     <Compile Include="Services\ParseConfig.cs" />
     <Compile Include="Services\ParseDataService.cs" />
     <Compile Include="Setup.cs" />

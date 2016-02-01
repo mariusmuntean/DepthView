@@ -1,14 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace DepthViewer.Models
 {
@@ -16,11 +7,19 @@ namespace DepthViewer.Models
     {
         private List<Measurement> _measurements;
         private DateTime _createdAt;
+        private string _id;
 
-        public Mapping(List<Measurement> measurements, DateTime createdAt)
+        public Mapping(string id, List<Measurement> measurements, DateTime createdAt)
         {
             _measurements = measurements;
             _createdAt = createdAt;
+            _id = id;
+        }
+
+        public string Id
+        {
+            get { return _id; }
+            private set { _id = value; }
         }
 
         public DateTime CreatedAt

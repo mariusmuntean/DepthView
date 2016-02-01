@@ -19,9 +19,11 @@ namespace DepthViewer.ViewModels
         private async void InitMappings()
         {
             var allMappings = await Mvx.Resolve<IParseDataService>().GetAllMappings();
+            var localMappingService = Mvx.Resolve<ILocalMappingServices>();
             foreach (var mapping in allMappings)
             {
                 _mappings.Add(mapping);
+                await localMappingService.PersistMapping(mapping);
             }
         }
 

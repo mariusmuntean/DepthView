@@ -34,6 +34,7 @@ namespace DepthViewer
 
             Mvx.LazyConstructAndRegisterSingleton<IParseDataService, ParseDataService>();
             Mvx.LazyConstructAndRegisterSingleton<IParseConfig>(() => new ParseConfig());
+            Mvx.LazyConstructAndRegisterSingleton<ILocalMappingServices>(() => new LocalMappingService());
         }
 
         protected override void InitializeLastChance()
