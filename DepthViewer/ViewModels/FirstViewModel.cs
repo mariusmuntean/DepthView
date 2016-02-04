@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using DepthViewer.Contracts;
@@ -10,23 +11,55 @@ namespace DepthViewer.ViewModels
     {
         private ObservableCollection<Mapping> _mappings = new ObservableCollection<Mapping>();
         private MvxCommand<Mapping> _mappingTappedCommand;
+        private bool _isRefreshing;
+        private IMvxCommand _refreshMappingsCommand;
 
         public FirstViewModel()
         {
-            InitMappings();
+            ReadLocalMappings();
         }
 
-        private async void InitMappings()
+        private async void ReadLocalMappings()
         {
-            var allMappings = await Mvx.Resolve<IParseDataService>().GetAllMappings();
+            IsRefreshing = true;
+
             var localMappingService = Mvx.Resolve<ILocalMappingServices>();
-            foreach (var mapping in allMappings)
+            var localMappings = await localMappingService.GetAllLocalMappings();
+            Mappings.Clear();
+            foreach (var localMapping in localMappings)
             {
-                _mappings.Add(mapping);
-                await localMappingService.PersistMapping(mapping);
+                Mappings.Add(localMapping);
+            }
+
+            if (IsRefreshing)
+            {
+                IsRefreshing = false;
             }
         }
 
+        private async Task FetchAndPersistRemoteMappings()
+        {
+            IsRefreshing = true;
+
+            var parseService = Mvx.Resolve<IParseDataService>();
+            var localMappingService = Mvx.Resolve<ILocalMappingServices>();
+
+            var remoteMappings = await parseService.GetAllMappings();
+            foreach (var remoteMapping in remoteMappings)
+            {
+                await localMappingService.PersistMapping(remoteMapping);
+            }
+        }
+
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                RaisePropertyChanged(() => IsRefreshing);
+            }
+        }
 
         public ObservableCollection<Mapping> Mappings
         {
@@ -47,6 +80,21 @@ namespace DepthViewer.ViewModels
                 });
                 return _mappingTappedCommand;
             }
+        }
+
+        public IMvxCommand RefreshMappingsCommand
+        {
+            get
+            {
+                _refreshMappingsCommand = _refreshMappingsCommand ?? new MvxCommand(async () =>
+                {
+                    await FetchAndPersistRemoteMappings();
+                    ReadLocalMappings();
+
+                });
+                return _refreshMappingsCommand;
+            }
+
         }
 
         #endregion

@@ -11,13 +11,15 @@
         android:id="@+id/editText"
         android:text="Mappings"
         android:gravity="center_horizontal" />
-    <ListView
+    <BindableSwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lstViewMappings" />
-    <Mvx.MvxListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        local:MvxItemTemplate="@layout/mappingtemplate"
-        local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
+        local:MvxBind="Refreshing IsRefreshing; Refresh RefreshMappingsCommand">
+        <Mvx.MvxListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            local:MvxItemTemplate="@layout/mappingtemplate"
+            local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
+    </BindableSwipeRefreshLayout>
 </LinearLayout>

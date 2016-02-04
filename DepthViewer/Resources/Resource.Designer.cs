@@ -99,7 +99,7 @@ namespace DepthViewer
 			public const int editText = 2131034113;
 			
 			// aapt resource value: 0x7f050002
-			public const int lstViewMappings = 2131034114;
+			public const int refreshLayout = 2131034114;
 			
 			// aapt resource value: 0x7f050005
 			public const int urhoLayout = 2131034117;
