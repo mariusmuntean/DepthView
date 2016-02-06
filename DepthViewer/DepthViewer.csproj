@@ -114,13 +114,17 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Parse.Android">
-      <HintPath>..\Components\parse-1.6.1\lib\android\Parse.Android.dll</HintPath>
+    <Reference Include="Parse.Android, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\parse-1.7.0\lib\android\Parse.Android.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="UniversalImageLoader">
+      <HintPath>..\Components\UniversalImageLoader-1.9.4.1\lib\android\UniversalImageLoader.dll</HintPath>
+    </Reference>
     <Reference Include="Urho, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UrhoSharp.1.0.307\lib\MonoAndroid\Urho.dll</HintPath>
       <Private>True</Private>
@@ -154,8 +158,10 @@
     <Compile Include="Services\ParseDataService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
+    <Compile Include="Utils\CustomMvxFileDownloadCache.cs" />
     <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="ViewModels\MappingViewModel.cs" />
+    <Compile Include="Views\CustomControls\BindableImageView.cs" />
     <Compile Include="Views\CustomControls\BindableSwipeRefreshLayout.cs" />
     <Compile Include="Views\CustomControls\Urho1.cs" />
     <Compile Include="Views\MappingView.cs" />
@@ -198,7 +204,10 @@
     <XamarinComponentReference Include="parse">
       <Visible>False</Visible>
       <Version>1.7.0</Version>
-      <InstallationInProgress>True</InstallationInProgress>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="UniversalImageLoader">
+      <Visible>False</Visible>
+      <Version>1.9.4.1</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="urhosharp">
       <Visible>False</Visible>

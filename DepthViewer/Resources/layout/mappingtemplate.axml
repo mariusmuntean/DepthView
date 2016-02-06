@@ -3,10 +3,16 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+    <BindableImageView
+        android:id="@+id/imgMappingTeaser"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        local:MvxBind="Path TeaserPath" />
     <TextView
         android:id="@+id/Name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         local:MvxBind="Text CreatedAt" />
 </LinearLayout>

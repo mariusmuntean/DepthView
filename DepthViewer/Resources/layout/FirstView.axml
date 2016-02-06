@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
+        android:textSize="20dp"
         android:id="@+id/editText"
         android:text="Mappings"
         android:gravity="center_horizontal" />
@@ -18,7 +18,7 @@
         local:MvxBind="Refreshing IsRefreshing; Refresh RefreshMappingsCommand">
         <Mvx.MvxListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             local:MvxItemTemplate="@layout/mappingtemplate"
             local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
     </BindableSwipeRefreshLayout>

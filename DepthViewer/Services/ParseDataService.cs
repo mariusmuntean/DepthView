@@ -1,7 +1,11 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
+using Android.App;
+using Android.Content;
 using Cirrious.CrossCore;
+using Cirrious.CrossCore.Droid;
 using Cirrious.MvvmCross.Plugins.DownloadCache;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
@@ -13,6 +17,12 @@ namespace DepthViewer.Services
 {
     public class ParseDataService : IParseDataService
     {
+        private string _cacheDirPath;
+        public ParseDataService()
+        {
+            _cacheDirPath = Application.Context.FilesDir.Path;
+        }
+
         public async Task<List<Mapping>> GetAllMappings()
         {
             var mappings = new List<Mapping>();
@@ -55,8 +65,9 @@ namespace DepthViewer.Services
 
             Mvx.Resolve<IMvxFileDownloadCache>().RequestLocalFilePath(imageParseFile.Url.AbsoluteUri, s =>
             {
-                downloadTcs.SetResult(s);
-                Console.WriteLine("File cached to:{0}", s);
+                var downloadPath = Path.Combine(_cacheDirPath, s);
+                downloadTcs.SetResult(downloadPath);
+                Console.WriteLine("File cached to:{0}", downloadPath);
             }, exception =>
             {
                 Console.WriteLine("Ex: " + exception);
