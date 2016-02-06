@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DepthViewer.Models
 {
@@ -32,6 +33,14 @@ namespace DepthViewer.Models
         {
             get { return _measurements; }
             private set { _measurements = value; }
+        }
+
+        public string TeaserPath
+        {
+            get
+            {
+                return Measurements.First().ImagePath;
+            }
         }
     }
 }
