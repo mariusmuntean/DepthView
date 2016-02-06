@@ -1,13 +1,14 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Cirrious.CrossCore;
+using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.ViewModels;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
 
 namespace DepthViewer.ViewModels
 {
-    public class FirstViewModel:MvxViewModel
+    public class FirstViewModel : MvxViewModel
     {
         private ObservableCollection<Mapping> _mappings = new ObservableCollection<Mapping>();
         private MvxCommand<Mapping> _mappingTappedCommand;
@@ -19,13 +20,15 @@ namespace DepthViewer.ViewModels
             ReadLocalMappings();
         }
 
-        private async void ReadLocalMappings()
+        private async Task ReadLocalMappings()
         {
             IsRefreshing = true;
 
             var localMappingService = Mvx.Resolve<ILocalMappingServices>();
             var localMappings = await localMappingService.GetAllLocalMappings();
-            Mappings.Clear();
+
+            Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() => Mappings.Clear());
+
             foreach (var localMapping in localMappings)
             {
                 Mappings.Add(localMapping);
@@ -89,7 +92,7 @@ namespace DepthViewer.ViewModels
                 _refreshMappingsCommand = _refreshMappingsCommand ?? new MvxCommand(async () =>
                 {
                     await FetchAndPersistRemoteMappings();
-                    ReadLocalMappings();
+                    await ReadLocalMappings();
 
                 });
                 return _refreshMappingsCommand;
