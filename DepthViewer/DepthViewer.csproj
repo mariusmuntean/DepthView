@@ -144,6 +144,7 @@
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="Bootstrap\FileSystemPluginBootstrap.cs" />
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
+    <Compile Include="Contracts\IDataExchangeService.cs" />
     <Compile Include="Contracts\ILocalMappingServices.cs" />
     <Compile Include="Contracts\IParseConfig.cs" />
     <Compile Include="Contracts\IParseDataService.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Models\Measurement.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DataExchangeService.cs" />
     <Compile Include="Services\LocalMappingService.cs" />
     <Compile Include="Services\ParseConfig.cs" />
     <Compile Include="Services\ParseDataService.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="ViewModels\MappingViewModel.cs" />
     <Compile Include="Views\CustomControls\BindableImageView.cs" />
     <Compile Include="Views\CustomControls\BindableSwipeRefreshLayout.cs" />
+    <Compile Include="Views\CustomControls\Map3D.cs" />
     <Compile Include="Views\CustomControls\Urho1.cs" />
     <Compile Include="Views\MappingView.cs" />
     <Compile Include="Views\FirstView.cs" />
@@ -177,7 +180,7 @@
     <AndroidResource Include="Resources\layout\SplashScreen.axml" />
     <AndroidResource Include="Resources\layout\FirstView.axml" />
     <AndroidResource Include="Resources\layout\mappingtemplate.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MappingView.axml" />
   </ItemGroup>

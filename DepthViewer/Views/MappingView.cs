@@ -1,14 +1,8 @@
-using System;
-using System.Collections;
 using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Text;
 using Android.Views;
 using Android.Widget;
-using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Droid.Views;
-using DepthViewer.ViewModels;
 using DepthViewer.Views.CustomControls;
 using Org.Libsdl.App;
 using Urho.Droid;
@@ -25,7 +19,7 @@ namespace DepthViewer.Views
             SetContentView(Resource.Layout.MappingView);
 
             var urhoLayout = FindViewById<AbsoluteLayout>(Resource.Id.urhoLayout);
-            urhoSurface = UrhoSurface.CreateSurface<Urho1>(this);
+            urhoSurface = UrhoSurface.CreateSurface<Map3D>(this);
 
             urhoLayout.AddView(urhoSurface);
         }

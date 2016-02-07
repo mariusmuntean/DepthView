@@ -13,7 +13,7 @@ using DepthViewer.Models;
 
 namespace DepthViewer.Contracts
 {
-    interface ILocalMappingServices
+    public interface ILocalMappingServices
     {
 
         Task<Mapping> GetMapping(string id);

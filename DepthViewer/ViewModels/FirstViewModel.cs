@@ -79,7 +79,7 @@ namespace DepthViewer.ViewModels
             {
                 _mappingTappedCommand = _mappingTappedCommand ?? new MvxCommand<Mapping>(mapping =>
                 {
-                    ShowViewModel<MappingViewModel>();
+                    ShowViewModel<MappingViewModel>(mapping);
                 });
                 return _mappingTappedCommand;
             }
