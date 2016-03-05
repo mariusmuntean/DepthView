@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Cirrious.CrossCore;
@@ -27,30 +28,11 @@ namespace DepthViewer.ViewModels
             var localMappingService = Mvx.Resolve<ILocalMappingServices>();
             var localMappings = await localMappingService.GetAllLocalMappings();
 
-            Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() => Mappings.Clear());
-
-            foreach (var localMapping in localMappings)
-            {
-                Mappings.Add(localMapping);
-            }
+            RepopulateMappings(localMappings);
 
             if (IsRefreshing)
             {
                 IsRefreshing = false;
-            }
-        }
-
-        private async Task FetchAndPersistRemoteMappings()
-        {
-            IsRefreshing = true;
-
-            var parseService = Mvx.Resolve<IParseDataService>();
-            var localMappingService = Mvx.Resolve<ILocalMappingServices>();
-
-            var remoteMappings = await parseService.GetAllMappings();
-            foreach (var remoteMapping in remoteMappings)
-            {
-                await localMappingService.PersistMapping(remoteMapping);
             }
         }
 
@@ -91,9 +73,13 @@ namespace DepthViewer.ViewModels
             {
                 _refreshMappingsCommand = _refreshMappingsCommand ?? new MvxCommand(async () =>
                 {
-                    await FetchAndPersistRemoteMappings();
-                    await ReadLocalMappings();
+                    IsRefreshing = true;
 
+                    var localMappingService = Mvx.Resolve<ILocalMappingServices>();
+                    var newerMappings = await localMappingService.RefreshAllLocalMappings();
+                    RepopulateMappings(newerMappings);
+
+                    IsRefreshing = false;
                 });
                 return _refreshMappingsCommand;
             }
@@ -101,5 +87,21 @@ namespace DepthViewer.ViewModels
         }
 
         #endregion
+
+        #region Helpers
+
+        private void RepopulateMappings(List<Mapping> localMappings)
+        {
+            Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() =>
+            {
+                Mappings.Clear();
+                foreach (var localMapping in localMappings)
+                {
+                    Mappings.Add(localMapping);
+                }
+            });
+        }
+
+        #endregion helpers
     }
 }
