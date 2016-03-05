@@ -17,14 +17,14 @@ namespace DepthViewer.Models
         private double _panAngle;
         private double _tiltAngle;
         private double _distanceCm;
-        private string _imagePath;
+        private string _imageUrl;
 
-        public Measurement(double panAngle, double tiltAngle, double distanceCm, string imagePath)
+        public Measurement(double panAngle, double tiltAngle, double distanceCm, string imageUrl)
         {
             _panAngle = panAngle;
             _tiltAngle = tiltAngle;
             _distanceCm = distanceCm;
-            _imagePath = imagePath;
+            _imageUrl = imageUrl;
         }
 
         public double PanAngle
@@ -45,10 +45,10 @@ namespace DepthViewer.Models
             private set { _distanceCm = value; }
         }
 
-        public string ImagePath
+        public string ImageUrl
         {
-            get { return _imagePath; }
-            private set { _imagePath = value; }
+            get { return _imageUrl; }
+            private set { _imageUrl = value; }
         }
     }
 }

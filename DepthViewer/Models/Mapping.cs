@@ -39,7 +39,7 @@ namespace DepthViewer.Models
         {
             get
             {
-                return Measurements.First().ImagePath;
+                return Measurements.First().ImageUrl;
             }
         }
     }

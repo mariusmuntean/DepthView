@@ -49,8 +49,6 @@ namespace DepthViewer.Services
 
         }
 
-
-
         #region Helpers
 
         private async Task<Measurement> GetMeasurement(ParseObject parseMeasurement)
@@ -63,21 +61,21 @@ namespace DepthViewer.Services
             var downloadTcs = new TaskCompletionSource<string>();
 
 
-            Mvx.Resolve<IMvxFileDownloadCache>().RequestLocalFilePath(imageParseFile.Url.AbsoluteUri, s =>
-            {
-                var downloadPath = Path.Combine(_cacheDirPath, s);
-                downloadTcs.SetResult(downloadPath);
-                Console.WriteLine("File cached to:{0}", downloadPath);
-            }, exception =>
-            {
-                Console.WriteLine("Ex: " + exception);
-                downloadTcs.SetException(exception);
-            });
+            //Mvx.Resolve<IMvxFileDownloadCache>().RequestLocalFilePath(imageParseFile.Url.AbsoluteUri, s =>
+            //{
+            //    var downloadPath = Path.Combine(_cacheDirPath, s);
+            //    downloadTcs.SetResult(downloadPath);
+            //    Console.WriteLine("File cached to:{0}", downloadPath);
+            //}, exception =>
+            //{
+            //    Console.WriteLine("Ex: " + exception);
+            //    downloadTcs.SetException(exception);
+            //});
 
-            var imagePath = await downloadTcs.Task;
+            //var imagePath = await downloadTcs.Task;
 
 
-            return new Measurement(panAngle, tiltAngle, distanceCm, imagePath);
+            return new Measurement(panAngle, tiltAngle, distanceCm, imageParseFile.Url.AbsoluteUri);
 
         }
 
