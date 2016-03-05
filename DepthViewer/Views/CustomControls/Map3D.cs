@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Timers;
@@ -23,6 +24,11 @@ namespace DepthViewer.Views.CustomControls
         private Mapping _currentMapping;
         private IDataExchangeService _dataExchangeService;
 
+        private Node CameraNode;
+        protected float Yaw { get; set; }
+        protected float Pitch { get; set; }
+        protected const float TouchSensitivity = 2;
+
         protected override void Setup()
         {
             base.Setup();
@@ -35,6 +41,19 @@ namespace DepthViewer.Views.CustomControls
             _dataExchangeService = Mvx.Resolve<IDataExchangeService>();
 
             CreateScene();
+            //SimpleCreateInstructions("WASD");
+            Input.SubscribeToMultiGesture(args =>
+            {
+                if (args.DDist < 0)
+                {
+                    CameraNode.Translate(-Vector3.UnitZ * 0.1f);
+                }
+                else
+                {
+                    CameraNode.Translate(Vector3.UnitZ * 0.1f);
+                }
+            });
+
             Input.KeyDown += (args) =>
             {
                 if (args.Key == Key.Esc) Engine.Exit();
@@ -42,15 +61,58 @@ namespace DepthViewer.Views.CustomControls
 
         }
 
-        private void TextChangerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        protected override void OnUpdate(float timeStep)
         {
-            if (helloText != null)
+            base.OnUpdate(timeStep);
+            MoveCameraByTouches(timeStep);
+        }
+
+        protected void MoveCameraByTouches(float timeStep)
+        {
+            if (CameraNode == null)
+                return;
+
+            var input = Input;
+            if (input.NumTouches != 1)
             {
-                InvokeOnMain(() =>
-                {
-                    helloText.Value = new Random().NextDouble().ToString(CultureInfo.InvariantCulture);
-                });
+                return;
             }
+            TouchState state = input.GetTouch(0);
+
+            if (state.Delta.X != 0 || state.Delta.Y != 0)
+            {
+                var camera = CameraNode.GetComponent<Camera>();
+                if (camera == null)
+                    return;
+
+                var graphics = Graphics;
+                Yaw += TouchSensitivity * camera.Fov / graphics.Height * state.Delta.X;
+                Pitch += TouchSensitivity * camera.Fov / graphics.Height * state.Delta.Y;
+                CameraNode.Rotation = new Quaternion(Pitch, Yaw, 0);
+            }
+            else
+            {
+                var cursor = UI.Cursor;
+                if (cursor != null && cursor.Visible)
+                    cursor.Position = state.Position;
+            }
+        }
+
+        private void Handler(GestureInputEventArgs gestureInputEventArgs)
+        {
+
+        }
+
+        protected void SimpleCreateInstructions(string text = "")
+        {
+            var textElement = new Text()
+            {
+                Value = text,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            textElement.SetFont(ResourceCache.GetFont("Fonts/Anonymous Pro.ttf"), 15);
+            UI.Root.AddChild(textElement);
         }
 
         async void CreateScene()
@@ -82,24 +144,22 @@ namespace DepthViewer.Views.CustomControls
             boxNode.SetScale(0f);
             StaticModel modelObject = boxNode.CreateComponent<StaticModel>();
             modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
-            // Light
-            Node lightNode = scene.CreateChild(name: "light");
-			lightNode.Translate (new Vector3(-5f, 0f, -3f));
-            // lightNode.SetDirection(new Vector3(0f, 0f, -1f));
-            var lightComponent = lightNode.CreateComponent<Light>();
-			lightComponent.Brightness = 3f;
-            lightComponent.LightType = LightType.Point;
 
-            Node lightNode2 = scene.CreateChild(name: "light");
-			lightNode2.Translate (new Vector3(5f, 0f, 0f));
-			var lightComponent2 = lightNode2.CreateComponent<Light>();
-			lightComponent2.Brightness = 10f;
-            lightComponent2.LightType = LightType.Point;
+            // Zone
+            var zoneNode = scene.CreateChild(name: "zoneNode");
+            zoneNode.Position = new Vector3(0, 0, 0);
+
+            var zone = zoneNode.CreateComponent<Zone>();
+            zone.SetBoundingBox(new BoundingBox(-1000, 1000));
+            zone.AmbientColor = new Color(0.1f, 0.2f, 0.4f);
+            //zone.FogColor = new Color(0.1f, 0.2f, 0.3f);
+            //zone.FogStart = 10;
+            //zone.FogEnd = 100;
 
             // Camera
-            Node cameraNode = scene.CreateChild(name: "camera");
-            Camera camera = cameraNode.CreateComponent<Camera>();
-            cameraNode.Position = new Vector3(0f,0f,-7f);
+            CameraNode = scene.CreateChild(name: "camera");
+            Camera camera = CameraNode.CreateComponent<Camera>();
+            CameraNode.Position = new Vector3(0f, 0f, -7f);
             camera.Fov = 90f;
             // Viewport
             Renderer.SetViewport(0, new Viewport(scene, camera, null));
@@ -107,32 +167,28 @@ namespace DepthViewer.Views.CustomControls
             await boxNode.RunActionsAsync(
                 new EaseBounceOut(new ScaleTo(duration: 1f, scale: 1)));
 
-            var rotateAnim2 = lightNode.RunActionsAsync(
-                new RepeatForever(
-                    new RotateTo(3f, 0f, 360f, 0f)));
-
             var rotateAnim1 = boxNode.RunActionsAsync(
                new RepeatForever(new RotateBy(duration: 1,
                    deltaAngleX: 90, deltaAngleY: 90, deltaAngleZ: 90)));
 
-            await Task.WhenAll(new List<Task>() {rotateAnim1, rotateAnim2});
+            await Task.WhenAll(new List<Task>() { rotateAnim1 });
         }
 
-		private async Task PlaceBoxes(Scene scene)
+        private async Task PlaceBoxes(Scene scene)
         {
             _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
-			if (_currentMapping == null)
-			{
-				await Task.Delay(1000);
-				_currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
-			}
+            if (_currentMapping == null)
+            {
+                await Task.Delay(1000);
+                _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
+            }
             if (_currentMapping == null)
             {
                 return;
             }
 
             var previousTiltAngle = _currentMapping.Measurements.First().TiltAngle;
-            var currentTiltAngle =previousTiltAngle;
+            var currentTiltAngle = previousTiltAngle;
             var rows = 1;
 
             foreach (var measurement in _currentMapping.Measurements)
@@ -145,7 +201,7 @@ namespace DepthViewer.Views.CustomControls
                 }
             }
 
-            var columns = _currentMapping.Measurements.Count/rows;
+            var columns = _currentMapping.Measurements.Count / rows;
 
             var left = -(columns / 2);
             var right = columns / 2;
@@ -161,19 +217,19 @@ namespace DepthViewer.Views.CustomControls
                 {
                     var currentMeasurement = _currentMapping.Measurements.ElementAt(idx);
                     var r = currentMeasurement.DistanceCm;
-                    var theta = (currentMeasurement.TiltAngle * Math.PI)/180.0d;
-                    var phi = (currentMeasurement.PanAngle*Math.PI)/180.0d;
+                    var theta = (currentMeasurement.TiltAngle * Math.PI) / 180.0d;
+                    var phi = (currentMeasurement.PanAngle * Math.PI) / 180.0d;
                     /*
                     * x=r \, \sin\theta \, \cos\varphi
                     * y=r \, \sin\theta \, \sin\varphi
                     * z=r \, \cos\theta
                     */
-                    var x = r*Math.Sin(theta)*Math.Cos(phi);
+                    var x = r * Math.Sin(theta) * Math.Cos(phi);
                     var y = r * Math.Sin(theta) * Math.Sin(phi);
                     var z = r * Math.Cos(theta);
 
                     Node boxNode = scene.CreateChild();
-                    boxNode.Position = new Vector3(j, i, (float) (r * 0.1f));
+                    boxNode.Position = new Vector3(j, i, (float)(r * 0.1f));
                     boxNode.Rotation = new Quaternion(0, 0, 0);
                     boxNode.SetScale(0.9f);
                     StaticModel modelObject = boxNode.CreateComponent<StaticModel>();
