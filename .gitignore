@@ -6,3 +6,4 @@ packages/
 DepthViewer/bin
 DepthViewer/obj
 .vs/*
+DepthViewer.userprefs

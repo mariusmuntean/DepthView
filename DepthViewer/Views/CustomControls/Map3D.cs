@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Timers;
@@ -11,6 +12,8 @@ using Urho.Actions;
 using Urho.Gui;
 using Camera = Urho.Camera;
 using Color = Urho.Color;
+using System.Threading.Tasks;
+using Android.Views.Animations;
 
 namespace DepthViewer.Views.CustomControls
 {
@@ -30,7 +33,6 @@ namespace DepthViewer.Views.CustomControls
         protected override void Start()
         {
             _dataExchangeService = Mvx.Resolve<IDataExchangeService>();
-            //_currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
 
             CreateScene();
             Input.KeyDown += (args) =>
@@ -38,9 +40,6 @@ namespace DepthViewer.Views.CustomControls
                 if (args.Key == Key.Esc) Engine.Exit();
             };
 
-            var textChanger = new Timer(2000.0d);
-            textChanger.Elapsed += TextChangerOnElapsed;
-            textChanger.Start();
         }
 
         private void TextChangerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
@@ -74,7 +73,7 @@ namespace DepthViewer.Views.CustomControls
             var scene = new Scene();
             scene.CreateComponent<Octree>();
 
-            PlaceBoxes(scene);
+            await PlaceBoxes(scene);
 
             // Box
             Node boxNode = scene.CreateChild();
@@ -85,26 +84,48 @@ namespace DepthViewer.Views.CustomControls
             modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
             // Light
             Node lightNode = scene.CreateChild(name: "light");
-            lightNode.SetDirection(new Vector3(0f, 0f, 1f));
-            lightNode.CreateComponent<Light>();
+			lightNode.Translate (new Vector3(-5f, 0f, -3f));
+            // lightNode.SetDirection(new Vector3(0f, 0f, -1f));
+            var lightComponent = lightNode.CreateComponent<Light>();
+			lightComponent.Brightness = 3f;
+            lightComponent.LightType = LightType.Point;
+
+            Node lightNode2 = scene.CreateChild(name: "light");
+			lightNode2.Translate (new Vector3(5f, 0f, 0f));
+			var lightComponent2 = lightNode2.CreateComponent<Light>();
+			lightComponent2.Brightness = 10f;
+            lightComponent2.LightType = LightType.Point;
 
             // Camera
             Node cameraNode = scene.CreateChild(name: "camera");
             Camera camera = cameraNode.CreateComponent<Camera>();
-            cameraNode.Position = new Vector3(0f,0f,-6f);
+            cameraNode.Position = new Vector3(0f,0f,-7f);
+            camera.Fov = 90f;
             // Viewport
             Renderer.SetViewport(0, new Viewport(scene, camera, null));
             // Perform some actions
             await boxNode.RunActionsAsync(
                 new EaseBounceOut(new ScaleTo(duration: 1f, scale: 1)));
-            await boxNode.RunActionsAsync(
-                new RepeatForever(new RotateBy(duration: 1,
-                    deltaAngleX: 90, deltaAngleY: 90, deltaAngleZ: 90)));
+
+            var rotateAnim2 = lightNode.RunActionsAsync(
+                new RepeatForever(
+                    new RotateTo(3f, 0f, 360f, 0f)));
+
+            var rotateAnim1 = boxNode.RunActionsAsync(
+               new RepeatForever(new RotateBy(duration: 1,
+                   deltaAngleX: 90, deltaAngleY: 90, deltaAngleZ: 90)));
+
+            await Task.WhenAll(new List<Task>() {rotateAnim1, rotateAnim2});
         }
 
-        private void PlaceBoxes(Scene scene)
+		private async Task PlaceBoxes(Scene scene)
         {
             _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
+			if (_currentMapping == null)
+			{
+				await Task.Delay(1000);
+				_currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
+			}
             if (_currentMapping == null)
             {
                 return;

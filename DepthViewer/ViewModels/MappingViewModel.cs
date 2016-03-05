@@ -36,7 +36,7 @@ namespace DepthViewer.ViewModels
                 var id = "";
                 if (parameters.Data.TryGetValue("Id", out id))
                 {
-                    _currentMapping = await _mappingServices.GetMapping(id);
+                    _currentMapping = _mappingServices.GetMapping(id).Result;
                 }
             }
         }
