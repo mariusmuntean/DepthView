@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -49,6 +50,30 @@ namespace DepthViewer.Services
 
         }
 
+        public async Task<Mapping> GetMapping(string mappingId)
+        {
+            Mapping result = null;
+            try
+            {
+                var mappingParseObject = await ParseObject.GetQuery(typeof(Mapping).Name).Include("measurements").GetAsync(mappingId);
+                var measurementsParseObjects = mappingParseObject.Get<List<object>>("measurements");
+                var localMeasurements = new List<Measurement>();
+                foreach (var measurement in measurementsParseObjects)
+                {
+                    var newLocalMeasurement = await GetMeasurement(measurement as ParseObject);
+                    localMeasurements.Add(newLocalMeasurement);
+                }
+
+                result = new Mapping(mappingId, new List<Measurement>(localMeasurements), mappingParseObject.CreatedAt.Value);
+            }
+            catch (Exception)
+            {
+                result = null;
+            }
+
+            return result;
+        }
+
         #region Helpers
 
         private async Task<Measurement> GetMeasurement(ParseObject parseMeasurement)
@@ -58,8 +83,8 @@ namespace DepthViewer.Services
             var distanceCm = parseMeasurement.Get<double>("distanceCm");
 
             var imageParseFile = parseMeasurement.Get<ParseFile>("image");
-            var downloadTcs = new TaskCompletionSource<string>();
 
+            //var downloadTcs = new TaskCompletionSource<string>();
 
             //Mvx.Resolve<IMvxFileDownloadCache>().RequestLocalFilePath(imageParseFile.Url.AbsoluteUri, s =>
             //{

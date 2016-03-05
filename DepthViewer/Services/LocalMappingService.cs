@@ -12,6 +12,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Plugins.DownloadCache;
 using Cirrious.MvvmCross.Plugins.File;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
@@ -84,26 +85,108 @@ namespace DepthViewer.Services
             return localMappings;
         }
 
+        public async Task<Mapping> RefreshLocalMapping(string mappingtId)
+        {
+            await DeleteLocalMapping(mappingtId);
+            var remoteDataService = Mvx.Resolve<IParseDataService>();
+            var newerMapping = await remoteDataService.GetMapping(mappingtId);
+            await PersistMapping(newerMapping);
+
+            return newerMapping;
+        }
+
+        public async Task<List<Mapping>> RefreshAllLocalMappings()
+        {
+            await DeleteAllLocalMappings();
+
+            var remoteDataService = Mvx.Resolve<IParseDataService>();
+            var newerMappings = await remoteDataService.GetAllMappings();
+            foreach (var newerMapping in newerMappings)
+            {
+                await PersistMapping(newerMapping);
+            }
+
+            return newerMappings;
+        }
+
         public async Task PersistMapping(Mapping mapping)
         {
+            // Persist the Mapping instance as a json
             var jsonMapping = JsonConvert.SerializeObject(mapping);
             var path = Path.Combine(_mappingsDir, mapping.Id + ".json");
             await _fileStoreAsync.WriteFileAsync(path, jsonMapping);
+
+            // Cache the measurement images
+            foreach (var measurement in mapping.Measurements)
+            {
+                await Task.Run(async () =>
+                {
+                    var downloadTcs = new TaskCompletionSource<string>();
+                    Mvx.Resolve<IMvxFileDownloadCache>().RequestLocalFilePath(measurement.ImageUrl, s =>
+                    {
+                        var downloadPath = Path.Combine(_baseDir, s);
+                        downloadTcs.SetResult(true.ToString());
+                        Console.WriteLine("File cached to:{0}", downloadPath);
+                    }, exception =>
+                    {
+                        Console.WriteLine("Ex: " + exception);
+                        downloadTcs.SetException(exception);
+                    });
+
+                    await downloadTcs.Task;
+                });
+            }
         }
 
-        public Task DeleteLocalMapping(string mappingId)
+        public async Task DeleteAllLocalMappings()
         {
-            var path = Path.Combine(_mappingsDir, mappingId + ".json");
+            // Check if Mappings folder exists
+            var localMappings = new List<Mapping>();
+            if (!_fileStore.FolderExists(_baseDir))
+            {
+                return;
+            }
 
+            // CheckBox if there are any serialized Mappings inside
+            var jsonMappingsPaths = _fileStore.GetFilesIn(_mappingsDir);
+            if (jsonMappingsPaths == null || !jsonMappingsPaths.Any())
+            {
+                return;
+            }
+
+            // Remove the serialized Mapping objects and their cached images
+            var allLocalMappings = await GetAllLocalMappings();
+            foreach (var localMapping in allLocalMappings)
+            {
+                await DeleteLocalMapping(localMapping);
+            }
+        }
+
+        public async Task DeleteLocalMapping(string mappingId)
+        {
+            var mappingToDelete = await GetMapping(mappingId);
+            await DeleteLocalMapping(mappingToDelete);
+        }
+
+        public Task DeleteLocalMapping(Mapping mapping)
+        {
             return Task.Run(() =>
             {
                 try
                 {
+                    // Delete serialized Mapping object
+                    var path = Path.Combine(_mappingsDir, mapping.Id + ".json");
                     _fileStore.DeleteFile(path);
+
+                    // Delete its cached images
+                    foreach (var measurement in mapping.Measurements)
+                    {
+                        Mvx.Resolve<IMvxFileDownloadCache>().Clear(measurement.ImageUrl);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine("Exception deleting {0}: {1}", mappingId, ex);
+                    System.Diagnostics.Debug.WriteLine("Exception deleting {0}: {1}", mapping.Id, ex);
                 }
             });
         }

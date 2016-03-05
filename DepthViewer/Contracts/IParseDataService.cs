@@ -18,5 +18,7 @@ namespace DepthViewer.Contracts
     {
         Task<List<Mapping>> GetAllMappings();
 
+        Task<Mapping> GetMapping(string mappingId);
+
     }
 }

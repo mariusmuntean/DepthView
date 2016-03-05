@@ -19,8 +19,14 @@ namespace DepthViewer.Contracts
         Task<Mapping> GetMapping(string id);
         Task<List<Mapping>> GetAllLocalMappings();
 
+        Task<Mapping> RefreshLocalMapping(string mappingtId);
+        Task<List<Mapping>> RefreshAllLocalMappings();
+
         Task PersistMapping(Mapping mapping);
+
+        Task DeleteAllLocalMappings();
         Task DeleteLocalMapping(string mappingId);
+        Task DeleteLocalMapping(Mapping mapping);
 
     }
 }
