@@ -25,6 +25,8 @@ namespace DepthViewer.Views.CustomControls
         private IDataExchangeService _dataExchangeService;
 
         private Node CameraNode;
+        private DebugRenderer _debugRenderer;
+        private Scene _scene;
         protected float Yaw { get; set; }
         protected float Pitch { get; set; }
         protected const float TouchSensitivity = 2;
@@ -64,7 +66,15 @@ namespace DepthViewer.Views.CustomControls
         protected override void OnUpdate(float timeStep)
         {
             base.OnUpdate(timeStep);
+            DrawNewStuff();
             MoveCameraByTouches(timeStep);
+        }
+
+        private void DrawNewStuff()
+        {
+            // Draw stuff - it is fun!
+            _debugRenderer = _scene.GetComponent<DebugRenderer>();
+            _debugRenderer.AddCircle(Vector3.Zero, new Vector3(1, 1, 1), 3.0f, Color.Cyan, 33, false);
         }
 
         protected void MoveCameraByTouches(float timeStep)
@@ -98,10 +108,6 @@ namespace DepthViewer.Views.CustomControls
             }
         }
 
-        private void Handler(GestureInputEventArgs gestureInputEventArgs)
-        {
-
-        }
 
         protected void SimpleCreateInstructions(string text = "")
         {
@@ -130,23 +136,24 @@ namespace DepthViewer.Views.CustomControls
                 size: 30);
             UI.Root.AddChild(helloText);
 
-            // Create a top-level scene, must add the Octree
+            // Create a top-level _scene, must add the Octree
             // to visualize any 3D content.
-            var scene = new Scene();
-            scene.CreateComponent<Octree>();
+            _scene = new Scene();
+            _scene.CreateComponent<Octree>();
+            _scene.CreateComponent<DebugRenderer>();
 
-            await PlaceBoxes(scene);
+            await PlaceBoxes(_scene);
 
             // Box
-            Node boxNode = scene.CreateChild();
-            boxNode.Position = new Vector3(0, 2, 10);
+            Node boxNode = _scene.CreateChild();
+            boxNode.Position = new Vector3(0, 0, 1);
             boxNode.Rotation = new Quaternion(0, 0, 0);
             boxNode.SetScale(0f);
             StaticModel modelObject = boxNode.CreateComponent<StaticModel>();
             modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
 
             // Zone
-            var zoneNode = scene.CreateChild(name: "zoneNode");
+            var zoneNode = _scene.CreateChild(name: "zoneNode");
             zoneNode.Position = new Vector3(0, 0, 0);
 
             var zone = zoneNode.CreateComponent<Zone>();
@@ -156,13 +163,24 @@ namespace DepthViewer.Views.CustomControls
             //zone.FogStart = 10;
             //zone.FogEnd = 100;
 
+
             // Camera
-            CameraNode = scene.CreateChild(name: "camera");
+            CameraNode = _scene.CreateChild(name: "camera");
             Camera camera = CameraNode.CreateComponent<Camera>();
             CameraNode.Position = new Vector3(0f, 0f, -7f);
             camera.Fov = 90f;
+            // Add a light to the camera node
+            var cameraLight = CameraNode.CreateComponent<Light>();
+            cameraLight.Range = 10;
+            cameraLight.LightType = LightType.Spot;
+            cameraLight.Color = Color.Yellow;
+            
+            
             // Viewport
-            Renderer.SetViewport(0, new Viewport(scene, camera, null));
+            Renderer.SetViewport(0, new Viewport(_scene, camera, null));
+            Renderer.DrawDebugGeometry(true);
+
+
             // Perform some actions
             await boxNode.RunActionsAsync(
                 new EaseBounceOut(new ScaleTo(duration: 1f, scale: 1)));
