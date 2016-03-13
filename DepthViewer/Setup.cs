@@ -69,6 +69,7 @@ namespace DepthViewer
             var fileDownloadCache = new CustomMvxFileDownloadCache(downdloadCacheConfig.CacheName, downdloadCacheConfig.CacheFolderPath, downdloadCacheConfig.MaxFiles, downdloadCacheConfig.MaxFileAge);
 
             Mvx.LazyConstructAndRegisterSingleton<IMvxFileDownloadCache>(() => fileDownloadCache);
+            Mvx.LazyConstructAndRegisterSingleton<IDownloadCache>(() => fileDownloadCache);
         }
     }
 }

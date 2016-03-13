@@ -15,6 +15,12 @@ using Camera = Urho.Camera;
 using Color = Urho.Color;
 using System.Threading.Tasks;
 using Android.Views.Animations;
+using Cirrious.CrossCore.Core;
+using Cirrious.MvvmCross.Plugins.DownloadCache;
+using Urho.IO;
+using Urho.Resources;
+using Urho.Shapes;
+using Urho.Urho2D;
 
 namespace DepthViewer.Views.CustomControls
 {
@@ -23,6 +29,7 @@ namespace DepthViewer.Views.CustomControls
         private Text helloText;
         private Mapping _currentMapping;
         private IDataExchangeService _dataExchangeService;
+        private IDownloadCache _downloadCache;
 
         private Node CameraNode;
         private DebugRenderer _debugRenderer;
@@ -38,14 +45,18 @@ namespace DepthViewer.Views.CustomControls
 
         }
 
-        protected override void Start()
+        protected override async void Start()
         {
             _dataExchangeService = Mvx.Resolve<IDataExchangeService>();
+            _downloadCache = Mvx.Resolve<IDownloadCache>();
 
-            CreateScene();
-            //SimpleCreateInstructions("WASD");
             Input.SubscribeToMultiGesture(args =>
             {
+                if (CameraNode == null)
+                {
+                    return;
+                }
+
                 if (args.DDist < 0)
                 {
                     CameraNode.Translate(-Vector3.UnitZ * 0.1f);
@@ -61,6 +72,8 @@ namespace DepthViewer.Views.CustomControls
                 if (args.Key == Key.Esc) Engine.Exit();
             };
 
+            await CreateScene();
+            //SimpleCreateInstructions("WASD");
         }
 
         protected override void OnUpdate(float timeStep)
@@ -121,20 +134,20 @@ namespace DepthViewer.Views.CustomControls
             UI.Root.AddChild(textElement);
         }
 
-        async void CreateScene()
+        async Task CreateScene()
         {
             // UI text 
-            helloText = new Text()
-            {
-                Value = "Hello World from MySample",
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            helloText.SetColor(new Color(0f, 1f, 1f));
-            helloText.SetFont(
-                font: ResourceCache.GetFont("Fonts/BlueHighway.ttf"),
-                size: 30);
-            UI.Root.AddChild(helloText);
+            //helloText = new Text()
+            //{
+            //    Value = "Hello World from MySample",
+            //    HorizontalAlignment = HorizontalAlignment.Center,
+            //    VerticalAlignment = VerticalAlignment.Center
+            //};
+            //helloText.SetColor(new Color(0f, 1f, 1f));
+            //helloText.SetFont(
+            //    font: ResourceCache.GetFont("Fonts/BlueHighway.ttf"),
+            //    size: 30);
+            //UI.Root.AddChild(helloText);
 
             // Create a top-level _scene, must add the Octree
             // to visualize any 3D content.
@@ -142,10 +155,10 @@ namespace DepthViewer.Views.CustomControls
             _scene.CreateComponent<Octree>();
             _scene.CreateComponent<DebugRenderer>();
 
-            await PlaceBoxes(_scene);
+            await PlaceBoxes(_scene); 
 
             // Box
-            Node boxNode = _scene.CreateChild();
+            var boxNode = _scene.CreateChild("demoBox");
             boxNode.Position = new Vector3(0, 0, 1);
             boxNode.Rotation = new Quaternion(0, 0, 0);
             boxNode.SetScale(0f);
@@ -165,21 +178,21 @@ namespace DepthViewer.Views.CustomControls
 
 
             // Camera
-            CameraNode = _scene.CreateChild(name: "camera");
+            CameraNode = _scene.CreateChild("Camera");
             Camera camera = CameraNode.CreateComponent<Camera>();
             CameraNode.Position = new Vector3(0f, 0f, -7f);
             camera.Fov = 90f;
+
             // Add a light to the camera node
             var cameraLight = CameraNode.CreateComponent<Light>();
-            cameraLight.Range = 10;
-            cameraLight.LightType = LightType.Spot;
+            cameraLight.Range = 200;
+            cameraLight.LightType = LightType.Point;
             cameraLight.Color = Color.Yellow;
             
             
             // Viewport
             Renderer.SetViewport(0, new Viewport(_scene, camera, null));
             Renderer.DrawDebugGeometry(true);
-
 
             // Perform some actions
             await boxNode.RunActionsAsync(
@@ -205,6 +218,23 @@ namespace DepthViewer.Views.CustomControls
                 return;
             }
 
+            //// Test img
+            //var cachedPath = await _downloadCache.GetAndCacheFile(_currentMapping.TeaserPath);
+
+            //// Display in sprite
+            //var sprite = new Sprite2D(Context);
+            //var imgFile = new File(Context, cachedPath, FileMode.Read);
+            //sprite.Load(imgFile);
+            
+            //// Position
+            //var spriteNode = scene.CreateChild("SpriteNode");
+            //spriteNode.Position = new Vector3(0,0, -1);
+
+            //var staticSprite2D = spriteNode.CreateComponent<StaticSprite2D>();
+            //staticSprite2D.Color = (new Color(NextRandom(1.0f), NextRandom(1.0f), NextRandom(1.0f), 1.0f));
+            //staticSprite2D.BlendMode = BlendMode.Alpha;
+            //staticSprite2D.Sprite = sprite;
+
             var previousTiltAngle = _currentMapping.Measurements.First().TiltAngle;
             var currentTiltAngle = previousTiltAngle;
             var rows = 1;
@@ -228,35 +258,64 @@ namespace DepthViewer.Views.CustomControls
 
             var idx = 0;
 
-
-            for (int i = bottom; i < top; i++)
-            {
-                for (int j = left; j < right; j++)
+                for (int i = bottom; i < top; i++)
                 {
-                    var currentMeasurement = _currentMapping.Measurements.ElementAt(idx);
-                    var r = currentMeasurement.DistanceCm;
-                    var theta = (currentMeasurement.TiltAngle * Math.PI) / 180.0d;
-                    var phi = (currentMeasurement.PanAngle * Math.PI) / 180.0d;
-                    /*
-                    * x=r \, \sin\theta \, \cos\varphi
-                    * y=r \, \sin\theta \, \sin\varphi
-                    * z=r \, \cos\theta
-                    */
-                    var x = r * Math.Sin(theta) * Math.Cos(phi);
-                    var y = r * Math.Sin(theta) * Math.Sin(phi);
-                    var z = r * Math.Cos(theta);
+                    for (int j = left; j < right; j++)
+                    {
+                        var currentMeasurement = _currentMapping.Measurements.ElementAt(idx);
+                        var r = currentMeasurement.DistanceCm;
+                        var theta = (currentMeasurement.TiltAngle * Math.PI) / 180.0d;
+                        var phi = (currentMeasurement.PanAngle * Math.PI) / 180.0d;
+                        /*
+                        * x=r \, \sin\theta \, \cos\varphi
+                        * y=r \, \sin\theta \, \sin\varphi
+                        * z=r \, \cos\theta
+                        */
+                        var x = r * Math.Sin(theta) * Math.Cos(phi);
+                        var y = r * Math.Sin(theta) * Math.Sin(phi);
+                        var z = r * Math.Cos(theta);
 
-                    Node boxNode = scene.CreateChild();
-                    boxNode.Position = new Vector3(j, i, (float)(r * 0.1f));
-                    boxNode.Rotation = new Quaternion(0, 0, 0);
-                    boxNode.SetScale(0.9f);
-                    StaticModel modelObject = boxNode.CreateComponent<StaticModel>();
-                    modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
+                        var boxNode = scene.CreateChild();
+                        boxNode.Position = new Vector3(j, i, (float)(r * 0.1f));
+                        boxNode.Rotation = new Quaternion(0, 0, 0);
+                        boxNode.SetScale(0.9f);
 
-                    idx++; // Measurement #
+                        // Add a box
+                        var modelObject = boxNode.CreateComponent<StaticModel>();
+                        modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
+
+                        // Add an image
+                        await PlaceSpriteInNode(currentMeasurement.ImageUrl, boxNode);                      
+
+                        idx++; // Measurement #
+                    }
                 }
-            }
 
+        }
+
+        private async Task PlaceSpriteInNode(string imagePath, Node node)
+        {
+            // Test img
+            var cachedPath = await _downloadCache.GetAndCacheFile(imagePath);
+
+            // Display in sprite
+            var sprite = new Sprite2D();
+            var imgFile = new File(Context, cachedPath, FileMode.Read);
+            sprite.Load(imgFile);
+
+            StaticSprite2D staticSprite2D = null;
+
+            staticSprite2D = node.CreateComponent<StaticSprite2D>();
+            //staticSprite2D.Color = (new Color(NextRandom(1.0f), NextRandom(1.0f), NextRandom(1.0f), 1.0f));
+            staticSprite2D.BlendMode = BlendMode.Alpha;
+            staticSprite2D.Sprite = sprite;
+        }
+
+        private static Random random;
+        public static float NextRandom(float range)
+        {
+            random = random ?? new Random();
+            return (float)random.NextDouble() * range;
         }
     }
 }

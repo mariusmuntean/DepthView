@@ -16,12 +16,13 @@ using Cirrious.CrossCore.Core;
 using Cirrious.CrossCore.Exceptions;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Plugins.DownloadCache;
+using DepthViewer.Contracts;
 
 namespace DepthViewer.Utils
 {
     public class CustomMvxFileDownloadCache
         : MvxLockableObject
-        , IMvxFileDownloadCache
+        , IDownloadCache
     {
         private const string CacheIndexFileName = "_CacheIndex.txt";
         private static readonly TimeSpan PeriodSaveInterval = TimeSpan.FromSeconds(1.0);
@@ -338,6 +339,28 @@ namespace DepthViewer.Utils
                     _indexNeedsSaving = true;
                 }
             });
+        }
+
+        public Task<string> GetAndCacheFile(string httpSource)
+        {
+            if (string.IsNullOrWhiteSpace(httpSource))
+            {
+                return null;
+            }
+
+            var tcs = new TaskCompletionSource<string>();
+
+            RequestLocalFilePath(httpSource, s =>
+            {
+                var baseFilesDir = Android.App.Application.Context.FilesDir.Path;
+                var absolutePath = Path.Combine(baseFilesDir, s);
+                tcs.SetResult(absolutePath);
+            }, exception =>
+            {
+                throw exception;
+            });
+
+            return tcs.Task;
         }
 
         private void OnDownloadSuccess(string httpSource, string pathForDownload)

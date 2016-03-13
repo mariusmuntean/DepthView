@@ -40,6 +40,7 @@
     <MandroidI18n />
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -145,6 +146,7 @@
     <Compile Include="Bootstrap\FileSystemPluginBootstrap.cs" />
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
     <Compile Include="Contracts\IDataExchangeService.cs" />
+    <Compile Include="Contracts\IDownloadCache.cs" />
     <Compile Include="Contracts\ILocalMappingServices.cs" />
     <Compile Include="Contracts\IParseConfig.cs" />
     <Compile Include="Contracts\IParseDataService.cs" />
@@ -200,6 +202,7 @@
     <AndroidResource Include="Resources\values\SplashStyle.xml" />
     <AndroidResource Include="Resources\values\MvxBindingAttributes.xml" />
     <AndroidResource Include="Resources\drawable\splash.png" />
+    <AndroidAsset Include="Assets\Data\Textures\TerrainDetail2.dds" />
     <Content Include="ToDo-MvvmCross\_ Droid UI.txt" />
     <Content Include="UrhoSharpReadme.txt" />
   </ItemGroup>
@@ -225,7 +228,6 @@
     <Folder Include="Assets\Data\PostProcess\" />
     <Folder Include="Assets\Data\Scenes\" />
     <Folder Include="Assets\Data\Sounds\" />
-    <Folder Include="Assets\Data\Textures\" />
     <Folder Include="Assets\Data\UI\" />
     <Folder Include="Assets\Data\Urho2D\" />
   </ItemGroup>
