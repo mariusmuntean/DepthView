@@ -155,7 +155,7 @@ namespace DepthViewer.Views.CustomControls
             _scene.CreateComponent<Octree>();
             _scene.CreateComponent<DebugRenderer>();
 
-            await PlaceBoxes(_scene); 
+            PlaceBoxes(_scene).Wait(); 
 
             // Box
             var boxNode = _scene.CreateChild("demoBox");
