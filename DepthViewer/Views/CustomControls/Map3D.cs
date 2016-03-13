@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Timers;
-using Android.Graphics;
 using Cirrious.CrossCore;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
@@ -14,13 +16,24 @@ using Urho.Gui;
 using Camera = Urho.Camera;
 using Color = Urho.Color;
 using System.Threading.Tasks;
+using Accord;
+
+using Accord.Imaging;
+using Accord.Imaging.Filters;
+using Accord.Math;
 using Android.Views.Animations;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.DownloadCache;
-using Urho.IO;
 using Urho.Resources;
 using Urho.Shapes;
 using Urho.Urho2D;
+using static System.Drawing.Image;
+using Environment = Android.OS.Environment;
+using File = Urho.IO.File;
+using FileMode = Urho.IO.FileMode;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
+using Vector3 = Urho.Vector3;
+
 
 namespace DepthViewer.Views.CustomControls
 {
@@ -74,6 +87,134 @@ namespace DepthViewer.Views.CustomControls
 
             await CreateScene();
             //SimpleCreateInstructions("WASD");
+
+            // Stitch some images togetcher
+            await Stitch();
+        }
+
+        private async Task Stitch()
+        {
+            _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
+            var img1Path = await _downloadCache.GetAndCacheFile(_currentMapping.Measurements.First().ImageUrl);
+            var img2Path = await _downloadCache.GetAndCacheFile(_currentMapping.Measurements.ElementAt(1).ImageUrl);
+
+            Bitmap img1, img2;
+            using (var fs = new FileStream(img1Path, System.IO.FileMode.Open))
+            {
+                using (var tmpBitmap = FromStream(fs) as Bitmap)
+                {
+                    img1 = tmpBitmap.Clone(PixelFormat.Format32bppArgb);
+                }
+            }
+            using (var fs = new FileStream(img2Path, System.IO.FileMode.Open))
+            {
+                using (var tmpBitmap = FromStream(fs) as Bitmap)
+                {
+                    img2 = tmpBitmap.Clone(PixelFormat.Format32bppArgb);
+                }
+            }
+
+
+            // Step 1: Detect feature points using Harris Corners Detector
+            HarrisCornersDetector harris = new HarrisCornersDetector(0.04f, 1000f);
+
+
+            var harrisPoints1 = harris.ProcessImage(img1).ToArray();
+            var harrisPoints2 = harris.ProcessImage(img2).ToArray();
+
+            // Show the marked points in the original images
+            Bitmap img1mark = new PointsMarker(harrisPoints1).Apply(img1);
+            Bitmap img2mark = new PointsMarker(harrisPoints2).Apply(img2);
+
+            // Concatenate the two images together in a single image (just to show on screen)
+            Concatenate concatenate = new Concatenate(img1mark);
+            //pictureBox.Image = concatenate.Apply(img2mark);
+
+            // Step 2: Match feature points using a correlation measure
+            CorrelationMatching matcher = new CorrelationMatching(9, img1, img2);
+            IntPoint[][] matches = matcher.Match(harrisPoints1, harrisPoints2);
+
+            // Get the two sets of points
+            var correlationPoints1 = matches[0];
+            var correlationPoints2 = matches[1];
+
+            // Concatenate the two images in a single image (just to show on screen)
+            Concatenate concat = new Concatenate(img1);
+            Bitmap img3 = concat.Apply(img2);
+
+            //// Show the marked correlations in the concatenated image
+            //PairsMarker pairs = new PairsMarker(
+            //    correlationPoints1, // Add image1's width to the X points
+            //                        // to show the markings correctly
+            //    correlationPoints2.Apply(p => new IntPoint(p.X + img1.Width, p.Y)));
+
+            //pictureBox.Image = pairs.Apply(img3);
+
+            // Step 3: Create the homography matrix using a robust estimator
+            RansacHomographyEstimator ransac = new RansacHomographyEstimator(0.001, 0.99);
+            var homography = ransac.Estimate(correlationPoints1, correlationPoints2);
+
+            // Plot RANSAC results against correlation results
+            IntPoint[] inliers1 = Matrix.Submatrix(correlationPoints1, ransac.Inliers);
+            IntPoint[] inliers2 = Matrix.Submatrix(correlationPoints2, ransac.Inliers);
+
+            //// Concatenate the two images in a single image (just to show on screen)
+            //Concatenate concat = new Concatenate(img1);
+            //Bitmap img3 = concat.Apply(img2);
+
+            //// Show the marked correlations in the concatenated image
+            //PairsMarker pairs = new PairsMarker(
+            //    inliers1, // Add image1's width to the X points to show the markings correctly
+            //    inliers2.Apply(p => new IntPoint(p.X + img1.Width, p.Y)));
+
+            //pictureBox.Image = pairs.Apply(img3);
+
+            // Step 4: Project and blend the second image using the homography
+            Blend blend = new Blend(homography, img1);
+            System.Drawing.Bitmap stitchedImage = blend.Apply(img2);
+
+            var path = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, "Download",
+                DateTime.Now.Millisecond.ToString() + ".png");
+            using (var fs = new FileStream(path, System.IO.FileMode.CreateNew))
+            {
+                stitchedImage.Save(fs, ImageFormat.Jpeg);
+            }
+            //stitchedImage.Save(path, GetEncoderInfo("image/jpeg"), new EncoderParameters()
+            //                                                        {
+            //                                                            Param = new[]
+            //                                                            {
+            //                                                                new EncoderParameter(Encoder.Quality, 100L)
+            //                                                            }
+            //                                                        });
+
+            var stitchNode = _scene.CreateChild("StitchedNode");
+            stitchNode.Position = new Vector3(0,0,-2);
+            stitchNode.SetScale(1.0f);
+            //await PlaceSpriteInNode(path, stitchNode);
+            // Display in sprite
+            var sprite = new Sprite2D();
+            var imgFile = new File(Context, path, FileMode.Read);
+            sprite.Load(imgFile);
+
+            StaticSprite2D staticSprite2D = null;
+
+            staticSprite2D = stitchNode.CreateComponent<StaticSprite2D>();
+            //staticSprite2D.Color = (new Color(NextRandom(1.0f), NextRandom(1.0f), NextRandom(1.0f), 1.0f));
+            staticSprite2D.BlendMode = BlendMode.Alpha;
+            staticSprite2D.Sprite = sprite;
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
         }
 
         protected override void OnUpdate(float timeStep)
@@ -198,11 +339,9 @@ namespace DepthViewer.Views.CustomControls
             await boxNode.RunActionsAsync(
                 new EaseBounceOut(new ScaleTo(duration: 1f, scale: 1)));
 
-            var rotateAnim1 = boxNode.RunActionsAsync(
+            boxNode.RunActionsAsync(
                new RepeatForever(new RotateBy(duration: 1,
                    deltaAngleX: 90, deltaAngleY: 90, deltaAngleZ: 90)));
-
-            await Task.WhenAll(new List<Task>() { rotateAnim1 });
         }
 
         private async Task PlaceBoxes(Scene scene)
@@ -285,7 +424,7 @@ namespace DepthViewer.Views.CustomControls
                         modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
 
                         // Add an image
-                        await PlaceSpriteInNode(currentMeasurement.ImageUrl, boxNode);                      
+                        //await PlaceSpriteInNode(currentMeasurement.ImageUrl, boxNode);                      
 
                         idx++; // Measurement #
                     }
