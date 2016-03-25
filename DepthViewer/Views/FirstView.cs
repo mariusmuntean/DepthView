@@ -2,8 +2,10 @@ using System;
 using Android.App;
 using Android.OS;
 using Android.Support.Design.Widget;
+using Android.Widget;
 using DepthViewer.ViewModels;
 using DepthViewer.Views.Fragments;
+using MvvmCross.Binding.Droid.Views;
 using MvvmCross.Droid.Support.V7.Fragging;
 using Org.Libsdl.App;
 
@@ -16,6 +18,11 @@ namespace DepthViewer.Views
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.FirstView);
+
+            // Set an empty view for the list of mappings
+            var lstViewLocalMappings = FindViewById<MvxListView>(Resource.Id.lstViewLocalMappings);
+            var txtViewNoMappings = FindViewById<TextView>(Resource.Id.txtViewNoLocalMappings);
+            lstViewLocalMappings.EmptyView = txtViewNoMappings;
 
             var fab = FindViewById<FloatingActionButton>(Resource.Id.BtnDownloadMapping);
             fab.Click +=  DownloadMappingClicked;

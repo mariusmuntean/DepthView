@@ -19,12 +19,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             local:MvxBind="Refreshing IsRefreshing; Refresh RefreshMappingsCommand">
-            <Mvx.MvxListView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fadingEdgeLength="10dp"
-                local:MvxItemTemplate="@layout/mappingtemplate"
-                local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
+                android:layout_height="wrap_content">
+            <!-- List of local mappings -->
+                <Mvx.MvxListView
+                    android:id="@+id/lstViewLocalMappings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadingEdgeLength="10dp"
+                    local:MvxItemTemplate="@layout/mappingtemplate"
+                    local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
+            <!-- Placeholder for when the list is empty -->
+                <TextView
+                    android:id="@+id/txtViewNoLocalMappings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No mappings. Tap the + button." />
+            </LinearLayout>
         </BindableSwipeRefreshLayout>
     <!-- Floating Action Button -->
         <android.support.design.widget.FloatingActionButton
