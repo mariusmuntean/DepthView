@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using DepthViewer.Models;
 using DepthViewer.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Binding.Droid.Views;
@@ -31,6 +34,7 @@ namespace DepthViewer.Views.Fragments
             var view = this.BindingInflate(Resource.Layout.MappingsOverviewView, null);
             var lstRemoteMappings = view.FindViewById<MvxListView>(Resource.Id.lstViewRemoteMappings);
             lstRemoteMappings.ChoiceMode = ChoiceMode.Multiple;
+            lstRemoteMappings.ItemsCanFocus = true;
 
             var dialog = new AlertDialog.Builder(_context);
             dialog.SetTitle("Remote Mappings");
@@ -38,6 +42,21 @@ namespace DepthViewer.Views.Fragments
             dialog.SetPositiveButton("OK", (sender, args) =>
             {
                 Toast.MakeText(Activity.ApplicationContext, "Hi", ToastLength.Long).Show();
+                var selectedPositions = lstRemoteMappings.CheckedItemPositions;
+                if (selectedPositions == null || selectedPositions.Size() == 0)
+                {
+                    return;
+                }
+
+                var listSelectedMappings = new List<Mapping>();
+                for(int i = 0;i<selectedPositions.Size();i++)
+                {
+                    var currentMappingPos = selectedPositions.KeyAt(i);
+                    var currentMapping = ViewModel.Mappings.ElementAt(currentMappingPos);
+                    listSelectedMappings.Add(currentMapping);
+                }
+
+                ViewModel.OkCommand.Execute(listSelectedMappings);
             });
 
             return dialog.Create();

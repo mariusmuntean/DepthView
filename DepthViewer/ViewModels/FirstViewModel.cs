@@ -12,13 +12,13 @@ namespace DepthViewer.ViewModels
     public class MappingsOverviewViewModel:MvxViewModel
     {
         private ObservableCollection<Mapping> _mappings;
-        private MvxCommand<Mapping> _okCommand;
+        private MvxCommand<List<Mapping>> _okCommand;
         private IParseDataService _remoteMappingService;
         private bool _isRefreshing;
         private MvxCommand _refreshMappingsCommand;
 
 
-        public MappingsOverviewViewModel(MvxCommand<Mapping> okCommand)
+        public MappingsOverviewViewModel(MvxCommand<List<Mapping>> okCommand)
         {
             _okCommand = okCommand;
             _remoteMappingService = Mvx.Resolve<IParseDataService>();
@@ -77,7 +77,7 @@ namespace DepthViewer.ViewModels
             }
         }
 
-        public MvxCommand<Mapping> OkCommand
+        public MvxCommand<List<Mapping>> OkCommand
         {
             get { return _okCommand; }
         }
@@ -98,7 +98,7 @@ namespace DepthViewer.ViewModels
         {
             ReadLocalMappings();
 
-            _sub = new MappingsOverviewViewModel(new MvxCommand<Mapping>(mapping =>
+            _sub = new MappingsOverviewViewModel(new MvxCommand<List<Mapping>>(mapping =>
             {
                 
             }));

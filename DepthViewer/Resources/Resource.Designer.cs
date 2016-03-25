@@ -1015,32 +1015,32 @@ namespace DepthViewer
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0b0043
-			public const int abc_background_cache_hint_selector_material_dark = 2131427395;
+			// aapt resource value: 0x7f0b0048
+			public const int abc_background_cache_hint_selector_material_dark = 2131427400;
 			
-			// aapt resource value: 0x7f0b0044
-			public const int abc_background_cache_hint_selector_material_light = 2131427396;
+			// aapt resource value: 0x7f0b0049
+			public const int abc_background_cache_hint_selector_material_light = 2131427401;
 			
-			// aapt resource value: 0x7f0b0045
-			public const int abc_color_highlight_material = 2131427397;
+			// aapt resource value: 0x7f0b004a
+			public const int abc_color_highlight_material = 2131427402;
 			
 			// aapt resource value: 0x7f0b0000
 			public const int abc_input_method_navigation_guard = 2131427328;
 			
-			// aapt resource value: 0x7f0b0046
-			public const int abc_primary_text_disable_only_material_dark = 2131427398;
+			// aapt resource value: 0x7f0b004b
+			public const int abc_primary_text_disable_only_material_dark = 2131427403;
 			
-			// aapt resource value: 0x7f0b0047
-			public const int abc_primary_text_disable_only_material_light = 2131427399;
+			// aapt resource value: 0x7f0b004c
+			public const int abc_primary_text_disable_only_material_light = 2131427404;
 			
-			// aapt resource value: 0x7f0b0048
-			public const int abc_primary_text_material_dark = 2131427400;
+			// aapt resource value: 0x7f0b004d
+			public const int abc_primary_text_material_dark = 2131427405;
 			
-			// aapt resource value: 0x7f0b0049
-			public const int abc_primary_text_material_light = 2131427401;
+			// aapt resource value: 0x7f0b004e
+			public const int abc_primary_text_material_light = 2131427406;
 			
-			// aapt resource value: 0x7f0b004a
-			public const int abc_search_url_text = 2131427402;
+			// aapt resource value: 0x7f0b004f
+			public const int abc_search_url_text = 2131427407;
 			
 			// aapt resource value: 0x7f0b0001
 			public const int abc_search_url_text_normal = 2131427329;
@@ -1051,17 +1051,20 @@ namespace DepthViewer
 			// aapt resource value: 0x7f0b0003
 			public const int abc_search_url_text_selected = 2131427331;
 			
-			// aapt resource value: 0x7f0b004b
-			public const int abc_secondary_text_material_dark = 2131427403;
+			// aapt resource value: 0x7f0b0050
+			public const int abc_secondary_text_material_dark = 2131427408;
 			
-			// aapt resource value: 0x7f0b004c
-			public const int abc_secondary_text_material_light = 2131427404;
+			// aapt resource value: 0x7f0b0051
+			public const int abc_secondary_text_material_light = 2131427409;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int accent_material_dark = 2131427332;
 			
 			// aapt resource value: 0x7f0b0005
 			public const int accent_material_light = 2131427333;
+			
+			// aapt resource value: 0x7f0b0045
+			public const int addMappingColor = 2131427397;
 			
 			// aapt resource value: 0x7f0b0006
 			public const int background_floating_material_dark = 2131427334;
@@ -1098,6 +1101,12 @@ namespace DepthViewer
 			
 			// aapt resource value: 0x7f0b0011
 			public const int button_material_light = 2131427345;
+			
+			// aapt resource value: 0x7f0b0043
+			public const int cellback = 2131427395;
+			
+			// aapt resource value: 0x7f0b0044
+			public const int defaultMappingColor = 2131427396;
 			
 			// aapt resource value: 0x7f0b003a
 			public const int design_fab_shadow_end_color = 2131427386;
@@ -1192,6 +1201,9 @@ namespace DepthViewer
 			// aapt resource value: 0x7f0b0027
 			public const int material_grey_900 = 2131427367;
 			
+			// aapt resource value: 0x7f0b0047
+			public const int pressedMappingColor = 2131427399;
+			
 			// aapt resource value: 0x7f0b0028
 			public const int primary_dark_material_dark = 2131427368;
 			
@@ -1234,17 +1246,20 @@ namespace DepthViewer
 			// aapt resource value: 0x7f0b0035
 			public const int secondary_text_disabled_material_light = 2131427381;
 			
+			// aapt resource value: 0x7f0b0046
+			public const int selectedMappingColor = 2131427398;
+			
 			// aapt resource value: 0x7f0b0036
 			public const int switch_thumb_disabled_material_dark = 2131427382;
 			
 			// aapt resource value: 0x7f0b0037
 			public const int switch_thumb_disabled_material_light = 2131427383;
 			
-			// aapt resource value: 0x7f0b004d
-			public const int switch_thumb_material_dark = 2131427405;
+			// aapt resource value: 0x7f0b0052
+			public const int switch_thumb_material_dark = 2131427410;
 			
-			// aapt resource value: 0x7f0b004e
-			public const int switch_thumb_material_light = 2131427406;
+			// aapt resource value: 0x7f0b0053
+			public const int switch_thumb_material_light = 2131427411;
 			
 			// aapt resource value: 0x7f0b0038
 			public const int switch_thumb_normal_material_dark = 2131427384;
@@ -1806,14 +1821,17 @@ namespace DepthViewer
 			// aapt resource value: 0x7f020047
 			public const int Icon = 2130837575;
 			
-			// aapt resource value: 0x7f02004a
-			public const int notification_template_icon_bg = 2130837578;
-			
 			// aapt resource value: 0x7f020048
-			public const int plus = 2130837576;
+			public const int MappingTemplateSelector = 2130837576;
+			
+			// aapt resource value: 0x7f02004b
+			public const int notification_template_icon_bg = 2130837579;
 			
 			// aapt resource value: 0x7f020049
-			public const int splash = 2130837577;
+			public const int plus = 2130837577;
+			
+			// aapt resource value: 0x7f02004a
+			public const int splash = 2130837578;
 			
 			static Drawable()
 			{

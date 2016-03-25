@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="cellback">#FFDAFF7F</color>
+  <color name="defaultMappingColor">#FFFFFF</color>
+  <color name="addMappingColor">#FF5252</color>
+  <color name="selectedMappingColor">#03A9F4</color>
+  <color name="pressedMappingColor">#0288D1</color>
+</resources>
