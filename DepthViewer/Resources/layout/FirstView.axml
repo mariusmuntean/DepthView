@@ -11,15 +11,27 @@
         android:id="@+id/editText"
         android:text="Mappings"
         android:gravity="center_horizontal" />
-    <BindableSwipeRefreshLayout
-        android:id="@+id/refreshLayout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        local:MvxBind="Refreshing IsRefreshing; Refresh RefreshMappingsCommand">
-        <Mvx.MvxListView
+        android:layout_height="wrap_content">
+        <BindableSwipeRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxItemTemplate="@layout/mappingtemplate"
-            local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
-    </BindableSwipeRefreshLayout>
+            local:MvxBind="Refreshing IsRefreshing; Refresh RefreshMappingsCommand">
+            <Mvx.MvxListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                local:MvxItemTemplate="@layout/mappingtemplate"
+                local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
+        </BindableSwipeRefreshLayout>
+    <!-- Floating Action Button -->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/BtnDownloadMapping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="5dp"
+            android:src="@drawable/plus" />
+    </FrameLayout>
 </LinearLayout>

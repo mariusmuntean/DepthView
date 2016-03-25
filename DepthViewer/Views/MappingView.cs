@@ -2,15 +2,16 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Cirrious.MvvmCross.Droid.Views;
+using DepthViewer.ViewModels;
 using DepthViewer.Views.CustomControls;
+using MvvmCross.Droid.FullFragging.Views;
 using Org.Libsdl.App;
 using Urho.Droid;
 
 namespace DepthViewer.Views
 {
     [Activity(Label = "View for MappingViewModel")]
-    public class MappingView : MvxActivity
+    public class MappingView : MvxActivity<MappingViewModel>
     {
         private SDLSurface urhoSurface;
         protected override void OnCreate(Bundle bundle)

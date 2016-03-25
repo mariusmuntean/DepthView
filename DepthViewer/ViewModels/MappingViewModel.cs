@@ -9,10 +9,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.ViewModels;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 
 namespace DepthViewer.ViewModels
 {

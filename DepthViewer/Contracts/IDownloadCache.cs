@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Cirrious.MvvmCross.Plugins.DownloadCache;
+using MvvmCross.Plugins.DownloadCache;
 
 namespace DepthViewer.Contracts
 {

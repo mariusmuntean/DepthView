@@ -1,18 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
-using System.Xml;
 using Android.App;
-using Android.Content;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Droid;
-using Cirrious.MvvmCross.Plugins.DownloadCache;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
-using Java.IO;
 using Parse;
-using Console = System.Console;
 
 namespace DepthViewer.Services
 {

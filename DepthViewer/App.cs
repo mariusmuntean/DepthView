@@ -1,12 +1,13 @@
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.IoC;
 using DepthViewer.Contracts;
 using DepthViewer.ViewModels;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
+using MvvmCross.Platform.IoC;
 using Parse;
 
 namespace DepthViewer
 {
-    public class App : Cirrious.MvvmCross.ViewModels.MvxApplication
+    public class App : MvxApplication
     {
         public override void Initialize()
         {

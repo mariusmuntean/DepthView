@@ -1,24 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Acr.MvvmCross.Plugins.FileSystem;
 using Android.App;
-using Android.Content;
-using Android.Graphics;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Plugins.DownloadCache;
-using Cirrious.MvvmCross.Plugins.File;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
+using MvvmCross.Platform;
+using MvvmCross.Plugins.DownloadCache;
+using MvvmCross.Plugins.File;
 using Newtonsoft.Json;
-using Directory = System.IO.Directory;
-using File = System.IO.File;
 using Path = System.IO.Path;
 
 namespace DepthViewer.Services

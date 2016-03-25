@@ -7,7 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Timers;
-using Cirrious.CrossCore;
+
 using DepthViewer.Contracts;
 using DepthViewer.Models;
 using Urho;
@@ -17,13 +17,11 @@ using Camera = Urho.Camera;
 using Color = Urho.Color;
 using System.Threading.Tasks;
 using Accord;
-
 using Accord.Imaging;
 using Accord.Imaging.Filters;
 using Accord.Math;
 using Android.Views.Animations;
-using Cirrious.CrossCore.Core;
-using Cirrious.MvvmCross.Plugins.DownloadCache;
+using MvvmCross.Platform;
 using Urho.Resources;
 using Urho.Shapes;
 using Urho.Urho2D;
