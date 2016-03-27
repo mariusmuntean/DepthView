@@ -93,6 +93,7 @@ namespace DepthViewer.ViewModels
         private bool _isRefreshing;
         private IMvxCommand _refreshMappingsCommand;
         private MappingsOverviewViewModel _sub;
+        private MvxCommand<Mapping> _mappingLongClickCommand;
 
         public FirstViewModel()
         {
@@ -157,6 +158,18 @@ namespace DepthViewer.ViewModels
                     ShowViewModel<MappingViewModel>(mapping);
                 });
                 return _mappingTappedCommand;
+            }
+        }
+
+        public MvxCommand<Mapping> MappingLongClickCommand
+        {
+            get
+            {
+                _mappingLongClickCommand = _mappingTappedCommand ?? new MvxCommand<Mapping>(mapping =>
+                {
+                    
+                });
+                return _mappingLongClickCommand;
             }
         }
 

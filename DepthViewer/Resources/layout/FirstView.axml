@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:fadingEdgeLength="10dp"
                     local:MvxItemTemplate="@layout/mappingtemplate"
-                    local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
+                    local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand; ItemLongClick MappingLongClickCommand" />
             <!-- Placeholder for when the list is empty -->
                 <TextView
                     android:id="@+id/txtViewNoLocalMappings"
