@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
@@ -16,7 +17,6 @@ namespace DepthViewer.ViewModels
         private IParseDataService _remoteMappingService;
         private bool _isRefreshing;
         private MvxCommand _refreshMappingsCommand;
-
 
         public MappingsOverviewViewModel(MvxCommand<List<Mapping>> okCommand)
         {
@@ -93,7 +93,10 @@ namespace DepthViewer.ViewModels
         private bool _isRefreshing;
         private IMvxCommand _refreshMappingsCommand;
         private MappingsOverviewViewModel _sub;
-        private MvxCommand<Mapping> _mappingLongClickCommand;
+        private MvxCommand<int> _mappingLongClickCommand;
+
+        private IMvxCommand _deleteCommand;
+        private int _longPressedMappingIndex;
 
         public FirstViewModel()
         {
@@ -161,13 +164,13 @@ namespace DepthViewer.ViewModels
             }
         }
 
-        public MvxCommand<Mapping> MappingLongClickCommand
+        public MvxCommand<int> MappingLongClickCommand
         {
             get
             {
-                _mappingLongClickCommand = _mappingTappedCommand ?? new MvxCommand<Mapping>(mapping =>
+                _mappingLongClickCommand = _mappingLongClickCommand ?? new MvxCommand<int>(idx =>
                 {
-                    
+                    LongPressedMappingIndex = idx;
                 });
                 return _mappingLongClickCommand;
             }
@@ -190,6 +193,36 @@ namespace DepthViewer.ViewModels
                 return _refreshMappingsCommand;
             }
 
+        }
+
+        public IMvxCommand DeleteCommand    
+        {
+            get
+            {
+                _deleteCommand = _deleteCommand ?? new MvxCommand(() =>
+                {
+                    if (LongPressedMapping != null)
+                    {
+                        
+                    }
+                });
+                return _deleteCommand;
+            }
+        }
+
+        public Mapping LongPressedMapping
+        {
+            get { return Mappings?.ElementAt(LongPressedMappingIndex); }
+        }
+
+        public int LongPressedMappingIndex  
+        {
+            get { return _longPressedMappingIndex; }
+            set
+            {
+                _longPressedMappingIndex = value;
+                RaisePropertyChanged(() => LongPressedMappingIndex);
+            }
         }
 
         #endregion

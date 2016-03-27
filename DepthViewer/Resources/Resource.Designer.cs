@@ -1849,6 +1849,9 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060076
 			public const int BtnDownloadMapping = 2131099766;
 			
+			// aapt resource value: 0x7f06008c
+			public const int Delete = 2131099788;
+			
 			// aapt resource value: 0x7f06000b
 			public const int MvvmCrossTagId = 2131099659;
 			
@@ -2481,6 +2484,22 @@ namespace DepthViewer
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int HomeContextActions = 2131492864;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}
