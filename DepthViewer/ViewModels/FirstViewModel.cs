@@ -199,11 +199,16 @@ namespace DepthViewer.ViewModels
         {
             get
             {
-                _deleteCommand = _deleteCommand ?? new MvxCommand(() =>
+                _deleteCommand = _deleteCommand ?? new MvxCommand(async () =>
                 {
                     if (LongPressedMapping != null)
                     {
-                        
+                        var localMappingService = Mvx.Resolve<ILocalMappingServices>();
+                        await localMappingService.DeleteLocalMapping(LongPressedMapping);
+
+                        await ReadLocalMappings();
+
+                        LongPressedMappingIndex = -1;
                     }
                 });
                 return _deleteCommand;
@@ -212,7 +217,10 @@ namespace DepthViewer.ViewModels
 
         public Mapping LongPressedMapping
         {
-            get { return Mappings?.ElementAt(LongPressedMappingIndex); }
+            get
+            {
+                return LongPressedMappingIndex == -1 ? null: Mappings?.ElementAt(LongPressedMappingIndex);
+            }
         }
 
         public int LongPressedMappingIndex  
