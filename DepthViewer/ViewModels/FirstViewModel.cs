@@ -91,7 +91,7 @@ namespace DepthViewer.ViewModels
         private ObservableCollection<Mapping> _mappings = new ObservableCollection<Mapping>();
         private MvxCommand<Mapping> _mappingTappedCommand;
         private bool _isRefreshing;
-        private IMvxCommand _refreshMappingsCommand;
+        private IMvxCommand _reloadLocalMappingsCommand;
         private MappingsOverviewViewModel _sub;
         private MvxCommand<int> _mappingLongClickCommand;
 
@@ -176,21 +176,21 @@ namespace DepthViewer.ViewModels
             }
         }
 
-        public IMvxCommand RefreshMappingsCommand
+        public IMvxCommand ReloadLocalMappingsCommand
         {
             get
             {
-                _refreshMappingsCommand = _refreshMappingsCommand ?? new MvxCommand(async () =>
+                _reloadLocalMappingsCommand = _reloadLocalMappingsCommand ?? new MvxCommand(async () =>
                 {
                     IsRefreshing = true;
 
                     var localMappingService = Mvx.Resolve<ILocalMappingServices>();
-                    var newerMappings = await localMappingService.RefreshAllLocalMappings();
-                    RepopulateMappings(newerMappings);
+                    var localMappings = await localMappingService.GetAllLocalMappings();
+                    RepopulateMappings(localMappings);
 
                     IsRefreshing = false;
                 });
-                return _refreshMappingsCommand;
+                return _reloadLocalMappingsCommand;
             }
 
         }
