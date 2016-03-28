@@ -1147,6 +1147,9 @@ namespace DepthViewer
 			// aapt resource value: 0x7f0b0015
 			public const int dim_foreground_material_light = 2131427349;
 			
+			// aapt resource value: 0x7f0b0052
+			public const int fab_tint_selector = 2131427410;
+			
 			// aapt resource value: 0x7f0b0016
 			public const int foreground_material_dark = 2131427350;
 			
@@ -1255,11 +1258,11 @@ namespace DepthViewer
 			// aapt resource value: 0x7f0b0037
 			public const int switch_thumb_disabled_material_light = 2131427383;
 			
-			// aapt resource value: 0x7f0b0052
-			public const int switch_thumb_material_dark = 2131427410;
-			
 			// aapt resource value: 0x7f0b0053
-			public const int switch_thumb_material_light = 2131427411;
+			public const int switch_thumb_material_dark = 2131427411;
+			
+			// aapt resource value: 0x7f0b0054
+			public const int switch_thumb_material_light = 2131427412;
 			
 			// aapt resource value: 0x7f0b0038
 			public const int switch_thumb_normal_material_dark = 2131427384;

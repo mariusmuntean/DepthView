@@ -41,7 +41,6 @@ namespace DepthViewer.Views.Fragments
             dialog.SetView(view);
             dialog.SetPositiveButton("OK", (sender, args) =>
             {
-                Toast.MakeText(Activity.ApplicationContext, "Hi", ToastLength.Long).Show();
                 var selectedPositions = lstRemoteMappings.CheckedItemPositions;
                 if (selectedPositions == null || selectedPositions.Size() == 0)
                 {

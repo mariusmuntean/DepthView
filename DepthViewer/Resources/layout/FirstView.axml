@@ -37,5 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="10dp"
-        android:src="@drawable/plus" />
+        local:backgroundTint="@color/fab_tint_selector"
+        android:src="@drawable/plus"
+        local:MvxBind="Enabled CanAddMoreMappings" />
 </FrameLayout>
