@@ -177,6 +177,7 @@
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Utils\CustomMvxFileDownloadCache.cs" />
     <Compile Include="ViewModels\FirstViewModel.cs" />
+    <Compile Include="ViewModels\MappingsOverviewViewModel.cs" />
     <Compile Include="ViewModels\MappingViewModel.cs" />
     <Compile Include="Views\CustomControls\BindableImageView.cs" />
     <Compile Include="Views\CustomControls\BindableSwipeRefreshLayout.cs" />
@@ -208,6 +209,7 @@
     <AndroidResource Include="Resources\menu\HomeContextActions.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\color\fab_tint_selector.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -248,8 +250,8 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportdesign">
-      <Visible>False</Visible>
       <Version>23.1.1.1</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +264,7 @@
     <Folder Include="Assets\Data\Sounds\" />
     <Folder Include="Assets\Data\UI\" />
     <Folder Include="Assets\Data\Urho2D\" />
+    <Folder Include="Resources\color\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\UrhoSharp.1.0.381\build\MonoAndroid\UrhoSharp.targets" Condition="Exists('..\packages\UrhoSharp.1.0.381\build\MonoAndroid\UrhoSharp.targets')" />

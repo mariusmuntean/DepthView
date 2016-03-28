@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,82 +11,6 @@ using MvvmCross.Platform.Core;
 
 namespace DepthViewer.ViewModels
 {
-    public class MappingsOverviewViewModel:MvxViewModel
-    {
-        private ObservableCollection<Mapping> _mappings;
-        private MvxCommand<List<Mapping>> _okCommand;
-        private IParseDataService _remoteMappingService;
-        private bool _isRefreshing;
-        private MvxCommand _refreshMappingsCommand;
-
-        public MappingsOverviewViewModel(MvxCommand<List<Mapping>> okCommand)
-        {
-            _okCommand = okCommand;
-            _remoteMappingService = Mvx.Resolve<IParseDataService>();
-            _mappings = new ObservableCollection<Mapping>();
-
-            FetchRemoteMappings();
-        }
-
-        private async Task FetchRemoteMappings()
-        {
-            var remoteMappings = await _remoteMappingService.GetAllMappings();
-            Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() =>
-            {
-                Mappings.Clear();
-                foreach (var remoteMapping in remoteMappings)
-                {
-                    Mappings.Add(remoteMapping);
-                }
-            });
-        }
-        public IMvxCommand RefreshMappingsCommand
-        {
-            get
-            {
-                _refreshMappingsCommand = _refreshMappingsCommand ?? new MvxCommand(async () =>
-                {
-                    IsRefreshing = true;
-                    Mappings.Clear();
-
-                    await FetchRemoteMappings();
-
-                    IsRefreshing = false;
-                });
-                return _refreshMappingsCommand;
-            }
-
-        }
-
-        public bool IsRefreshing
-        {
-            get { return _isRefreshing; }
-            set
-            {
-                _isRefreshing = value;
-                RaisePropertyChanged(() => IsRefreshing);
-            }
-        }
-
-        public ObservableCollection<Mapping> Mappings
-        {
-            get { return _mappings; }
-            set
-            {
-                _mappings = value;
-                RaisePropertyChanged(() => Mappings);
-            }
-        }
-
-        public MvxCommand<List<Mapping>> OkCommand
-        {
-            get { return _okCommand; }
-        }
-
-        public bool All { get; set; }
-        public bool None { get; set; }
-    }
-
     public class FirstViewModel : MvxViewModel
     {
         private ObservableCollection<Mapping> _mappings = new ObservableCollection<Mapping>();
@@ -102,10 +27,20 @@ namespace DepthViewer.ViewModels
         {
             ReadLocalMappings();
 
-            _sub = new MappingsOverviewViewModel(new MvxCommand<List<Mapping>>(mapping =>
+            _sub = new MappingsOverviewViewModel(new MvxCommand<List<Mapping>>(OkCommand));
+        }
+
+        private async void OkCommand(List<Mapping> mappings)
+        {
+            IsRefreshing = true;
+
+            var localMappingService = Mvx.Resolve<ILocalMappingServices>();
+            foreach (var mapping in mappings)
             {
-                
-            }));
+                await localMappingService.PersistMapping(mapping);
+            }
+
+            await ReadLocalMappings();
         }
 
         private async Task ReadLocalMappings()
@@ -139,8 +74,18 @@ namespace DepthViewer.ViewModels
             set
             {
                 _isRefreshing = value;
-                RaisePropertyChanged(() => IsRefreshing);
+
+                Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() =>
+                {
+                    RaisePropertyChanged(() => IsRefreshing);
+                    RaisePropertyChanged(() => CanAddMoreMappings);
+                });
             }
+        }
+
+        public bool CanAddMoreMappings
+        {
+            get { return !IsRefreshing; }
         }
 
         public ObservableCollection<Mapping> Mappings
