@@ -37,6 +37,13 @@ namespace DepthViewer.Views
             // Wire up fab's click event handler
             var fab = FindViewById<FloatingActionButton>(Resource.Id.BtnDownloadMapping);
             fab.Click += DownloadMappingClicked;
+
+			// Stuff
+//			var refLayout = FindViewById<Android.Support.V4.Widget.SwipeRefreshLayout>(Resource.Id.refreshLayout);
+//			refLayout.SetDistanceToTriggerSync(30);
+//			refLayout.Refresh += (object sender, EventArgs e) => {
+//				Console.WriteLine("");
+//			};
         }
 
         private void DownloadMappingClicked(object sender, EventArgs eventArgs)
