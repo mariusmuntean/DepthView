@@ -4,3 +4,4 @@ DepthViewer/bin
 DepthViewer/obj
 .vs/*
 DepthViewer.userprefs
+ParseConfig.cs
