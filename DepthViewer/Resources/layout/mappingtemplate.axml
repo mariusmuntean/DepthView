@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/MappingTemplateSelector"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:id="@+id/relativeLayout1">
 <!-- Image on the left -->
     <BindableImageView
         android:id="@+id/imgMappingTeaser"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        local:MvxBind="Path TeaserPath" />
-<!-- Text on the right -->
-    <LinearLayout
-        android:orientation="vertical"
+        local:MvxBind="Path TeaserPath"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill"
-        android:layout_margin="5dp"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/TxtMeasurementCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text Measurements.Count, Converter=ValToHumanReadableString" />
-        <TextView
-            android:id="@+id/TxtMappingCreatedAt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text CreatedAt" />
-    </LinearLayout>
-</LinearLayout>
+        android:maxWidth="250px" />
+<!-- Text on the right -->
+    <TextView
+        android:id="@+id/TxtMeasurementCount"
+        local:MvxBind="Text Measurements.Count, Converter=ValToHumanReadableString"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:text="32 Measurements" />
+    <TextView
+        android:id="@+id/TxtMappingCreatedAt"
+        local:MvxBind="Text CreatedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/TxtMeasurementCount"
+        android:text="21/02/2016 19:32" />
+</RelativeLayout>
