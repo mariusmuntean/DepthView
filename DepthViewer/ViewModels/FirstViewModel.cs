@@ -25,7 +25,9 @@ namespace DepthViewer.ViewModels
 
         public FirstViewModel()
         {
+            IsRefreshing = true;
             ReadLocalMappings();
+            IsRefreshing = false;
 
             _sub = new MappingsOverviewViewModel(new MvxCommand<List<Mapping>>(OkCommand));
         }
@@ -38,24 +40,18 @@ namespace DepthViewer.ViewModels
             foreach (var mapping in mappings)
             {
                 await localMappingService.PersistMapping(mapping);
+                await ReadLocalMappings();
             }
 
-            await ReadLocalMappings();
+            IsRefreshing = false;
         }
 
         private async Task ReadLocalMappings()
         {
-            IsRefreshing = true;
-
             var localMappingService = Mvx.Resolve<ILocalMappingServices>();
             var localMappings = await localMappingService.GetAllLocalMappings();
 
             RepopulateMappings(localMappings);
-
-            if (IsRefreshing)
-            {
-                IsRefreshing = false;
-            }
         }
 
         public MappingsOverviewViewModel Sub
@@ -151,7 +147,9 @@ namespace DepthViewer.ViewModels
                         var localMappingService = Mvx.Resolve<ILocalMappingServices>();
                         await localMappingService.DeleteLocalMapping(LongPressedMapping);
 
+                        IsRefreshing = true;
                         await ReadLocalMappings();
+                        IsRefreshing = false;
 
                         LongPressedMappingIndex = -1;
                     }
