@@ -6,14 +6,26 @@
     android:layout_height="wrap_content"
     android:background="@drawable/MappingTemplateSelector"
     android:padding="20dp">
+<!-- Image on the left -->
     <BindableImageView
         android:id="@+id/imgMappingTeaser"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         local:MvxBind="Path TeaserPath" />
-    <TextView
-        android:id="@+id/Name"
+<!-- Text on the right -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        local:MvxBind="Text CreatedAt" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/TxtMeasurementCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            local:MvxBind="Text Measurements.Count, Converter=ValToHumanReadableString" />
+        <TextView
+            android:id="@+id/TxtMappingCreatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            local:MvxBind="Text CreatedAt" />
+    </LinearLayout>
 </LinearLayout>

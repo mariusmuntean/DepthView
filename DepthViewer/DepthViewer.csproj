@@ -209,6 +209,7 @@
     <Compile Include="Views\Fragments\MappingsOverviewFragment.cs" />
     <Compile Include="Views\MappingView.cs" />
     <Compile Include="Views\FirstView.cs" />
+    <Compile Include="Views\ValToHumanReadableStringConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Data\Fonts\BlueHighway.ttf" />
