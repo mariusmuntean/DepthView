@@ -27,7 +27,7 @@ namespace DepthViewer
                 .CacheInMemory(true)
                 .CacheOnDisk(false)
                 .ConsiderExifParams(true)
-                .ShowImageForEmptyUri(Resource.Drawable.Icon)
+				.ShowImageForEmptyUri(Resource.Drawable.ic_launcher)
                 .ImageScaleType(ImageScaleType.InSampleInt)
                 .BitmapConfig(Bitmap.Config.Rgb565)
                 .ResetViewBeforeLoading(true)

@@ -1888,7 +1888,7 @@ namespace DepthViewer
 			public const int design_snackbar_background = 2130837580;
 			
 			// aapt resource value: 0x7f02004d
-			public const int Icon = 2130837581;
+			public const int ic_launcher = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
 			public const int MappingTemplateSelector = 2130837582;
@@ -1900,7 +1900,7 @@ namespace DepthViewer
 			public const int plus = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int splash = 2130837584;
+			public const int splash_screen_image = 2130837584;
 			
 			static Drawable()
 			{
