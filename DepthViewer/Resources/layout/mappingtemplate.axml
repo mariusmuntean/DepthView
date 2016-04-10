@@ -16,7 +16,10 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
+        android:layout_margin="5dp"
+        android:layout_weight="1">
         <TextView
             android:id="@+id/TxtMeasurementCount"
             android:layout_width="wrap_content"
