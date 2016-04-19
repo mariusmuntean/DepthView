@@ -10,6 +10,11 @@ namespace DepthViewer
     // are preserved in the deployed app
     public class LinkerPleaseInclude
     {
+		public void Include(System.Array arr){
+			var t = arr.Length;
+		}
+
+
         public void Include(Button button)
         {
             button.Click += (s,e) => button.Text = button.Text + "";
