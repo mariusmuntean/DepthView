@@ -86,31 +86,36 @@ namespace DepthViewer.Views.CustomControls
             await _downloadCache.GetAndCacheFile(_currentMapping.Measurements.First().ImageUrl);
 
 
-           var img1Path = _currentMapping.Measurements.First().ImageUrl;
+            var img1Path = _currentMapping.Measurements.First().ImageUrl;
             var img2Path = _currentMapping.Measurements.ElementAt(1).ImageUrl;
 
             var imageStitcher = Mvx.Resolve<IImageStitcher>();
-            var panoBytes = await imageStitcher.StitchImages(new List<string>() {img1Path, img2Path});
+            var panoBytes = await imageStitcher.StitchImages(new List<string>() { img1Path, img2Path });
 
             Directory.CreateDirectory($"/data/data/de.marius.depthviewer/files/_Caches/Pictures.MvvmCross/");
             var docsDirPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var path = Path.Combine(docsDirPath, $"s{DateTime.Now.Millisecond}s.jpg");
 
-           System.IO.File.WriteAllBytes(path, panoBytes);
+            System.IO.File.WriteAllBytes(path, panoBytes);
 
-            var stitchNode = _scene.CreateChild("StitchedNode");
-            stitchNode.Position = new Vector3(0, 0, -2);
-            stitchNode.SetScale(1.0f);
-            //await PlaceSpriteInNode(path, stitchNode);
-            // Display in sprite
-            var sprite = new Sprite2D();
-            var imgFile = new File(Context, path, FileMode.Read);
-            sprite.Load(imgFile);
+            InvokeOnMain(() =>
+            {
+                var stitchNode = _scene.CreateChild("StitchedNode");
+                stitchNode.Position = new Vector3(0, 0, -2);
+                stitchNode.SetScale(1.0f);
+                //await PlaceSpriteInNode(path, stitchNode);
+                // Display in sprite
+                var sprite = new Sprite2D();
+                var imgFile = new File(Context, path, FileMode.Read);
+                sprite.Load(imgFile);
 
-            StaticSprite2D staticSprite2D = stitchNode.CreateComponent<StaticSprite2D>();
-            //staticSprite2D.Color = (new Color(NextRandom(1.0f), NextRandom(1.0f), NextRandom(1.0f), 1.0f));
-            staticSprite2D.BlendMode = BlendMode.Alpha;
-            staticSprite2D.Sprite = sprite;
+                StaticSprite2D staticSprite2D = stitchNode.CreateComponent<StaticSprite2D>();
+                //staticSprite2D.Color = (new Color(NextRandom(1.0f), NextRandom(1.0f), NextRandom(1.0f), 1.0f));
+                staticSprite2D.BlendMode = BlendMode.Alpha;
+                staticSprite2D.Sprite = sprite;
+            });
+
+
 
         }
 
@@ -124,7 +129,7 @@ namespace DepthViewer.Views.CustomControls
             stream.Close();
         }
 
-       
+
         protected override void OnUpdate(float timeStep)
         {
             base.OnUpdate(timeStep);
@@ -204,7 +209,7 @@ namespace DepthViewer.Views.CustomControls
             _scene.CreateComponent<Octree>();
             _scene.CreateComponent<DebugRenderer>();
 
-            PlaceBoxes(_scene).Wait(); 
+            PlaceBoxes(_scene).Wait();
 
             // Box
             var boxNode = _scene.CreateChild("demoBox");
@@ -237,8 +242,8 @@ namespace DepthViewer.Views.CustomControls
             cameraLight.Range = 200;
             cameraLight.LightType = LightType.Point;
             cameraLight.Color = Color.Yellow;
-            
-            
+
+
             // Viewport
             Renderer.SetViewport(0, new Viewport(_scene, camera, null));
             Renderer.DrawDebugGeometry(true);
@@ -272,7 +277,7 @@ namespace DepthViewer.Views.CustomControls
             //var sprite = new Sprite2D(Context);
             //var imgFile = new File(Context, cachedPath, FileMode.Read);
             //sprite.Load(imgFile);
-            
+
             //// Position
             //var spriteNode = scene.CreateChild("SpriteNode");
             //spriteNode.Position = new Vector3(0,0, -1);
@@ -305,38 +310,38 @@ namespace DepthViewer.Views.CustomControls
 
             var idx = 0;
 
-                for (int i = bottom; i < top; i++)
+            for (int i = bottom; i < top; i++)
+            {
+                for (int j = left; j < right; j++)
                 {
-                    for (int j = left; j < right; j++)
-                    {
-                        var currentMeasurement = _currentMapping.Measurements.ElementAt(idx);
-                        var r = currentMeasurement.DistanceCm;
-                        var theta = (currentMeasurement.TiltAngle * Math.PI) / 180.0d;
-                        var phi = (currentMeasurement.PanAngle * Math.PI) / 180.0d;
-                        /*
-                        * x=r \, \sin\theta \, \cos\varphi
-                        * y=r \, \sin\theta \, \sin\varphi
-                        * z=r \, \cos\theta
-                        */
-                        var x = r * Math.Sin(theta) * Math.Cos(phi);
-                        var y = r * Math.Sin(theta) * Math.Sin(phi);
-                        var z = r * Math.Cos(theta);
+                    var currentMeasurement = _currentMapping.Measurements.ElementAt(idx);
+                    var r = currentMeasurement.DistanceCm;
+                    var theta = (currentMeasurement.TiltAngle * Math.PI) / 180.0d;
+                    var phi = (currentMeasurement.PanAngle * Math.PI) / 180.0d;
+                    /*
+                    * x=r \, \sin\theta \, \cos\varphi
+                    * y=r \, \sin\theta \, \sin\varphi
+                    * z=r \, \cos\theta
+                    */
+                    var x = r * Math.Sin(theta) * Math.Cos(phi);
+                    var y = r * Math.Sin(theta) * Math.Sin(phi);
+                    var z = r * Math.Cos(theta);
 
-                        var boxNode = scene.CreateChild();
-                        boxNode.Position = new Vector3(j, i, (float)(r * 0.1f));
-                        boxNode.Rotation = new Quaternion(0, 0, 0);
-                        boxNode.SetScale(0.9f);
+                    var boxNode = scene.CreateChild();
+                    boxNode.Position = new Vector3(j, i, (float)(r * 0.1f));
+                    boxNode.Rotation = new Quaternion(0, 0, 0);
+                    boxNode.SetScale(0.9f);
 
-                        // Add a box
-                        var modelObject = boxNode.CreateComponent<StaticModel>();
-                        modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
+                    // Add a box
+                    var modelObject = boxNode.CreateComponent<StaticModel>();
+                    modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
 
-                        // Add an image
-                        //await PlaceSpriteInNode(currentMeasurement.ImageUrl, boxNode);                      
+                    // Add an image
+                    //await PlaceSpriteInNode(currentMeasurement.ImageUrl, boxNode);                      
 
-                        idx++; // Measurement #
-                    }
+                    idx++; // Measurement #
                 }
+            }
 
         }
 
