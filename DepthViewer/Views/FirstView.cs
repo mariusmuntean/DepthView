@@ -4,14 +4,11 @@ using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
-using DepthViewer.Models;
 using DepthViewer.ViewModels;
 using DepthViewer.Views.Fragments;
-using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.Droid.Views;
 using MvvmCross.Binding.ExtensionMethods;
-using MvvmCross.Droid.Support.V7.Fragging;
-using Org.Libsdl.App;
+using MvvmCross.Droid.Support.V4;
 
 
 namespace DepthViewer.Views

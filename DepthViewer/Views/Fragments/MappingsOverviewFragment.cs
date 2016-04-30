@@ -8,7 +8,7 @@ using DepthViewer.Models;
 using DepthViewer.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Binding.Droid.Views;
-using MvvmCross.Droid.Support.V7.Fragging.Fragments;
+using MvvmCross.Droid.Support.V4;
 
 namespace DepthViewer.Views.Fragments
 {

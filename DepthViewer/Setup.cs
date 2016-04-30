@@ -57,6 +57,7 @@ namespace DepthViewer
             Mvx.LazyConstructAndRegisterSingleton<IParseConfig>(() => new ParseConfig());
             Mvx.LazyConstructAndRegisterSingleton<ILocalMappingServices>(() => new LocalMappingService());
             Mvx.LazyConstructAndRegisterSingleton<IDataExchangeService>(() => new DataExchangeService());
+            Mvx.LazyConstructAndRegisterSingleton<IImageStitcher>(() => new RemoteImageStitcher());
         }
 
         protected override void InitializeLastChance()
