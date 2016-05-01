@@ -1,0 +1,5 @@
+server/packages/*
+server/DepthViewerServer/obj/*
+server/DepthViewerServer/bin/*
+server/DepthViewerServer/Properties/PublishProfiles/*
+server/DepthViewerServer.Tests/obj/*
