@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DepthViewer.Contracts;
-using DepthViewer.Models;
+using DepthViewer.Shared.Models;
 using Urho;
 using Urho.Actions;
 using Urho.Gui;

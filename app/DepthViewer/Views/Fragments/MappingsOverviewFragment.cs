@@ -4,7 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
-using DepthViewer.Models;
+using DepthViewer.Shared.Models;
 using DepthViewer.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Binding.Droid.Views;

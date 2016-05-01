@@ -1,16 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using DepthViewer.Contracts;
-using DepthViewer.Models;
+using DepthViewer.Shared.Models;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 

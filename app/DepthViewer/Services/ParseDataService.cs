@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Android.App;
 using DepthViewer.Contracts;
-using DepthViewer.Models;
+using DepthViewer.Shared.Models;
 using Parse;
 using MvvmCross.Platform;
 using System.Linq;

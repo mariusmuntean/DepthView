@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepthViewer", "DepthViewer\DepthViewer.csproj", "{E9DCFF1A-AC95-40D0-BE21-A0F3D4321AD7}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DepthViewer.Shared", "DepthViewer.Shared\DepthViewer.Shared.shproj", "{06550DA4-69F2-474A-83B5-FCEC0831A766}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DepthViewer.Shared\DepthViewer.Shared.projitems*{06550da4-69f2-474a-83b5-fcec0831a766}*SharedItemsImports = 13
+		DepthViewer.Shared\DepthViewer.Shared.projitems*{e9dcff1a-ac95-40d0-be21-a0f3d4321ad7}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

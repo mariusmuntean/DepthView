@@ -163,8 +163,6 @@
     <Compile Include="Contracts\IParseDataService.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
-    <Compile Include="Models\Mapping.cs" />
-    <Compile Include="Models\Measurement.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataExchangeService.cs" />
@@ -260,6 +258,7 @@
     <Folder Include="Assets\Data\Sounds\" />
     <Folder Include="Assets\Data\UI\" />
     <Folder Include="Assets\Data\Urho2D\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash.png" />
@@ -267,6 +266,7 @@
     <AndroidResource Include="Resources\drawable\checkCircle.png" />
     <Content Include="ToDo-MvvmCross\_ Droid UI.txt" />
   </ItemGroup>
+  <Import Project="..\DepthViewer.Shared\DepthViewer.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\UrhoSharp.1.0.410\build\MonoAndroid\UrhoSharp.targets" Condition="Exists('..\packages\UrhoSharp.1.0.410\build\MonoAndroid\UrhoSharp.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

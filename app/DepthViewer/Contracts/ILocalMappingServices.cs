@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using DepthViewer.Models;
+using DepthViewer.Shared.Models;
 
 namespace DepthViewer.Contracts
 {

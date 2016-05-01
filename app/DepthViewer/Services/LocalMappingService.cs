@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
 using DepthViewer.Contracts;
-using DepthViewer.Models;
+using DepthViewer.Shared.Models;
 using MvvmCross.Platform;
 using MvvmCross.Plugins.DownloadCache;
 using MvvmCross.Plugins.File;
