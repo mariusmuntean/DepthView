@@ -16,9 +16,7 @@ using Emgu.CV;
 using Emgu.CV.Stitching;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
-using DepthViewer.Shared.Models;
-using Parse;
-using System.Diagnostics;
+using DepthViewer.Shared.Contracts;
 
 namespace DepthViewerServer.Controllers
 {
@@ -73,7 +71,8 @@ namespace DepthViewerServer.Controllers
         {
             try
             {
-                var mapping = await GetMapping(mappingId);
+                var parseService = IoC.Container.Resolve<IParseDataService>();
+                var mapping = await parseService.GetMapping(mappingId);
 
                 var imageStitcher = IoC.Container.Resolve<IImageStitcher>();
 
@@ -105,60 +104,6 @@ namespace DepthViewerServer.Controllers
                     ReasonPhrase = e.Message
                 };
             }
-        }
-
-        public async Task<Mapping> GetMapping(string mappingId)
-        {
-            Mapping result = null;
-            try
-            {
-                var mappingParseObject = await ParseObject.GetQuery(typeof(Mapping).Name).Include("measurements").GetAsync(mappingId);
-                var measurementsParseObjects = mappingParseObject.Get<List<object>>("measurements");
-                var localMeasurements = new List<Measurement>();
-                foreach (var measurement in measurementsParseObjects)
-                {
-                    var newLocalMeasurement = await GetMeasurement(measurement as ParseObject);
-                    localMeasurements.Add(newLocalMeasurement);
-                }
-
-                result = new Mapping(mappingId, new List<Measurement>(localMeasurements), mappingParseObject.CreatedAt.Value);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError("ImageProcessingController.GetMappingPano(): "+ex.Message);
-                Debug.WriteLine("ImageProcessingController.GetMappingPano(): " + ex.Message);
-                result = null;
-            }
-
-            return result;
-        }
-
-        private async Task<Measurement> GetMeasurement(ParseObject parseMeasurement)
-        {
-            var panAngle = parseMeasurement.Get<double>("panAngle");
-            var tiltAngle = parseMeasurement.Get<double>("tiltAngle");
-            var distanceCm = parseMeasurement.Get<double>("distanceCm");
-
-            var imageParseFile = parseMeasurement.Get<ParseFile>("image");
-
-            //var downloadTcs = new TaskCompletionSource<string>();
-
-            //Mvx.Resolve<IMvxFileDownloadCache>().RequestLocalFilePath(imageParseFile.Url.AbsoluteUri, s =>
-            //{
-            //    var downloadPath = Path.Combine(_cacheDirPath, s);
-            //    downloadTcs.SetResult(downloadPath);
-            //    Console.WriteLine("File cached to:{0}", downloadPath);
-            //}, exception =>
-            //{
-            //    Console.WriteLine("Ex: " + exception);
-            //    downloadTcs.SetException(exception);
-            //});
-
-            //var imagePath = await downloadTcs.Task;
-
-
-            return new Measurement(panAngle, tiltAngle, distanceCm, imageParseFile.Url.AbsoluteUri);
-
         }
 
         [Route("getPanoDemo")]

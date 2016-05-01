@@ -9,7 +9,9 @@
     <Import_RootNamespace>DepthViewer.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IParseDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Mapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Measurement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ParseDataService.cs" />
   </ItemGroup>
 </Project>
