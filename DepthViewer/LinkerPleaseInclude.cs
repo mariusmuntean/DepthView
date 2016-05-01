@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Android.App;
 using Android.Views;
 using Android.Widget;
+using Urho.Resources;
 
 namespace DepthViewer
 {
@@ -12,6 +13,8 @@ namespace DepthViewer
     {
 		public void Include(System.Array arr){
 			var t = arr.Length;
+            Urho.Resources.Image ii = new Image();
+//var tt = System.Array.e
 		}
 
 

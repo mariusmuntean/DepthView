@@ -9,12 +9,20 @@ namespace DepthViewer.Models
         private List<Measurement> _measurements;
         private DateTime _createdAt;
         private string _id;
+        private bool _isSavedLocally;
 
-        public Mapping(string id, List<Measurement> measurements, DateTime createdAt)
+        public Mapping(string id, List<Measurement> measurements, DateTime createdAt, DateTime? downloadedAt = null)
         {
             _measurements = measurements;
             _createdAt = createdAt;
             _id = id;
+            _isSavedLocally = false;
+        }
+
+        public bool IsSavedLocally
+        {
+            get { return _isSavedLocally; }
+            set { _isSavedLocally = value; }
         }
 
         public string Id

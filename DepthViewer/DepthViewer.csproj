@@ -52,10 +52,19 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;arm64-v8a</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86,arm64-v8a</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
-    <AotAssemblies>true</AotAssemblies>
-    <EnableProguard>true</EnableProguard>
+    <AotAssemblies>True</AotAssemblies>
+    <EnableProguard>True</EnableProguard>
+    <AndroidLinkSkip />
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -189,6 +198,8 @@
     <Compile Include="Views\CustomControls\BindableSwipeRefreshLayout.cs" />
     <Compile Include="Views\CustomControls\Map3D.cs" />
     <Compile Include="Views\CustomControls\Urho1.cs" />
+    <Compile Include="Views\DownloadStatusToMessageConverter.cs" />
+    <Compile Include="Views\DownloadStatusToResourceConverter.cs" />
     <Compile Include="Views\Fragments\MappingsOverviewFragment.cs" />
     <Compile Include="Views\MappingView.cs" />
     <Compile Include="Views\FirstView.cs" />
@@ -250,10 +261,6 @@
       <Version>1.9.4.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
-    <XamarinComponentReference Include="urhosharp">
-      <Version>1.0.237.0</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportdesign">
       <Version>23.2.1</Version>
       <Visible>False</Visible>
@@ -272,6 +279,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash.png" />
+    <AndroidResource Include="Resources\drawable\cloudDownload.png" />
+    <AndroidResource Include="Resources\drawable\checkCircle.png" />
     <Content Include="ToDo-MvvmCross\_ Droid UI.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

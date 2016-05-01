@@ -33,4 +33,24 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/TxtMeasurementCount"
         android:text="21/02/2016 19:32" />
+<!-- Download icon and status -->
+    <ImageView
+        android:id="@+id/imgDownloadStatus"
+        android:layout_height="26dip"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/TxtMappingCreatedAt"
+        android:src="@drawable/clouddownload"
+        android:scaleType="centerInside"
+        android:layout_width="26dip"
+        local:MvxBind="DrawableId IsSavedLocally, Converter=DownloadStatusToResource" />
+    <TextView
+        android:id="@+id/txtViewDownloadStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DownloadState"
+        local:MvxBind="Text IsSavedLocally, Converter=DownloadStatusToMessage"
+        android:layout_toLeftOf="@+id/imgDownloadStatus"
+        android:layout_alignBottom="@+id/imgDownloadStatus"
+        android:layout_marginBottom="4dp"
+        android:layout_marginRight="2dp" />
 </RelativeLayout>

@@ -5,6 +5,8 @@ using Android.App;
 using DepthViewer.Contracts;
 using DepthViewer.Models;
 using Parse;
+using MvvmCross.Platform;
+using System.Linq;
 
 namespace DepthViewer.Services
 {
@@ -23,6 +25,10 @@ namespace DepthViewer.Services
             var getAllMappingsQuery = ParseObject.GetQuery("Mapping").Include("measurements");
             var results = await getAllMappingsQuery.FindAsync();
 
+            // Get all local mappings to cross compare
+            var localMappingService = Mvx.Resolve<ILocalMappingServices>();
+			var localMappingIds = (await localMappingService.GetAllLocalMappings ()).Select(m => m.Id);
+
             foreach (var mapping in results)
             {
                 var measurements = mapping.Get<List<object>>("measurements");
@@ -35,6 +41,7 @@ namespace DepthViewer.Services
 
                 var mappingId = mapping.ObjectId;
                 var newLocalMapping = new Mapping(mappingId, new List<Measurement>(localMeasurements), mapping.CreatedAt.Value);
+				newLocalMapping.IsSavedLocally = localMappingIds.Contains(mappingId);
                 mappings.Add(newLocalMapping);
             }
 

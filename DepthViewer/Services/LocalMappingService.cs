@@ -32,22 +32,24 @@ namespace DepthViewer.Services
             _fileStore.EnsureFolderExists(_mappingsDir);
         }
 
-        public Task<Mapping> GetMapping(string id)
-        {
-            var path = Path.Combine(_mappingsDir, id + ".json");
-            if (!_fileStore.Exists(path))
-            {
-                return null;
-            }
+		public Task<Mapping> GetMapping (string id)
+		{
+			var path = Path.Combine(_mappingsDir, id + ".json");
+			if (!_fileStore.Exists(path)) {
+				return null;
+			}
 
-            var mappingJson = string.Empty;
-            if (!_fileStore.TryReadTextFile(path, out mappingJson))
-            {
-                return null;
-            }
+			var mappingJson = string.Empty;
+			if (!_fileStore.TryReadTextFile(path, out mappingJson)) {
+				return null;
+			}
 
-            return Task.Run(() => JsonConvert.DeserializeObject<Mapping>(mappingJson));
-        }
+			return Task.Run(() => {
+				var mapping = JsonConvert.DeserializeObject<Mapping>(mappingJson);
+				mapping.IsSavedLocally = true;
+				return mapping;
+			});
+		}
 
         public async Task<List<Mapping>> GetAllLocalMappings()
         {
