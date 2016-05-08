@@ -180,11 +180,15 @@
     <Compile Include="Views\CustomControls\BindableSwipeRefreshLayout.cs" />
     <Compile Include="Views\CustomControls\Map3D.cs" />
     <Compile Include="Views\CustomControls\Urho1.cs" />
+    <Compile Include="Views\Presenter\DepthViewerPresenter.cs" />
     <Compile Include="Views\DownloadStatusToMessageConverter.cs" />
     <Compile Include="Views\DownloadStatusToResourceConverter.cs" />
+    <Compile Include="Views\Fragments\LocalMappingsFrag.cs" />
     <Compile Include="Views\Fragments\MappingsOverviewFragment.cs" />
     <Compile Include="Views\MappingView.cs" />
     <Compile Include="Views\FirstView.cs" />
+    <Compile Include="Views\Presenter\FragmentTypeLookup.cs" />
+    <Compile Include="Views\Presenter\IFragmentTypeLookup.cs" />
     <Compile Include="Views\ValToHumanReadableStringConverter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +217,7 @@
     <None Include="UrhoSharpReadme.txt" />
     <AndroidResource Include="Resources\drawable\splash_screen_image.png" />
     <AndroidResource Include="Resources\drawable\ic_launcher.png" />
+    <AndroidResource Include="Resources\layout\LocalMappingsView.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
