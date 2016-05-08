@@ -3,41 +3,9 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <BindableSwipeRefreshLayout
-        android:id="@+id/refreshLayout"
+<!-- Content location -->
+    <FrameLayout
+        android:id="@+id/contentFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        local:MvxBind="Refreshing IsRefreshing; Refresh ReloadLocalMappingsCommand">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <!-- List of local mappings -->
-            <Mvx.MvxListView
-                android:id="@+id/lstViewLocalMappings"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fadingEdgeLength="10dp"
-                android:choiceMode="singleChoice"
-                local:MvxItemTemplate="@layout/mappingtemplate"
-                local:MvxBind="ItemsSource Mappings; ItemClick MappingTappedCommand" />
-        <!-- Placeholder for when the list is empty -->
-            <TextView
-                android:id="@+id/txtViewNoLocalMappings"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:text="No mappings. Tap the + button." />
-        </LinearLayout>
-    </BindableSwipeRefreshLayout>
-<!-- Floating Action Button -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/BtnDownloadMapping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="10dp"
-        local:backgroundTint="@color/fab_tint_selector"
-        android:src="@drawable/plus"
-        local:MvxBind="Enabled CanAddMoreMappings" />
+        android:layout_height="match_parent" />
 </FrameLayout>
