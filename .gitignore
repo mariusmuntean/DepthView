@@ -4,3 +4,6 @@ server/DepthViewerServer/bin/*
 server/DepthViewerServer/Properties/PublishProfiles/*
 server/DepthViewerServer.Tests/obj/*
 app/DepthViewer/Services/ParseConfig.cs
+
+server/DepthViewerServer/Services/ParseConfig.cs
+server/.vs/DepthViewerServer/v14/.suo
