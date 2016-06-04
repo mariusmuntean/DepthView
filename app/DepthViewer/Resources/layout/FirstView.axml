@@ -4,14 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <!-- First view for main content-->
-    <FrameLayout
-        android:id="@+id/contentFrame"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        <FrameLayout
+            android:id="@+id/contentFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/my_toolbar" />
+    </RelativeLayout>
 <!-- Second view for the navigation drawer -->
     <FrameLayout
         android:id="@+id/drawer"
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
-        android:layout_gravity="left|start" />
+        android:layout_gravity="left|start"
+        android:paddingTop="?attr/actionBarSize" />
 </android.support.v4.widget.DrawerLayout>
