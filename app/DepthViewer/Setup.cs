@@ -1,12 +1,13 @@
+using System.Collections.Generic;
+using System.Reflection;
 using Android.Content;
 using Android.Graphics;
 using DepthViewer.Contracts;
 using DepthViewer.Services;
 using DepthViewer.Utils;
-using DepthViewer.Views.Presenter;
 using UniversalImageLoader.Core;
 using UniversalImageLoader.Core.Assist;
-using MvvmCross.Droid.Platform;
+using MvvmCross.Droid.Shared.Presenter;
 using MvvmCross.Droid.Views;
 using MvvmCross.Platform;
 using MvvmCross.Plugins.DownloadCache;
@@ -42,14 +43,19 @@ namespace DepthViewer
             return new App();
         }
 
+        protected override IEnumerable<Assembly> AndroidViewAssemblies => new List<Assembly>(base.AndroidViewAssemblies)
+        {
+            typeof(Android.Support.Design.Widget.NavigationView).Assembly
+        };
+
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
+            
+            var fragmentPresenter = new MvxFragmentsPresenter(AndroidViewAssemblies);
 
-            var presenter = Mvx.IocConstruct<DepthViewerPresenter>();
+            Mvx.RegisterSingleton<IMvxAndroidViewPresenter>(fragmentPresenter);
 
-            Mvx.RegisterSingleton<IMvxAndroidViewPresenter>(presenter);
-
-            return presenter;
+            return fragmentPresenter;
         }
 
         protected override MvvmCross.Platform.Platform.IMvxTrace CreateDebugTrace()
@@ -66,8 +72,6 @@ namespace DepthViewer
             Mvx.LazyConstructAndRegisterSingleton<ILocalMappingServices>(() => new LocalMappingService());
             Mvx.LazyConstructAndRegisterSingleton<IDataExchangeService>(() => new DataExchangeService());
             Mvx.LazyConstructAndRegisterSingleton<IImageStitcher>(() => new RemoteImageStitcher());
-
-            Mvx.ConstructAndRegisterSingleton<IFragmentTypeLookup, FragmentTypeLookup>();
         }
 
         protected override void InitializeLastChance()

@@ -65,7 +65,7 @@ namespace DepthViewer.Views.CustomControls
 
             Input.KeyDown += (args) =>
             {
-                if (args.Key == Key.Esc) Engine.Exit();
+                //if (args.Key == Key.Esc) Engine.Exit();
             };
 
             await CreateScene();

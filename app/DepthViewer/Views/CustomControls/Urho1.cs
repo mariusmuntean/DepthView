@@ -14,7 +14,7 @@ namespace DepthViewer.Views.CustomControls
         {
             CreateScene();
             Input.KeyDown += (args) => {
-                if (args.Key == Key.Esc) Engine.Exit();
+                //if (args.Key == Key.Esc) Engine.Exit();
             };
 
             var textChanger = new Timer(2000.0d);
