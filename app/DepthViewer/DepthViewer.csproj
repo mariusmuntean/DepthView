@@ -204,8 +204,10 @@
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Utils\CustomMvxFileDownloadCache.cs" />
     <Compile Include="ViewModels\FirstViewModel.cs" />
+    <Compile Include="ViewModels\LocalMappingsViewModel.cs" />
     <Compile Include="ViewModels\MappingsOverviewViewModel.cs" />
     <Compile Include="ViewModels\MappingViewModel.cs" />
+    <Compile Include="ViewModels\NavigationMenuViewModel.cs" />
     <Compile Include="Views\CustomControls\BindableImageView.cs" />
     <Compile Include="Views\CustomControls\BindableSwipeRefreshLayout.cs" />
     <Compile Include="Views\CustomControls\Map3D.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Views\DownloadStatusToResourceConverter.cs" />
     <Compile Include="Views\Fragments\LocalMappingsFrag.cs" />
     <Compile Include="Views\Fragments\MappingsOverviewFragment.cs" />
+    <Compile Include="Views\Fragments\NavigationMenuFragment.cs" />
     <Compile Include="Views\MappingView.cs" />
     <Compile Include="Views\FirstView.cs" />
     <Compile Include="Views\ValToHumanReadableStringConverter.cs" />
@@ -244,6 +247,9 @@
     <AndroidResource Include="Resources\drawable\splash_screen_image.png" />
     <AndroidResource Include="Resources\drawable\ic_launcher.png" />
     <AndroidResource Include="Resources\layout\LocalMappingsView.axml" />
+    <AndroidResource Include="Resources\layout\nav_menu_fragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

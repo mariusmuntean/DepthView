@@ -9,13 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 <!-- Second view for the navigation drawer -->
-    <ListView
+    <FrameLayout
         android:id="@+id/drawer"
         android:layout_height="match_parent"
-        android:layout_width="240dp"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#111" />
+        android:layout_width="wrap_content"
+        android:layout_gravity="left|start" />
 </android.support.v4.widget.DrawerLayout>

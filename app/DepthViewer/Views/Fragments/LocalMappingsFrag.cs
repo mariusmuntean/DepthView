@@ -1,5 +1,6 @@
 using System;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
@@ -7,16 +8,27 @@ using DepthViewer.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Binding.Droid.Views;
 using MvvmCross.Binding.ExtensionMethods;
+using MvvmCross.Droid.Shared.Attributes;
 using MvvmCross.Droid.Support.V4;
-using MvxFragment = MvvmCross.Droid.FullFragging.Fragments.MvxFragment;
+
 
 namespace DepthViewer.Views.Fragments
 {
-    public class LocalMappingsFrag : MvxFragment, AdapterView.IOnItemLongClickListener, ActionMode.ICallback
+    [MvxFragment(typeof(FirstViewModel), Resource.Id.contentFrame)]
+    [Register("depthviewer.views.fragments.LocalMappingsFrag")]
+    public class LocalMappingsFrag : MvxFragment<LocalMappingsViewModel>, AdapterView.IOnItemLongClickListener, ActionMode.ICallback
     {
         private MvxListView _lstViewLocalMappings = null;
         private View _rootView;
         private ActionMode _actionMode;
+
+        /// <summary>
+        /// Empty constructor for Mvvmcross
+        /// </summary>
+        public LocalMappingsFrag()
+        {
+            
+        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -31,7 +43,7 @@ namespace DepthViewer.Views.Fragments
 
         private void WireUpControls()
         {
-           
+
             // Set an empty view and longpressed action for the list of mappings
             _lstViewLocalMappings = _rootView.FindViewById<MvxListView>(Resource.Id.lstViewLocalMappings);
             var txtViewNoMappings = _rootView.FindViewById<TextView>(Resource.Id.txtViewNoLocalMappings);
@@ -48,7 +60,7 @@ namespace DepthViewer.Views.Fragments
         private void DownloadMappingClicked(object sender, EventArgs eventArgs)
         {
             var remoteMappingsDialog = new MappingsOverviewFragment(this.Activity);
-            remoteMappingsDialog.ViewModel = (ViewModel as FirstViewModel)?.Sub;
+            remoteMappingsDialog.ViewModel = ViewModel?.Sub;
 
             // ToDo: make this nicer
             remoteMappingsDialog.Show((this.Activity as MvxFragmentActivity).SupportFragmentManager, "Remote mappings dialog");
@@ -58,7 +70,7 @@ namespace DepthViewer.Views.Fragments
         public bool OnItemLongClick(AdapterView parent, View view, int position, long id)
         {
             // Inform VM
-            (ViewModel as FirstViewModel).MappingLongClickCommand.Execute(position);
+            ViewModel.MappingLongClickCommand.Execute(position);
 
             // Show CAB
             if (_actionMode == null)
@@ -83,7 +95,7 @@ namespace DepthViewer.Views.Fragments
                 return false;
             }
 
-            (ViewModel as FirstViewModel).DeleteCommand.Execute(null);
+            ViewModel.DeleteCommand.Execute(null);
             _actionMode.Finish();
             return false;
         }
