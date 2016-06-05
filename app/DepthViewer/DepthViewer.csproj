@@ -224,7 +224,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\nav_menu_header.axml" />
-    <AndroidResource Include="..\..\..\..\..\Visual Studio 2015\Projects\DepthViewer\app\DepthViewer\Resources\drawable\logo_name.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -278,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash.png" />
+    <AndroidResource Include="Resources\drawable\logo_name.png" />
     <Content Include="ToDo-MvvmCross\_ Droid UI.txt" />
     <Content Include="UrhoSharpReadme.txt" />
   </ItemGroup>
