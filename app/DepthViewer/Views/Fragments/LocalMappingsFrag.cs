@@ -10,6 +10,7 @@ using MvvmCross.Binding.Droid.Views;
 using MvvmCross.Binding.ExtensionMethods;
 using MvvmCross.Droid.Shared.Attributes;
 using MvvmCross.Droid.Support.V4;
+using MvvmCross.Droid.Support.V7.AppCompat;
 
 
 namespace DepthViewer.Views.Fragments
@@ -63,7 +64,7 @@ namespace DepthViewer.Views.Fragments
             remoteMappingsDialog.ViewModel = ViewModel?.Sub;
 
             // ToDo: make this nicer
-            remoteMappingsDialog.Show((this.Activity as MvxFragmentActivity).SupportFragmentManager, "Remote mappings dialog");
+            remoteMappingsDialog.Show((this.Activity as MvxCachingFragmentCompatActivity).SupportFragmentManager, "Remote mappings dialog");
         }
 
         #region IOnItemLongClickListener
