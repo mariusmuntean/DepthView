@@ -6,4 +6,5 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:fitsSystemWindows="true"
-    local:headerLayout="@layout/nav_menu_header" />
+    local:headerLayout="@layout/nav_menu_header"
+    local:menu="@menu/nav_menu" />

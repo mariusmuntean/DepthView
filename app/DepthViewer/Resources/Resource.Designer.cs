@@ -1882,37 +1882,46 @@ namespace DepthViewer
 			public const int abc_textfield_search_material = 2130837578;
 			
 			// aapt resource value: 0x7f02004b
-			public const int checkCircle = 2130837579;
+			public const int azure_logo = 2130837579;
 			
 			// aapt resource value: 0x7f02004c
-			public const int cloudDownload = 2130837580;
+			public const int checkCircle = 2130837580;
 			
 			// aapt resource value: 0x7f02004d
-			public const int design_fab_background = 2130837581;
+			public const int cloudDownload = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
-			public const int design_snackbar_background = 2130837582;
+			public const int design_fab_background = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
-			public const int ic_launcher = 2130837583;
+			public const int design_snackbar_background = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int logo_name = 2130837584;
+			public const int ic_action_azure_logo = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int MappingTemplateSelector = 2130837585;
-			
-			// aapt resource value: 0x7f020055
-			public const int notification_template_icon_bg = 2130837589;
+			public const int ic_launcher = 2130837585;
 			
 			// aapt resource value: 0x7f020052
-			public const int plus = 2130837586;
+			public const int logo_name = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int splash = 2130837587;
+			public const int MappingTemplateSelector = 2130837587;
+			
+			// aapt resource value: 0x7f020058
+			public const int notification_template_icon_bg = 2130837592;
 			
 			// aapt resource value: 0x7f020054
-			public const int splash_screen_image = 2130837588;
+			public const int parse_logo = 2130837588;
+			
+			// aapt resource value: 0x7f020055
+			public const int plus = 2130837589;
+			
+			// aapt resource value: 0x7f020056
+			public const int splash = 2130837590;
+			
+			// aapt resource value: 0x7f020057
+			public const int splash_screen_image = 2130837591;
 			
 			static Drawable()
 			{
@@ -1926,6 +1935,9 @@ namespace DepthViewer
 		
 		public partial class Id
 		{
+			
+			// aapt resource value: 0x7f06009a
+			public const int AzureLogin = 2131099802;
 			
 			// aapt resource value: 0x7f06007b
 			public const int BtnDownloadMapping = 2131099771;
@@ -1941,6 +1953,9 @@ namespace DepthViewer
 			
 			// aapt resource value: 0x7f06007c
 			public const int MyButton = 2131099772;
+			
+			// aapt resource value: 0x7f060099
+			public const int ParseKeys = 2131099801;
 			
 			// aapt resource value: 0x7f060084
 			public const int TxtMappingCreatedAt = 2131099780;
@@ -2625,6 +2640,9 @@ namespace DepthViewer
 			
 			// aapt resource value: 0x7f0c0000
 			public const int HomeContextActions = 2131492864;
+			
+			// aapt resource value: 0x7f0c0001
+			public const int nav_menu = 2131492865;
 			
 			static Menu()
 			{

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group android:checkableBehavior="single">
+    <item android:id="@+id/ParseKeys"
+          android:title="Parse Keys"
+          android:icon="@drawable/parse_logo" />
+    <item android:id="@+id/AzureLogin"
+          android:title="Azure Login"
+          android:icon="@drawable/azure_logo"/>
+  </group>
+</menu>
