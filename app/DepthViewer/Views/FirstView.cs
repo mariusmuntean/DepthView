@@ -1,5 +1,6 @@
 using Android.App;
 using Android.OS;
+using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
@@ -32,14 +33,6 @@ namespace DepthViewer.Views
                 _drawerLayout,
                 Resource.String.OpenDrawerText,
                 Resource.String.CloseDrawerText);
-            _abdt.DrawerOpened += (sender, args) =>
-            {
-                Toast.MakeText(this, "Opened", ToastLength.Short).Show();
-            };
-            _abdt.DrawerClosed += (sender, args) =>
-            {
-                Toast.MakeText(this, "Closed", ToastLength.Short).Show();
-            };
 
             _drawerLayout.AddDrawerListener(_abdt);
 
@@ -48,6 +41,18 @@ namespace DepthViewer.Views
                 ViewModel.ShowMenu();
             }
 
+        }
+
+        public override void OnBackPressed()
+        {
+            if (_drawerLayout != null && _drawerLayout.IsDrawerOpen(GravityCompat.Start))
+            {
+                _drawerLayout.CloseDrawers();
+            }
+            else
+            {
+                base.OnBackPressed();
+            }
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
