@@ -1927,11 +1927,11 @@ namespace DepthViewer
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06007a
-			public const int BtnDownloadMapping = 2131099770;
+			// aapt resource value: 0x7f06007b
+			public const int BtnDownloadMapping = 2131099771;
 			
-			// aapt resource value: 0x7f060097
-			public const int Delete = 2131099799;
+			// aapt resource value: 0x7f060098
+			public const int Delete = 2131099800;
 			
 			// aapt resource value: 0x7f06000b
 			public const int MvvmCrossTagId = 2131099659;
@@ -1939,17 +1939,17 @@ namespace DepthViewer
 			// aapt resource value: 0x7f06000c
 			public const int MvxBindingTagUnique = 2131099660;
 			
-			// aapt resource value: 0x7f06007b
-			public const int MyButton = 2131099771;
+			// aapt resource value: 0x7f06007c
+			public const int MyButton = 2131099772;
+			
+			// aapt resource value: 0x7f060084
+			public const int TxtMappingCreatedAt = 2131099780;
 			
 			// aapt resource value: 0x7f060083
-			public const int TxtMappingCreatedAt = 2131099779;
+			public const int TxtMeasurementCount = 2131099779;
 			
-			// aapt resource value: 0x7f060082
-			public const int TxtMeasurementCount = 2131099778;
-			
-			// aapt resource value: 0x7f06008a
-			public const int action0 = 2131099786;
+			// aapt resource value: 0x7f06008b
+			public const int action0 = 2131099787;
 			
 			// aapt resource value: 0x7f06005c
 			public const int action_bar = 2131099740;
@@ -1975,8 +1975,8 @@ namespace DepthViewer
 			// aapt resource value: 0x7f06005d
 			public const int action_context_bar = 2131099741;
 			
-			// aapt resource value: 0x7f06008e
-			public const int action_divider = 2131099790;
+			// aapt resource value: 0x7f06008f
+			public const int action_divider = 2131099791;
 			
 			// aapt resource value: 0x7f060003
 			public const int action_menu_divider = 2131099651;
@@ -2011,8 +2011,8 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060046
 			public const int buttonPanel = 2131099718;
 			
-			// aapt resource value: 0x7f06008b
-			public const int cancel_action = 2131099787;
+			// aapt resource value: 0x7f06008c
+			public const int cancel_action = 2131099788;
 			
 			// aapt resource value: 0x7f06002d
 			public const int center = 2131099693;
@@ -2026,8 +2026,8 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060054
 			public const int checkbox = 2131099732;
 			
-			// aapt resource value: 0x7f060091
-			public const int chronometer = 2131099793;
+			// aapt resource value: 0x7f060092
+			public const int chronometer = 2131099794;
 			
 			// aapt resource value: 0x7f060035
 			public const int clip_horizontal = 2131099701;
@@ -2038,8 +2038,8 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060021
 			public const int collapseActionView = 2131099681;
 			
-			// aapt resource value: 0x7f060075
-			public const int contentFrame = 2131099765;
+			// aapt resource value: 0x7f060076
+			public const int contentFrame = 2131099766;
 			
 			// aapt resource value: 0x7f06004c
 			public const int contentPanel = 2131099724;
@@ -2074,8 +2074,11 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060010
 			public const int disableHome = 2131099664;
 			
-			// aapt resource value: 0x7f060076
-			public const int drawer = 2131099766;
+			// aapt resource value: 0x7f060077
+			public const int drawer = 2131099767;
+			
+			// aapt resource value: 0x7f060074
+			public const int drawerLayout = 2131099764;
 			
 			// aapt resource value: 0x7f06005e
 			public const int edit_query = 2131099742;
@@ -2083,8 +2086,8 @@ namespace DepthViewer
 			// aapt resource value: 0x7f06001e
 			public const int end = 2131099678;
 			
-			// aapt resource value: 0x7f060096
-			public const int end_padder = 2131099798;
+			// aapt resource value: 0x7f060097
+			public const int end_padder = 2131099799;
 			
 			// aapt resource value: 0x7f060025
 			public const int enterAlways = 2131099685;
@@ -2128,14 +2131,14 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060041
 			public const int image = 2131099713;
 			
-			// aapt resource value: 0x7f060084
-			public const int imgDownloadStatus = 2131099780;
+			// aapt resource value: 0x7f060085
+			public const int imgDownloadStatus = 2131099781;
 			
-			// aapt resource value: 0x7f060081
-			public const int imgMappingTeaser = 2131099777;
+			// aapt resource value: 0x7f060082
+			public const int imgMappingTeaser = 2131099778;
 			
-			// aapt resource value: 0x7f060095
-			public const int info = 2131099797;
+			// aapt resource value: 0x7f060096
+			public const int info = 2131099798;
 			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
@@ -2143,11 +2146,11 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060031
 			public const int left = 2131099697;
 			
-			// aapt resource value: 0x7f06008f
-			public const int line1 = 2131099791;
+			// aapt resource value: 0x7f060090
+			public const int line1 = 2131099792;
 			
-			// aapt resource value: 0x7f060093
-			public const int line3 = 2131099795;
+			// aapt resource value: 0x7f060094
+			public const int line3 = 2131099796;
 			
 			// aapt resource value: 0x7f06000d
 			public const int listMode = 2131099661;
@@ -2155,17 +2158,17 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060043
 			public const int list_item = 2131099715;
 			
-			// aapt resource value: 0x7f060088
-			public const int logo = 2131099784;
+			// aapt resource value: 0x7f060089
+			public const int logo = 2131099785;
 			
-			// aapt resource value: 0x7f060078
-			public const int lstViewLocalMappings = 2131099768;
+			// aapt resource value: 0x7f060079
+			public const int lstViewLocalMappings = 2131099769;
 			
-			// aapt resource value: 0x7f06007c
-			public const int lstViewRemoteMappings = 2131099772;
+			// aapt resource value: 0x7f06007d
+			public const int lstViewRemoteMappings = 2131099773;
 			
-			// aapt resource value: 0x7f06008d
-			public const int media_actions = 2131099789;
+			// aapt resource value: 0x7f06008e
+			public const int media_actions = 2131099790;
 			
 			// aapt resource value: 0x7f06001f
 			public const int middle = 2131099679;
@@ -2176,11 +2179,11 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060018
 			public const int multiply = 2131099672;
 			
-			// aapt resource value: 0x7f060074
-			public const int my_toolbar = 2131099764;
+			// aapt resource value: 0x7f060075
+			public const int my_toolbar = 2131099765;
 			
-			// aapt resource value: 0x7f060087
-			public const int navigationLayout = 2131099783;
+			// aapt resource value: 0x7f060088
+			public const int navigationLayout = 2131099784;
 			
 			// aapt resource value: 0x7f06006f
 			public const int navigation_header_container = 2131099759;
@@ -2212,20 +2215,20 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060056
 			public const int radio = 2131099734;
 			
-			// aapt resource value: 0x7f06007e
-			public const int radioBtnAll = 2131099774;
-			
 			// aapt resource value: 0x7f06007f
-			public const int radioBtnNone = 2131099775;
-			
-			// aapt resource value: 0x7f06007d
-			public const int radioGroupSelectionOptions = 2131099773;
-			
-			// aapt resource value: 0x7f060077
-			public const int refreshLayout = 2131099767;
+			public const int radioBtnAll = 2131099775;
 			
 			// aapt resource value: 0x7f060080
-			public const int relativeLayout1 = 2131099776;
+			public const int radioBtnNone = 2131099776;
+			
+			// aapt resource value: 0x7f06007e
+			public const int radioGroupSelectionOptions = 2131099774;
+			
+			// aapt resource value: 0x7f060078
+			public const int refreshLayout = 2131099768;
+			
+			// aapt resource value: 0x7f060081
+			public const int relativeLayout1 = 2131099777;
 			
 			// aapt resource value: 0x7f060032
 			public const int right = 2131099698;
@@ -2320,8 +2323,8 @@ namespace DepthViewer
 			// aapt resource value: 0x7f060033
 			public const int start = 2131099699;
 			
-			// aapt resource value: 0x7f06008c
-			public const int status_bar_latest_event_content = 2131099788;
+			// aapt resource value: 0x7f06008d
+			public const int status_bar_latest_event_content = 2131099789;
 			
 			// aapt resource value: 0x7f060067
 			public const int submit_area = 2131099751;
@@ -2329,17 +2332,17 @@ namespace DepthViewer
 			// aapt resource value: 0x7f06000f
 			public const int tabMode = 2131099663;
 			
-			// aapt resource value: 0x7f060094
-			public const int text = 2131099796;
+			// aapt resource value: 0x7f060095
+			public const int text = 2131099797;
 			
-			// aapt resource value: 0x7f060092
-			public const int text2 = 2131099794;
+			// aapt resource value: 0x7f060093
+			public const int text2 = 2131099795;
 			
 			// aapt resource value: 0x7f06004f
 			public const int textSpacerNoButtons = 2131099727;
 			
-			// aapt resource value: 0x7f060090
-			public const int time = 2131099792;
+			// aapt resource value: 0x7f060091
+			public const int time = 2131099793;
 			
 			// aapt resource value: 0x7f060045
 			public const int title = 2131099717;
@@ -2356,20 +2359,20 @@ namespace DepthViewer
 			// aapt resource value: 0x7f06006b
 			public const int touch_outside = 2131099755;
 			
-			// aapt resource value: 0x7f060089
-			public const int tv = 2131099785;
+			// aapt resource value: 0x7f06008a
+			public const int tv = 2131099786;
 			
-			// aapt resource value: 0x7f060085
-			public const int txtViewDownloadStatus = 2131099781;
+			// aapt resource value: 0x7f060086
+			public const int txtViewDownloadStatus = 2131099782;
 			
-			// aapt resource value: 0x7f060079
-			public const int txtViewNoLocalMappings = 2131099769;
+			// aapt resource value: 0x7f06007a
+			public const int txtViewNoLocalMappings = 2131099770;
 			
 			// aapt resource value: 0x7f060009
 			public const int up = 2131099657;
 			
-			// aapt resource value: 0x7f060086
-			public const int urhoLayout = 2131099782;
+			// aapt resource value: 0x7f060087
+			public const int urhoLayout = 2131099783;
 			
 			// aapt resource value: 0x7f060016
 			public const int useLogo = 2131099670;
@@ -2639,8 +2642,14 @@ namespace DepthViewer
 			// aapt resource value: 0x7f070019
 			public const int ApplicationName = 2131165209;
 			
+			// aapt resource value: 0x7f07001b
+			public const int CloseDrawerText = 2131165211;
+			
 			// aapt resource value: 0x7f070018
 			public const int Hello = 2131165208;
+			
+			// aapt resource value: 0x7f07001a
+			public const int OpenDrawerText = 2131165210;
 			
 			// aapt resource value: 0x7f070000
 			public const int abc_action_bar_home_description = 2131165184;
