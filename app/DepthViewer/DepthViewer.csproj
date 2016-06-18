@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -181,6 +181,7 @@
     <Compile Include="ViewModels\MappingsOverviewViewModel.cs" />
     <Compile Include="ViewModels\MappingViewModel.cs" />
     <Compile Include="ViewModels\NavigationMenuViewModel.cs" />
+    <Compile Include="ViewModels\ParseKeysViewModel.cs" />
     <Compile Include="Views\CustomControls\BindableImageView.cs" />
     <Compile Include="Views\CustomControls\BindableSwipeRefreshLayout.cs" />
     <Compile Include="Views\CustomControls\Map3D.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Views\Fragments\LocalMappingsFrag.cs" />
     <Compile Include="Views\Fragments\MappingsOverviewFragment.cs" />
     <Compile Include="Views\Fragments\NavigationMenuFragment.cs" />
+    <Compile Include="Views\Fragments\ParseKeysFragment.cs" />
     <Compile Include="Views\MappingView.cs" />
     <Compile Include="Views\FirstView.cs" />
     <Compile Include="Views\ValToHumanReadableStringConverter.cs" />
@@ -229,6 +231,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_azure_logo.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_azure_logo.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_action_azure_logo.png" />
+    <AndroidResource Include="Resources\layout\parse_keys_layout.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -275,9 +278,6 @@
     <Folder Include="Assets\Data\UI\" />
     <Folder Include="Assets\Data\Urho2D\" />
     <Folder Include="Models\" />
-    <Folder Include="Resources\drawable-xhdpi\" />
-    <Folder Include="Resources\drawable-xxhdpi\" />
-    <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\cloudDownload.png" />

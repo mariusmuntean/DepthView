@@ -1936,14 +1936,14 @@ namespace DepthViewer
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06009a
-			public const int AzureLogin = 2131099802;
+			// aapt resource value: 0x7f06009e
+			public const int AzureLogin = 2131099806;
 			
 			// aapt resource value: 0x7f06007b
 			public const int BtnDownloadMapping = 2131099771;
 			
-			// aapt resource value: 0x7f060098
-			public const int Delete = 2131099800;
+			// aapt resource value: 0x7f06009c
+			public const int Delete = 2131099804;
 			
 			// aapt resource value: 0x7f06000b
 			public const int MvvmCrossTagId = 2131099659;
@@ -1954,14 +1954,20 @@ namespace DepthViewer
 			// aapt resource value: 0x7f06007c
 			public const int MyButton = 2131099772;
 			
-			// aapt resource value: 0x7f060099
-			public const int ParseKeys = 2131099801;
+			// aapt resource value: 0x7f06009d
+			public const int ParseKeys = 2131099805;
+			
+			// aapt resource value: 0x7f060098
+			public const int TxtAppId = 2131099800;
 			
 			// aapt resource value: 0x7f060084
 			public const int TxtMappingCreatedAt = 2131099780;
 			
 			// aapt resource value: 0x7f060083
 			public const int TxtMeasurementCount = 2131099779;
+			
+			// aapt resource value: 0x7f060099
+			public const int TxtNetKey = 2131099801;
 			
 			// aapt resource value: 0x7f06008b
 			public const int action0 = 2131099787;
@@ -2022,6 +2028,12 @@ namespace DepthViewer
 			
 			// aapt resource value: 0x7f06002c
 			public const int bottom = 2131099692;
+			
+			// aapt resource value: 0x7f06009b
+			public const int btnCancel = 2131099803;
+			
+			// aapt resource value: 0x7f06009a
+			public const int btnUpdate = 2131099802;
 			
 			// aapt resource value: 0x7f060046
 			public const int buttonPanel = 2131099718;
@@ -2611,19 +2623,22 @@ namespace DepthViewer
 			public const int notification_template_part_time = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int select_dialog_item_material = 2130903094;
+			public const int parse_keys_layout = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int select_dialog_multichoice_material = 2130903095;
+			public const int select_dialog_item_material = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int select_dialog_singlechoice_material = 2130903096;
+			public const int select_dialog_multichoice_material = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int SplashScreen = 2130903097;
+			public const int select_dialog_singlechoice_material = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int support_simple_spinner_dropdown_item = 2130903098;
+			public const int SplashScreen = 2130903098;
+			
+			// aapt resource value: 0x7f03003b
+			public const int support_simple_spinner_dropdown_item = 2130903099;
 			
 			static Layout()
 			{

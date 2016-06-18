@@ -5,6 +5,7 @@
 	
 	
 	
+	
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="D:\Documents\Visual Studio 2015\Projects\Xamarin.Android.OpenCV\Xamarin.Android.OpenCV\src\OpenCV.Binding\bin\Debug\AnyCPU\OpenCV.dll" /&gt;&#xD;
   &lt;Assembly Path="D:\Documents\Visual Studio 2015\Projects\JavaCV\JavaCV\bin\Debug\JavaCV.dll" /&gt;&#xD;
