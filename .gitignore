@@ -7,3 +7,4 @@ app/DepthViewer/Services/ParseConfig.cs
 
 server/DepthViewerServer/Services/ParseConfig.cs
 server/.vs/DepthViewerServer/v14/.suo
+app/DepthViewer/Models/ParseConfig.cs
