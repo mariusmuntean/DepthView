@@ -18,13 +18,7 @@ namespace DepthViewer
 
             RegisterAppStart<FirstViewModel>();
 
-            InitialiseParse();
-        }
-
-        private void InitialiseParse()
-        {
-            var parseConfig = Mvx.Resolve<IParseConfig>();
-            ParseClient.Initialize(parseConfig.ApplicationId, parseConfig.DotNetKey);
+            Mvx.Resolve<IParseDataService>().InitializeParse();
         }
     }
 }

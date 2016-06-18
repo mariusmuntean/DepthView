@@ -7,15 +7,77 @@ using DepthViewer.Shared.Models;
 using Parse;
 using MvvmCross.Platform;
 using System.Linq;
+using Acr.UserDialogs;
 
 namespace DepthViewer.Services
 {
     public class ParseDataService : IParseDataService
     {
+        private readonly ISecureDataStore _secureDataStore;
+
         private string _cacheDirPath;
-        public ParseDataService()
+        const string _parseConfigKey = "_parseConfig_";
+        const string _parseApiKeyKey = "_parseApiKey_";
+        const string _parseNetKeyKey = "_parseNetKey_";
+        private bool _initialized = false;
+
+        public ParseDataService(ISecureDataStore secureDataStore)
         {
             _cacheDirPath = Application.Context.FilesDir.Path;
+            _secureDataStore = secureDataStore;
+        }
+
+        public bool Initialized
+        {
+            get { return _initialized; }
+        }
+
+        public void UpdateParseApiKeys(string apiKey, string netKey)
+        {
+            // Store the new keys in the secure storage
+            _secureDataStore.SetProperties(_parseConfigKey, new Dictionary<string, string>()
+            {
+                {_parseApiKeyKey, apiKey },
+                {_parseNetKeyKey, netKey }
+            });
+
+            // Init the parse client
+            ParseClient.Initialize(apiKey, netKey);
+            _initialized = true;
+        }
+
+        public void InitializeParse()
+        {
+            var currentParseConfig = GetCurrentParseConfig();
+
+            if (string.IsNullOrWhiteSpace(currentParseConfig?.ApplicationId)
+                || string.IsNullOrWhiteSpace(currentParseConfig.DotNetKey))
+            {
+                _initialized = false;
+                return;
+            }
+
+            // Init the parse client
+            ParseClient.Initialize(currentParseConfig.ApplicationId,
+                                    currentParseConfig.DotNetKey);
+            _initialized = true;
+        }
+
+        public IParseConfig GetCurrentParseConfig()
+        {
+            // Look for built-in keys :D
+            var parseConfig = Mvx.Resolve<IParseConfig>();
+
+            // Look for stored keys
+            var storedParseProps = _secureDataStore.GetProperties(_parseConfigKey);
+            if (storedParseProps != null && storedParseProps.ContainsKey(_parseApiKeyKey) &&
+                storedParseProps.ContainsKey(_parseNetKeyKey))
+            {
+                parseConfig.ApplicationId = storedParseProps[_parseApiKeyKey];
+                parseConfig.DotNetKey = storedParseProps[_parseNetKeyKey];
+            }
+
+            return parseConfig;
         }
 
         public async Task<List<Mapping>> GetAllMappings()
@@ -27,7 +89,7 @@ namespace DepthViewer.Services
 
             // Get all local mappings to cross compare
             var localMappingService = Mvx.Resolve<ILocalMappingServices>();
-			var localMappingIds = (await localMappingService.GetAllLocalMappings ()).Select(m => m.Id);
+            var localMappingIds = (await localMappingService.GetAllLocalMappings()).Select(m => m.Id);
 
             foreach (var mapping in results)
             {
@@ -41,7 +103,7 @@ namespace DepthViewer.Services
 
                 var mappingId = mapping.ObjectId;
                 var newLocalMapping = new Mapping(mappingId, new List<Measurement>(localMeasurements), mapping.CreatedAt.Value);
-				newLocalMapping.IsSavedLocally = localMappingIds.Contains(mappingId);
+                newLocalMapping.IsSavedLocally = localMappingIds.Contains(mappingId);
                 mappings.Add(newLocalMapping);
             }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
+using Acr.UserDialogs;
 using Android.Content;
 using Android.Graphics;
 using DepthViewer.Contracts;
@@ -73,6 +74,8 @@ namespace DepthViewer
             Mvx.LazyConstructAndRegisterSingleton<IDataExchangeService>(() => new DataExchangeService());
             Mvx.LazyConstructAndRegisterSingleton<IImageStitcher>(() => new RemoteImageStitcher());
             Mvx.LazyConstructAndRegisterSingleton<ISecureDataStore, SecureDataStore>();
+
+            Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
         }
 
         protected override void InitializeLastChance()

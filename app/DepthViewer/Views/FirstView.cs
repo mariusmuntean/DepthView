@@ -1,11 +1,14 @@
+using Acr.UserDialogs;
 using Android.App;
 using Android.OS;
 using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
+using DepthViewer.Contracts;
 using DepthViewer.ViewModels;
 using MvvmCross.Droid.Support.V7.AppCompat;
+using MvvmCross.Platform;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace DepthViewer.Views
@@ -35,6 +38,13 @@ namespace DepthViewer.Views
                 Resource.String.CloseDrawerText);
 
             _drawerLayout.AddDrawerListener(_abdt);
+
+            // Init Acr.UserDialogs
+            UserDialogs.Init(this);
+            if (!Mvx.Resolve<IParseDataService>().Initialized)
+            {
+                UserDialogs.Instance.AlertAsync("Parse initialization data incomplete", "Parse Initialization Error");
+            }
 
             if (bundle == null)
             {

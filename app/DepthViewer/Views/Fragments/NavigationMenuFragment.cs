@@ -3,10 +3,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
+using DepthViewer.Contracts;
 using DepthViewer.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Droid.Shared.Attributes;
 using MvvmCross.Droid.Support.V4;
+using MvvmCross.Platform;
 using Debug = System.Diagnostics.Debug;
 
 namespace DepthViewer.Views.Fragments
@@ -36,9 +38,10 @@ namespace DepthViewer.Views.Fragments
             // Wire up the displaying of dialog fragments
             ViewModel.UpdateParseKeysAction = () =>
             {
+                var parseDataService = Mvx.Resolve<IParseDataService>();
                 var parseKeysFrag = new ParseKeysFragment
                 {
-                    DataContext = new ParseKeysViewModel()
+                    DataContext = new ParseKeysViewModel(parseDataService)
                 };
                 parseKeysFrag.Show(FragmentManager, "NavMenuFrag");
             };

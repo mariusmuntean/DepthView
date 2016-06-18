@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using DepthViewer.Contracts;
 using MvvmCross.Core.ViewModels;
@@ -10,11 +11,13 @@ namespace DepthViewer.ViewModels
         private MvxCommand _updateParseKeysCommand;
         private string _parseAppId;
         private string _parseNetKey;
+        private IParseDataService _parseDataService;
+        private MvxCommand _cancelCommand;
 
-        public ParseKeysViewModel()
+        public ParseKeysViewModel(IParseDataService parseDataService)
         {
-            // Init keys if possible
-            var parseConfig = Mvx.Resolve<IParseConfig>();
+            _parseDataService = parseDataService;
+            var parseConfig = _parseDataService.GetCurrentParseConfig();
             _parseNetKey = parseConfig.DotNetKey;
             _parseAppId = parseConfig.ApplicationId;
         }
@@ -26,6 +29,8 @@ namespace DepthViewer.ViewModels
             {
                 _parseAppId = value;
                 RaisePropertyChanged(() => ParseAppId);
+
+                UpdateParseKeysCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -36,21 +41,41 @@ namespace DepthViewer.ViewModels
             {
                 _parseNetKey = value;
                 RaisePropertyChanged(() => ParseNetKey);
+
+                UpdateParseKeysCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public MvxCommand UpdateParseKeysCommandCommand
+        public MvxCommand UpdateParseKeysCommand
         {
             get
             {
                 _updateParseKeysCommand = _updateParseKeysCommand ?? new MvxCommand(() =>
                 {
-                    Debug.WriteLine("Updating Pare keys");
+                    Debug.WriteLine("Updating Parse keys");
+                    _parseDataService.UpdateParseApiKeys(ParseAppId, ParseNetKey);
+
+                }, () =>
+                {
+                    return !(string.IsNullOrWhiteSpace(_parseAppId) || string.IsNullOrWhiteSpace(_parseNetKey));
                 });
 
                 return _updateParseKeysCommand;
             }
-
         }
+
+        public MvxCommand CancelCommand
+        {
+            get
+            {
+                _cancelCommand = _cancelCommand ?? new MvxCommand(() =>
+                {
+                    DismissAction?.Invoke();
+                });
+                return _cancelCommand;
+            }
+        }
+
+        public Action DismissAction { get; set; }
     }
 }

@@ -31,7 +31,7 @@
         android:layout_alignLeft="@id/TxtNetKey"
         android:layout_below="@id/TxtNetKey"
         android:layout_marginLeft="20dp"
-        local:MvxBind="Click UpdateParseKeysCommandCommand" />
+        local:MvxBind="Click UpdateParseKeysCommand" />
 <!-- Cancel -->
     <Button
         android:text="Cancel"
@@ -40,5 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/TxtNetKey"
         android:layout_alignRight="@id/TxtNetKey"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        local:MvxBind="Click CancelCommand"/>
 </RelativeLayout>

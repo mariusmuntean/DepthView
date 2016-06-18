@@ -29,7 +29,7 @@ namespace DepthViewer.Services
 
         public Dictionary<string, string> GetProperties(string key)
         {
-            var storedAccount = _accountStore.FindAccountsForService(_serviceId).First(account => account.Username.Equals(key));
+            var storedAccount = _accountStore.FindAccountsForService(_serviceId)?.FirstOrDefault(account => account.Username.Equals(key));
             return storedAccount?.Properties;
         }
 

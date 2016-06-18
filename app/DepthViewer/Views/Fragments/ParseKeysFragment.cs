@@ -1,3 +1,4 @@
+using System;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -24,7 +25,11 @@ namespace DepthViewer.Views.Fragments
 
             var dialog = new AlertDialog.Builder(Activity);
             dialog.SetTitle("Update your Parse keys");
+            dialog.SetIcon(Resource.Drawable.parse_logo);
             dialog.SetView(view);
+
+            // Wire up vm to close the fragment
+            ViewModel.DismissAction = Dismiss;
 
             return dialog.Create();
 
