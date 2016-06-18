@@ -4,6 +4,7 @@ using Acr.UserDialogs;
 using Android.Content;
 using Android.Graphics;
 using DepthViewer.Contracts;
+using DepthViewer.Models;
 using DepthViewer.Services;
 using DepthViewer.Utils;
 using UniversalImageLoader.Core;
