@@ -49,14 +49,13 @@
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86,arm64-v8a</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
     <AndroidLinkMode>Full</AndroidLinkMode>
-    <BundleAssemblies>False</BundleAssemblies>
-    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-    <AotAssemblies>False</AotAssemblies>
-    <EnableLLVM>False</EnableLLVM>
-    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
-    <EnableProguard>False</EnableProguard>
     <DebugSymbols>False</DebugSymbols>
     <AndroidLinkSkip>MvvmCross;MvvmCross.Core;MvvmCross.Platform;MvvmCross.Platform.Droid;MvvmCross.Plugins;MvvmCross.Plugins.File;MvvmCross.Plugins.File.Droid;MvvmCross.Plugins.Json;MvvmCross.Plugins.DownloadCache;MvvmCross.Plugins.DownloadCache.Droid;MvvmCross.Binding;MvvmCross.Binding.Droid;MvvmCross.Droid</AndroidLinkSkip>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>D:\Documents\visual studio 2015\Projects\DepthViewer\app\depthviewer.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>depthviewer</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>depthviewer</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>depthviewer</AndroidSigningKeyPass>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
