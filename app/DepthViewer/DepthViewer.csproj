@@ -52,7 +52,7 @@
     <DebugSymbols>False</DebugSymbols>
     <AndroidLinkSkip>MvvmCross;MvvmCross.Core;MvvmCross.Platform;MvvmCross.Platform.Droid;MvvmCross.Plugins;MvvmCross.Plugins.File;MvvmCross.Plugins.File.Droid;MvvmCross.Plugins.Json;MvvmCross.Plugins.DownloadCache;MvvmCross.Plugins.DownloadCache.Droid;MvvmCross.Binding;MvvmCross.Binding.Droid;MvvmCross.Droid</AndroidLinkSkip>
     <AndroidKeyStore>True</AndroidKeyStore>
-    <AndroidSigningKeyStore>D:\Documents\visual studio 2015\Projects\DepthViewer\app\depthviewer.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>../depthviewer.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>depthviewer</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>depthviewer</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>depthviewer</AndroidSigningKeyPass>
