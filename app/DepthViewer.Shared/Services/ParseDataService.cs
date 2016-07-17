@@ -1,7 +1,9 @@
 ﻿using System;
 using DepthViewer.Shared.Models;
 using System.Threading.Tasks;
+
 using Parse;
+
 using System.Collections.Generic;
 using DepthViewer.Shared.Contracts;
 

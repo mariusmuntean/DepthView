@@ -30,7 +30,7 @@ namespace DepthViewer.Shared.Models
         public double DistanceCm
         {
             get { return _distanceCm; }
-            private set { _distanceCm = value; }
+            set { _distanceCm = value; }
         }
 
         public string ImageUrl

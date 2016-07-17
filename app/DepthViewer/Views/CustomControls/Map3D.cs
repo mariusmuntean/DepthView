@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,11 +34,11 @@ namespace DepthViewer.Views.CustomControls
         protected float Pitch { get; set; }
         protected const float TouchSensitivity = 2;
 
+        double degreesToRadConstant = Math.PI / 180;
+
         protected override void Setup()
         {
             base.Setup();
-
-
         }
 
         protected override async void Start()
@@ -63,28 +63,17 @@ namespace DepthViewer.Views.CustomControls
                 }
             });
 
-            Input.KeyDown += (args) =>
-            {
-                //if (args.Key == Key.Esc) Engine.Exit();
-            };
-
             await CreateScene();
-            //SimpleCreateInstructions("WASD");
-
-            // Stitch some images togetcher
-            //await Stitch();
 
             // Stitch images with EmguCV
-            await MariusCvStitch();
+            //await MariusCvStitch();
         }
-
 
         private async Task MariusCvStitch()
         {
             _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
 
             await _downloadCache.GetAndCacheFile(_currentMapping.Measurements.First().ImageUrl);
-
 
             var img1Path = _currentMapping.Measurements.First().ImageUrl;
             var img2Path = _currentMapping.Measurements.ElementAt(1).ImageUrl;
@@ -114,13 +103,7 @@ namespace DepthViewer.Views.CustomControls
                 staticSprite2D.BlendMode = BlendMode.Alpha;
                 staticSprite2D.Sprite = sprite;
             });
-
-
-
         }
-
-        //[DllImport("libopencv_stitching", EntryPoint = "Java_de_marius_stitcher_NativeStitcherWrapper_NativeStitch")]
-        //public static extern void NativeStitch(IntPtr jenv, IntPtr jclass, long matAddrGr, long matAddrRgba);
 
         void ExportBitmapAsJpg(Bitmap bitmap, string path)
         {
@@ -175,49 +158,15 @@ namespace DepthViewer.Views.CustomControls
             }
         }
 
-
-        protected void SimpleCreateInstructions(string text = "")
-        {
-            var textElement = new Text()
-            {
-                Value = text,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            textElement.SetFont(ResourceCache.GetFont("Fonts/Anonymous Pro.ttf"), 15);
-            UI.Root.AddChild(textElement);
-        }
-
         async Task CreateScene()
         {
-            // UI text 
-            //helloText = new Text()
-            //{
-            //    Value = "Hello World from MySample",
-            //    HorizontalAlignment = HorizontalAlignment.Center,
-            //    VerticalAlignment = VerticalAlignment.Center
-            //};
-            //helloText.SetColor(new Color(0f, 1f, 1f));
-            //helloText.SetFont(
-            //    font: ResourceCache.GetFont("Fonts/BlueHighway.ttf"),
-            //    size: 30);
-            //UI.Root.AddChild(helloText);
-
             // Create a top-level _scene, must add the Octree
             // to visualize any 3D content.
             _scene = new Scene();
             _scene.CreateComponent<Octree>();
             _scene.CreateComponent<DebugRenderer>();
 
-            PlaceBoxes(_scene).Wait();
-
-            // Box
-            var boxNode = _scene.CreateChild("demoBox");
-            boxNode.Position = new Vector3(0, 0, 1);
-            boxNode.Rotation = new Quaternion(0, 0, 0);
-            boxNode.SetScale(0f);
-            StaticModel modelObject = boxNode.CreateComponent<StaticModel>();
-            modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
+            await PlaceBoxes();
 
             // Zone
             var zoneNode = _scene.CreateChild(name: "zoneNode");
@@ -234,7 +183,7 @@ namespace DepthViewer.Views.CustomControls
             // Camera
             CameraNode = _scene.CreateChild("Camera");
             Camera camera = CameraNode.CreateComponent<Camera>();
-            CameraNode.Position = new Vector3(0f, 0f, -7f);
+            CameraNode.Position = new Vector3(0f, 0f, 0);
             camera.Fov = 90f;
 
             // Add a light to the camera node
@@ -247,17 +196,9 @@ namespace DepthViewer.Views.CustomControls
             // Viewport
             Renderer.SetViewport(0, new Viewport(_scene, camera, null));
             Renderer.DrawDebugGeometry(true);
-
-            // Perform some actions
-            await boxNode.RunActionsAsync(
-                new EaseBounceOut(new ScaleTo(duration: 1f, scale: 1)));
-
-            boxNode.RunActionsAsync(
-               new RepeatForever(new RotateBy(duration: 1,
-                   deltaAngleX: 90, deltaAngleY: 90, deltaAngleZ: 90)));
         }
 
-        private async Task PlaceBoxes(Scene scene)
+        private async Task PlaceBoxes()
         {
             _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
             if (_currentMapping == null)
@@ -270,79 +211,74 @@ namespace DepthViewer.Views.CustomControls
                 return;
             }
 
-            //// Test img
-            //var cachedPath = await _downloadCache.GetAndCacheFile(_currentMapping.TeaserPath);
-
-            //// Display in sprite
-            //var sprite = new Sprite2D(Context);
-            //var imgFile = new File(Context, cachedPath, FileMode.Read);
-            //sprite.Load(imgFile);
-
-            //// Position
-            //var spriteNode = scene.CreateChild("SpriteNode");
-            //spriteNode.Position = new Vector3(0,0, -1);
-
-            //var staticSprite2D = spriteNode.CreateComponent<StaticSprite2D>();
-            //staticSprite2D.Color = (new Color(NextRandom(1.0f), NextRandom(1.0f), NextRandom(1.0f), 1.0f));
-            //staticSprite2D.BlendMode = BlendMode.Alpha;
-            //staticSprite2D.Sprite = sprite;
-
-            var previousTiltAngle = _currentMapping.Measurements.First().TiltAngle;
-            var currentTiltAngle = previousTiltAngle;
-            var rows = 1;
-
             foreach (var measurement in _currentMapping.Measurements)
             {
-                currentTiltAngle = measurement.TiltAngle;
-                if (currentTiltAngle != previousTiltAngle)
-                {
-                    rows++;
-                    previousTiltAngle = currentTiltAngle;
-                }
+                // Compute position
+                /*
+                 * 1. All measurements start from the horizontal and go down as the tilt angle increases
+                 *    a) __ __ __      b) __ __ __   c) __ __ __
+                 *      |                 \             __ __ __
+                 *      | 90°              \ 45°            0°
+                 *      |                   \
+                 *    
+                 * 2. Polar to Cartesian.  (https://en.wikipedia.org/wiki/Spherical_coordinate_system)
+                 *      θ   :angle in XoY plane
+                 *      Phi :angle from Z axis towards XoY plane
+                 *      r   : distance from the origin 
+                 *      
+                 *     x = r × sin(θ) × cos(phi)
+                 *     y = r × sin(θ) × sin(phi)
+                 *     z = r × cos(theta)
+                 * 
+                 * 3. Careful: 
+                 *  Scene Coordinate System           Spherical Coordinate System
+                 *     (y) (z)                          (y)
+                 *      |  /                             |           
+                 *      | /                              | 
+                 *      |/__ __ __(x)                    |__ __ __(x)
+                 *                                      /                         
+                 *                                     / 
+                 *                                   (z)
+                 *  theta = panAngle
+                 *  phi = tiltAngle + 90
+                 *  r = distanceCm                                   
+                 */
+
+                // Scale distance a bit 
+                //measurement.DistanceCm *= 0.1;
+
+                var x = (float)(measurement.DistanceCm *
+                                Math.Cos(measurement.PanAngle * degreesToRadConstant) *
+                                Math.Sin((measurement.TiltAngle + 90) * degreesToRadConstant));
+
+                var y = (float)(measurement.DistanceCm *
+                                Math.Sin(measurement.PanAngle * degreesToRadConstant) *
+                                Math.Sin((measurement.TiltAngle + 90) * degreesToRadConstant));
+
+                var z = (float)(measurement.DistanceCm *
+                                Math.Cos((measurement.TiltAngle + 90) * degreesToRadConstant));
+
+                var position = new Vector3(x, z, y);
+                System.Diagnostics.Debug.WriteLine($"Positioning at X: {position.X} Y: {position.Y} Z: {position.Z}");
+
+                // Compute rotation deltas to face to the point (0.0,0.0,0.0)
+                var rotation = new Vector3(0, (float)-measurement.PanAngle, (float)-measurement.TiltAngle);
+
+                // Add box to the scene
+                var newBox = AddBox(position, rotation);
             }
+        }
 
-            var columns = _currentMapping.Measurements.Count / rows;
+        private Node AddBox(Vector3 position, Vector3 rotationDeltas)
+        {
+            var boxNode = _scene.CreateChild();
+            boxNode.Position = position;
+            boxNode.RunActions(new Repeat(new RotateBy(1, rotationDeltas.X, rotationDeltas.Y, rotationDeltas.Z), 1));
 
-            var left = -(columns / 2);
-            var right = columns / 2;
-            var top = rows / 2;
-            var bottom = -(rows / 2);
+            var modelObject = boxNode.CreateComponent<StaticModel>();
+            modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
 
-            var idx = 0;
-
-            for (int i = bottom; i < top; i++)
-            {
-                for (int j = left; j < right; j++)
-                {
-                    var currentMeasurement = _currentMapping.Measurements.ElementAt(idx);
-                    var r = currentMeasurement.DistanceCm;
-                    var theta = (currentMeasurement.TiltAngle * Math.PI) / 180.0d;
-                    var phi = (currentMeasurement.PanAngle * Math.PI) / 180.0d;
-                    /*
-                    * x=r \, \sin\theta \, \cos\varphi
-                    * y=r \, \sin\theta \, \sin\varphi
-                    * z=r \, \cos\theta
-                    */
-                    var x = r * Math.Sin(theta) * Math.Cos(phi);
-                    var y = r * Math.Sin(theta) * Math.Sin(phi);
-                    var z = r * Math.Cos(theta);
-
-                    var boxNode = scene.CreateChild();
-                    boxNode.Position = new Vector3(j, i, (float)(r * 0.1f));
-                    boxNode.Rotation = new Quaternion(0, 0, 0);
-                    boxNode.SetScale(0.9f);
-
-                    // Add a box
-                    var modelObject = boxNode.CreateComponent<StaticModel>();
-                    modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
-
-                    // Add an image
-                    //await PlaceSpriteInNode(currentMeasurement.ImageUrl, boxNode);                      
-
-                    idx++; // Measurement #
-                }
-            }
-
+            return boxNode;
         }
 
         private async Task PlaceSpriteInNode(string imagePath, Node node)
@@ -361,13 +297,6 @@ namespace DepthViewer.Views.CustomControls
             //staticSprite2D.Color = (new Color(NextRandom(1.0f), NextRandom(1.0f), NextRandom(1.0f), 1.0f));
             staticSprite2D.BlendMode = BlendMode.Alpha;
             staticSprite2D.Sprite = sprite;
-        }
-
-        private static Random random;
-        public static float NextRandom(float range)
-        {
-            random = random ?? new Random();
-            return (float)random.NextDouble() * range;
         }
     }
 }
