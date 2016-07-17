@@ -65,6 +65,13 @@ namespace DepthViewer.Views.CustomControls
 
             await CreateScene();
 
+            Input.KeyDown += args =>
+            {
+                System.Diagnostics.Debug.WriteLine("Key code: "+args.Key);
+                if(args.Key == Key.Esc)
+                    Exit();
+            };
+
             // Stitch images with EmguCV
             //await MariusCvStitch();
         }
