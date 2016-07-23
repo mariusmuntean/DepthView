@@ -36,6 +36,8 @@ namespace DepthViewer.Views.CustomControls
 
         double degreesToRadConstant = Math.PI / 180;
 
+        Dictionary<Node, Measurement> _boxNodes = new Dictionary<Node, Measurement>();
+
         protected override void Setup()
         {
             base.Setup();
@@ -173,7 +175,17 @@ namespace DepthViewer.Views.CustomControls
             _scene.CreateComponent<Octree>();
             _scene.CreateComponent<DebugRenderer>();
 
+            // Get parameter payload
+            _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
+            if (_currentMapping == null)
+            {
+                await Task.Delay(1000).ConfigureAwait(true);
+                _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
+            }
+
+            // Add boxes and images
             await PlaceBoxes();
+            PlaceImages();
 
             // Zone
             var zoneNode = _scene.CreateChild(name: "zoneNode");
@@ -205,21 +217,42 @@ namespace DepthViewer.Views.CustomControls
             Renderer.DrawDebugGeometry(true);
         }
 
+        private void PlaceImages()
+        {
+            InvokeOnMain(() =>
+            {
+                foreach (var node in _boxNodes.Keys)
+                {
+                    var measurement = _boxNodes[node];
+                    var imagePath = _downloadCache.GetAndCacheFile(measurement.ImageUrl).Result;
+
+                    // Get the image
+                    var sprite = ResourceCache.GetSprite2D(imagePath);
+
+                    // Create a static sprite to be displayed
+                    var staticSprite = node.CreateComponent<StaticSprite2D>();
+                    staticSprite.BlendMode = BlendMode.Alpha;
+                    staticSprite.Sprite = sprite;
+                }
+            });
+
+        }
+
         private async Task PlaceBoxes()
         {
-            _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
-            if (_currentMapping == null)
-            {
-                await Task.Delay(1000);
-                _currentMapping = _dataExchangeService.Payload["CurrentMapping"] as Mapping;
-            }
+
             if (_currentMapping == null)
             {
                 return;
             }
 
+
             foreach (var measurement in _currentMapping.Measurements)
             {
+
+                // ToDo: place images on boxes
+
+
                 // Compute position
                 /*
                  * 1. All measurements start from the horizontal and go down as the tilt angle increases
@@ -252,7 +285,7 @@ namespace DepthViewer.Views.CustomControls
                  */
 
                 // Scale distance a bit 
-                //measurement.DistanceCm *= 0.1;
+                measurement.DistanceCm *= 0.5;
 
                 var x = (float)(measurement.DistanceCm *
                                 Math.Cos(measurement.PanAngle * degreesToRadConstant) *
@@ -272,7 +305,9 @@ namespace DepthViewer.Views.CustomControls
                 var rotation = new Vector3(0, (float)-measurement.PanAngle, (float)-measurement.TiltAngle);
 
                 // Add box to the scene
-                var newBox = AddBox(position, rotation);
+                var currentNode = AddBox(position, rotation);
+
+                _boxNodes.Add(currentNode, measurement);
             }
         }
 
@@ -280,30 +315,13 @@ namespace DepthViewer.Views.CustomControls
         {
             var boxNode = _scene.CreateChild();
             boxNode.Position = position;
-            boxNode.RunActions(new Repeat(new RotateBy(1, rotationDeltas.X, rotationDeltas.Y, rotationDeltas.Z), 1));
+            //boxNode.RunActions(new Repeat(new RotateBy(1, rotationDeltas.X, rotationDeltas.Y, rotationDeltas.Z), 1));
+            boxNode.LookAt(Vector3.Zero, Vector3.UnitY, TransformSpace.Parent);
 
             var modelObject = boxNode.CreateComponent<StaticModel>();
             modelObject.Model = ResourceCache.GetModel("Models/Box.mdl");
 
             return boxNode;
-        }
-
-        private async Task PlaceSpriteInNode(string imagePath, Node node)
-        {
-            // Test img
-            var cachedPath = await _downloadCache.GetAndCacheFile(imagePath);
-
-            // Display in sprite
-            var sprite = new Sprite2D();
-            var imgFile = new File(Context, cachedPath, FileMode.Read);
-            sprite.Load(imgFile);
-
-            StaticSprite2D staticSprite2D = null;
-
-            staticSprite2D = node.CreateComponent<StaticSprite2D>();
-            //staticSprite2D.Color = (new Color(NextRandom(1.0f), NextRandom(1.0f), NextRandom(1.0f), 1.0f));
-            staticSprite2D.BlendMode = BlendMode.Alpha;
-            staticSprite2D.Sprite = sprite;
         }
     }
 }
