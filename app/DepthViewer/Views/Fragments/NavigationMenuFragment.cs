@@ -1,20 +1,18 @@
-using System;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
-using DepthViewer.Contracts;
-using DepthViewer.ViewModels;
+using DepthViewer.Core.Contracts;
+using DepthViewer.Core.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Droid.Shared.Attributes;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platform;
-using Debug = System.Diagnostics.Debug;
 
-namespace DepthViewer.Views.Fragments
+namespace DepthViewer.Android.Views.Fragments
 {
     [MvxFragment(typeof(FirstViewModel), Resource.Id.drawer)]
-    [Register("depthviewer.views.fragments.NavigationMenuFragment")]
+    [Register("depthviewer.android.views.fragments.NavigationMenuFragment")]
     class NavigationMenuFragment:MvxFragment<NavigationMenuViewModel>
     {
         private NavigationView _navigationView;

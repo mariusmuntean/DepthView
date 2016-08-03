@@ -3,6 +3,6 @@
   <PropertyGroup>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
     <ProjectView>ProjectFiles</ProjectView>
-    <SelectedDevice>XAP - Nexus 7 Lollipop</SelectedDevice>
+    <SelectedDevice>N5Fast</SelectedDevice>
   </PropertyGroup>
 </Project>

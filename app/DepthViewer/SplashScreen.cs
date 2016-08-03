@@ -2,7 +2,7 @@ using Android.App;
 using Android.Content.PM;
 using MvvmCross.Droid.Views;
 
-namespace DepthViewer
+namespace DepthViewer.Android
 {
     [Activity(
         Label = "DepthViewer"

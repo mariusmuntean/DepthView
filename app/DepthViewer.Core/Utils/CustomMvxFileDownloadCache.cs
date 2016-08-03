@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DepthViewer.Contracts;
+using DepthViewer.Core.Contracts;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Core;
 using MvvmCross.Platform.Exceptions;
@@ -341,6 +341,8 @@ namespace DepthViewer.Utils
             });
         }
 
+        private IPathProvider PathProvider => Mvx.Resolve<IPathProvider>();
+
         public Task<string> GetAndCacheFile(string httpSource)
         {
             if (string.IsNullOrWhiteSpace(httpSource))
@@ -352,7 +354,7 @@ namespace DepthViewer.Utils
 
             RequestLocalFilePath(httpSource, s =>
             {
-                var baseFilesDir = Android.App.Application.Context.FilesDir.Path;
+                var baseFilesDir = PathProvider.BaseDirPath;
                 var absolutePath = Path.Combine(baseFilesDir, s);
                 tcs.SetResult(absolutePath);
             }, exception =>

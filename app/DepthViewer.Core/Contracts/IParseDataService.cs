@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DepthViewer.Shared.Models;
 
-namespace DepthViewer.Contracts
+namespace DepthViewer.Core.Contracts
 {
     public interface IParseDataService
     {

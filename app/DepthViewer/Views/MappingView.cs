@@ -2,13 +2,13 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using DepthViewer.ViewModels;
-using DepthViewer.Views.CustomControls;
+using DepthViewer.Android.Views.CustomControls;
+using DepthViewer.Core.ViewModels;
 using MvvmCross.Droid.FullFragging.Views;
 using Org.Libsdl.App;
 using Urho.Droid;
 
-namespace DepthViewer.Views
+namespace DepthViewer.Android.Views
 {
     [Activity(Label = "View for MappingViewModel")]
     public class MappingView : MvxActivity<MappingViewModel>

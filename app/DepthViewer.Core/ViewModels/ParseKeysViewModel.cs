@@ -1,10 +1,9 @@
 using System;
 using System.Diagnostics;
-using DepthViewer.Contracts;
+using DepthViewer.Core.Contracts;
 using MvvmCross.Core.ViewModels;
-using MvvmCross.Platform;
 
-namespace DepthViewer.ViewModels
+namespace DepthViewer.Core.ViewModels
 {
     public class ParseKeysViewModel : MvxViewModel
     {

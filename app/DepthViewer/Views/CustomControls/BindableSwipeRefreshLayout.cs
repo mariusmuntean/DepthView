@@ -5,7 +5,7 @@ using Android.Runtime;
 using Android.Support.V4.Widget;
 using Android.Util;
 
-namespace DepthViewer.Views.CustomControls
+namespace DepthViewer.Android.Views.CustomControls
 {
     /**
     ** LLAP to Cheesebaron

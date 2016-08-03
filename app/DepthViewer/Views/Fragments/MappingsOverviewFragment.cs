@@ -4,13 +4,13 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using DepthViewer.Core.ViewModels;
 using DepthViewer.Shared.Models;
-using DepthViewer.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Binding.Droid.Views;
 using MvvmCross.Droid.Support.V4;
 
-namespace DepthViewer.Views.Fragments
+namespace DepthViewer.Android.Views.Fragments
 {
     public class MappingsOverviewFragment : MvxDialogFragment<MappingsOverviewViewModel>
     {

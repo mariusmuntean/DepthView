@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
-namespace DepthViewer.Contracts
+namespace DepthViewer.Core.Contracts
 {
     public interface IImageStitcher
     {

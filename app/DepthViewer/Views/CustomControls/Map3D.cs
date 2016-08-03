@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DepthViewer.Contracts;
-using DepthViewer.Shared.Models;
-using Urho;
-using Urho.Actions;
-using Urho.Gui;
-using Camera = Urho.Camera;
-using Color = Urho.Color;
 using System.Threading.Tasks;
 using Android.Graphics;
+using DepthViewer.Core.Contracts;
+using DepthViewer.Shared.Models;
 using MvvmCross.Platform;
+using Urho;
+using Urho.Gui;
 using Urho.Urho2D;
+using Camera = Urho.Camera;
+using Color = Urho.Color;
 using File = Urho.IO.File;
 using FileMode = Urho.IO.FileMode;
 using Path = System.IO.Path;
 using Vector3 = Urho.Vector3;
 
-namespace DepthViewer.Views.CustomControls
+namespace DepthViewer.Android.Views.CustomControls
 {
     class Map3D : Application
     {

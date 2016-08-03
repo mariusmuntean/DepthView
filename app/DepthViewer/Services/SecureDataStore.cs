@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using DepthViewer.Contracts;
+using DepthViewer.Core.Contracts;
 using MvvmCross.Platform.Droid.Platform;
 using Xamarin.Auth;
 
-namespace DepthViewer.Services
+namespace DepthViewer.Android.Services
 {
     public class SecureDataStore : ISecureDataStore
     {

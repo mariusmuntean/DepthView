@@ -4,14 +4,13 @@ using Android.OS;
 using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Views;
-using Android.Widget;
-using DepthViewer.Contracts;
-using DepthViewer.ViewModels;
+using DepthViewer.Core.Contracts;
+using DepthViewer.Core.ViewModels;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platform;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
 
-namespace DepthViewer.Views
+namespace DepthViewer.Android.Views
 {
     [Activity(Label = "DepthViewer")]
     public class FirstView : MvxCachingFragmentCompatActivity<FirstViewModel>

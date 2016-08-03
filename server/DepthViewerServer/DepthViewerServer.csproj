@@ -270,6 +270,7 @@
     <Compile Include="Services\HangfireConfig.cs" />
     <Compile Include="Services\ImageStitcher.cs" />
     <Compile Include="Services\ParseConfig.cs" />
+    <Compile Include="Services\ParseDataService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

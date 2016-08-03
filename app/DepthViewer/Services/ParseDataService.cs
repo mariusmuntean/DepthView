@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
-using DepthViewer.Contracts;
+using DepthViewer.Core.Contracts;
 using DepthViewer.Shared.Models;
-using Parse;
 using MvvmCross.Platform;
-using System.Linq;
-using Acr.UserDialogs;
+using Parse;
 
-namespace DepthViewer.Services
+namespace DepthViewer.Android.Services
 {
     public class ParseDataService : IParseDataService
     {

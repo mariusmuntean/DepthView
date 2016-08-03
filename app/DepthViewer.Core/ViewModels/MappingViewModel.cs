@@ -1,9 +1,9 @@
-using DepthViewer.Contracts;
+using DepthViewer.Core.Contracts;
 using DepthViewer.Shared.Models;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 
-namespace DepthViewer.ViewModels
+namespace DepthViewer.Core.ViewModels
 {
     public class MappingViewModel : MvxViewModel
     {

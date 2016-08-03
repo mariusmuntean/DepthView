@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using DepthViewer.Contracts;
+using DepthViewer.Core.Contracts;
 using DepthViewer.Shared.Models;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Core;
 
-namespace DepthViewer.ViewModels
+namespace DepthViewer.Core.ViewModels
 {
     public class MappingsOverviewViewModel:MvxViewModel
     {

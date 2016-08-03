@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using DepthViewer.Contracts;
 using System.Net.Http;
+using System.Threading.Tasks;
+using DepthViewer.Core.Contracts;
 
 //using System.Net.Http;
 
-namespace DepthViewer.Services
+namespace DepthViewer.Core.Services
 {
     public class RemoteImageStitcher : IImageStitcher
     {

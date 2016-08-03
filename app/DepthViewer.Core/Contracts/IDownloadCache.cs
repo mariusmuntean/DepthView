@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using MvvmCross.Plugins.DownloadCache;
 
-namespace DepthViewer.Contracts
+namespace DepthViewer.Core.Contracts
 {
     public interface IDownloadCache : IMvxFileDownloadCache
     {

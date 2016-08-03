@@ -1,15 +1,14 @@
-using System;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
-using DepthViewer.ViewModels;
+using DepthViewer.Core.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Droid.Support.V4;
 using AlertDialog = Android.Support.V7.App.AlertDialog;
 
-namespace DepthViewer.Views.Fragments
+namespace DepthViewer.Android.Views.Fragments
 {
-    [Register("depthviewer.views.fragments.ParseKeysFragment")]
+    [Register("depthviewer.android.views.fragments.ParseKeysFragment")]
     public class ParseKeysFragment: MvxDialogFragment<ParseKeysViewModel>
     {
         public ParseKeysViewModel ParseKeysViewModel

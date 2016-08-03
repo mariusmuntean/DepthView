@@ -1,11 +1,10 @@
-using DepthViewer.Contracts;
-using DepthViewer.ViewModels;
+using DepthViewer.Core.Contracts;
+using DepthViewer.Core.ViewModels;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using MvvmCross.Platform.IoC;
-using Parse;
 
-namespace DepthViewer
+namespace DepthViewer.Core
 {
     public class App : MvxApplication
     {

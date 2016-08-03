@@ -4,7 +4,7 @@ using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
-using DepthViewer.ViewModels;
+using DepthViewer.Core.ViewModels;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Binding.Droid.Views;
 using MvvmCross.Binding.ExtensionMethods;
@@ -12,11 +12,10 @@ using MvvmCross.Droid.Shared.Attributes;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 
-
-namespace DepthViewer.Views.Fragments
+namespace DepthViewer.Android.Views.Fragments
 {
     [MvxFragment(typeof(FirstViewModel), Resource.Id.contentFrame)]
-    [Register("depthviewer.views.fragments.LocalMappingsFrag")]
+    [Register("depthviewer.android.views.fragments.LocalMappingsFrag")]
     public class LocalMappingsFrag : MvxFragment<LocalMappingsViewModel>, AdapterView.IOnItemLongClickListener, ActionMode.ICallback
     {
         private MvxListView _lstViewLocalMappings = null;

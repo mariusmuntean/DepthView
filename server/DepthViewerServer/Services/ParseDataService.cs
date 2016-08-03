@@ -1,17 +1,12 @@
 ﻿using System;
-using DepthViewer.Shared.Models;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
-
+using DepthViewer.Shared.Contracts;
+using DepthViewer.Shared.Models;
 using Parse;
 
-using System.Collections.Generic;
-using DepthViewer.Shared.Contracts;
-
-#if AZURE
-using System.Diagnostics;
-#endif
-
-namespace DepthViewer.Shared.Services
+namespace DepthViewerServer.Services
 {
     public class ParseDataService : IParseDataService
     {

@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using DepthViewer.Shared.Contracts;
-using DepthViewer.Shared.Services;
 using DepthViewerServer.Contracts;
 using DepthViewerServer.Services;
 

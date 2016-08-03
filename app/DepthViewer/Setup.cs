@@ -3,20 +3,22 @@ using System.Reflection;
 using Acr.UserDialogs;
 using Android.Content;
 using Android.Graphics;
-using DepthViewer.Contracts;
-using DepthViewer.Models;
-using DepthViewer.Services;
+using DepthViewer.Android.Models;
+using DepthViewer.Android.Services;
+using DepthViewer.Core;
+using DepthViewer.Core.Contracts;
+using DepthViewer.Core.Services;
 using DepthViewer.Utils;
-using UniversalImageLoader.Core;
-using UniversalImageLoader.Core.Assist;
 using MvvmCross.Droid.Shared.Presenter;
 using MvvmCross.Droid.Views;
 using MvvmCross.Platform;
 using MvvmCross.Plugins.DownloadCache;
 using MvvmCross.Plugins.DownloadCache.Droid;
+using UniversalImageLoader.Core;
+using UniversalImageLoader.Core.Assist;
 using MvxAndroidSetup = MvvmCross.Droid.Platform.MvxAndroidSetup;
 
-namespace DepthViewer
+namespace DepthViewer.Android
 {
     public class Setup : MvxAndroidSetup
     {
@@ -47,7 +49,7 @@ namespace DepthViewer
 
         protected override IEnumerable<Assembly> AndroidViewAssemblies => new List<Assembly>(base.AndroidViewAssemblies)
         {
-            typeof(Android.Support.Design.Widget.NavigationView).Assembly
+            typeof(global::Android.Support.Design.Widget.NavigationView).Assembly
         };
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
@@ -70,6 +72,7 @@ namespace DepthViewer
             base.InitializeIoC();
 
             Mvx.LazyConstructAndRegisterSingleton<IParseDataService, ParseDataService>();
+            Mvx.LazyConstructAndRegisterSingleton<IPathProvider, PathProvider>();
             Mvx.LazyConstructAndRegisterSingleton<IParseConfig>(() => new ParseConfig());
             Mvx.LazyConstructAndRegisterSingleton<ILocalMappingServices>(() => new LocalMappingService());
             Mvx.LazyConstructAndRegisterSingleton<IDataExchangeService>(() => new DataExchangeService());

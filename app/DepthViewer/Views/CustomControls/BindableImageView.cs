@@ -1,25 +1,16 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
-using Android.OS;
 using Android.Runtime;
 using Android.Util;
-using Android.Views;
 using Android.Widget;
-using Java.IO;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Core;
 using MvvmCross.Plugins.DownloadCache;
 using UniversalImageLoader.Core;
-using UniversalImageLoader.Core.Listener;
-using Debug = System.Diagnostics.Debug;
-using Uri = Android.Net.Uri;
 
-namespace DepthViewer.Views.CustomControls
+namespace DepthViewer.Android.Views.CustomControls
 {
     public class BindableImageView : ImageView
     {

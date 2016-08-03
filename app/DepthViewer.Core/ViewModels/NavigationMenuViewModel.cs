@@ -1,7 +1,7 @@
 using System;
 using MvvmCross.Core.ViewModels;
 
-namespace DepthViewer.ViewModels
+namespace DepthViewer.Core.ViewModels
 {
     public class NavigationMenuViewModel:MvxViewModel
     {

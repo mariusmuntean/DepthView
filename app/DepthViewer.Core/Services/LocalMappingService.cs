@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Android.App;
-using DepthViewer.Contracts;
+using DepthViewer.Core.Contracts;
 using DepthViewer.Shared.Models;
 using MvvmCross.Platform;
 using MvvmCross.Plugins.DownloadCache;
@@ -11,12 +11,13 @@ using MvvmCross.Plugins.File;
 using Newtonsoft.Json;
 using Path = System.IO.Path;
 
-namespace DepthViewer.Services
+namespace DepthViewer.Core.Services
 {
     public class LocalMappingService : ILocalMappingServices
     {
         private IMvxFileStoreAsync _fileStoreAsync;
         private IMvxFileStore _fileStore;
+        private IPathProvider _pathProvider;
         private string _baseDir;
         private string _mappingsDir;
 
@@ -25,8 +26,9 @@ namespace DepthViewer.Services
         {
             _fileStoreAsync = Mvx.Resolve<IMvxFileStoreAsync>();
             _fileStore = Mvx.Resolve<IMvxFileStore>();
+            _pathProvider = Mvx.Resolve<IPathProvider>();
 
-            _baseDir = Application.Context.FilesDir.Path;
+            _baseDir = _pathProvider.BaseDirPath;
             _mappingsDir = Path.Combine(_baseDir, "Mappings");
 
             _fileStore.EnsureFolderExists(_mappingsDir);
@@ -118,10 +120,10 @@ namespace DepthViewer.Services
                     {
                         var downloadPath = Path.Combine(_baseDir, s);
                         downloadTcs.SetResult(true.ToString());
-                        Console.WriteLine("File cached to:{0}", downloadPath);
+                        Debug.WriteLine("File cached to:{0}", downloadPath);
                     }, exception =>
                     {
-                        Console.WriteLine("Ex: " + exception);
+                        Debug.WriteLine("Ex: " + exception);
                         downloadTcs.SetException(exception);
                     });
 

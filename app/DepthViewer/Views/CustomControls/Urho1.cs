@@ -5,7 +5,7 @@ using Urho;
 using Urho.Actions;
 using Urho.Gui;
 
-namespace DepthViewer.Views.CustomControls
+namespace DepthViewer.Android.Views.CustomControls
 {
     class Urho1 : Application
     {

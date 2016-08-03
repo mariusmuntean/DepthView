@@ -1,6 +1,6 @@
 using MvvmCross.Core.ViewModels;
 
-namespace DepthViewer.ViewModels
+namespace DepthViewer.Core.ViewModels
 {
     public class FirstViewModel : MvxViewModel
     {

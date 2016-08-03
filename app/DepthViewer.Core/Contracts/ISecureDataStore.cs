@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DepthViewer.Contracts
+namespace DepthViewer.Core.Contracts
 {
     public interface ISecureDataStore
     {

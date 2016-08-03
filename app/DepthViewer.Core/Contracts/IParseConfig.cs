@@ -1,4 +1,4 @@
-namespace DepthViewer.Contracts
+namespace DepthViewer.Core.Contracts
 {
     public interface IParseConfig
     {
