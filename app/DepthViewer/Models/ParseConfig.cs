@@ -1,4 +1,4 @@
-using DepthViewer.Contracts;
+using DepthViewer.Core.Contracts;
 
 namespace DepthViewer.Models
 {

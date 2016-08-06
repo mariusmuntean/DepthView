@@ -63,27 +63,6 @@ namespace DepthViewer.Android
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahText = global::DepthViewer.Android.Resource.Styleable.ProgressWheel_ahText;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextColor = global::DepthViewer.Android.Resource.Styleable.ProgressWheel_ahTextColor;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::DepthViewer.Android.Resource.Styleable.ProgressWheel_ahTextSize;
-			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxBind = global::DepthViewer.Android.Resource.Attribute.MvxBind;
-			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxDropDownItemTemplate = global::DepthViewer.Android.Resource.Attribute.MvxDropDownItemTemplate;
-			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxGroupItemTemplate = global::DepthViewer.Android.Resource.Attribute.MvxGroupItemTemplate;
-			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxItemTemplate = global::DepthViewer.Android.Resource.Attribute.MvxItemTemplate;
-			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxLang = global::DepthViewer.Android.Resource.Attribute.MvxLang;
-			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxSource = global::DepthViewer.Android.Resource.Attribute.MvxSource;
-			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxTemplate = global::DepthViewer.Android.Resource.Attribute.MvxTemplate;
-			global::MvvmCross.Binding.Droid.Resource.Id.MvvmCrossTagId = global::DepthViewer.Android.Resource.Id.MvvmCrossTagId;
-			global::MvvmCross.Binding.Droid.Resource.Id.MvxBindingTagUnique = global::DepthViewer.Android.Resource.Id.MvxBindingTagUnique;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxBinding = global::DepthViewer.Android.Resource.Styleable.MvxBinding;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxBinding_MvxBind = global::DepthViewer.Android.Resource.Styleable.MvxBinding_MvxBind;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxBinding_MvxLang = global::DepthViewer.Android.Resource.Styleable.MvxBinding_MvxLang;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxControl = global::DepthViewer.Android.Resource.Styleable.MvxControl;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxControl_MvxTemplate = global::DepthViewer.Android.Resource.Styleable.MvxControl_MvxTemplate;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxExpandableListView = global::DepthViewer.Android.Resource.Styleable.MvxExpandableListView;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate = global::DepthViewer.Android.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxImageView = global::DepthViewer.Android.Resource.Styleable.MvxImageView;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxImageView_MvxSource = global::DepthViewer.Android.Resource.Styleable.MvxImageView_MvxSource;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView = global::DepthViewer.Android.Resource.Styleable.MvxListView;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::DepthViewer.Android.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
-			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxItemTemplate = global::DepthViewer.Android.Resource.Styleable.MvxListView_MvxItemTemplate;
 			global::MvvmCross.Droid.FullFragging.Resource.Attribute.MvxBind = global::DepthViewer.Android.Resource.Attribute.MvxBind;
 			global::MvvmCross.Droid.FullFragging.Resource.Attribute.MvxDropDownItemTemplate = global::DepthViewer.Android.Resource.Attribute.MvxDropDownItemTemplate;
 			global::MvvmCross.Droid.FullFragging.Resource.Attribute.MvxGroupItemTemplate = global::DepthViewer.Android.Resource.Attribute.MvxGroupItemTemplate;
@@ -106,6 +85,27 @@ namespace DepthViewer.Android
 			global::MvvmCross.Droid.FullFragging.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::DepthViewer.Android.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
 			global::MvvmCross.Droid.FullFragging.Resource.Styleable.MvxListView_MvxItemTemplate = global::DepthViewer.Android.Resource.Styleable.MvxListView_MvxItemTemplate;
 			global::Splat.Resource.String.library_name = global::DepthViewer.Android.Resource.String.library_name;
+			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxBind = global::DepthViewer.Android.Resource.Attribute.MvxBind;
+			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxDropDownItemTemplate = global::DepthViewer.Android.Resource.Attribute.MvxDropDownItemTemplate;
+			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxGroupItemTemplate = global::DepthViewer.Android.Resource.Attribute.MvxGroupItemTemplate;
+			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxItemTemplate = global::DepthViewer.Android.Resource.Attribute.MvxItemTemplate;
+			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxLang = global::DepthViewer.Android.Resource.Attribute.MvxLang;
+			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxSource = global::DepthViewer.Android.Resource.Attribute.MvxSource;
+			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxTemplate = global::DepthViewer.Android.Resource.Attribute.MvxTemplate;
+			global::MvvmCross.Binding.Droid.Resource.Id.MvvmCrossTagId = global::DepthViewer.Android.Resource.Id.MvvmCrossTagId;
+			global::MvvmCross.Binding.Droid.Resource.Id.MvxBindingTagUnique = global::DepthViewer.Android.Resource.Id.MvxBindingTagUnique;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxBinding = global::DepthViewer.Android.Resource.Styleable.MvxBinding;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxBinding_MvxBind = global::DepthViewer.Android.Resource.Styleable.MvxBinding_MvxBind;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxBinding_MvxLang = global::DepthViewer.Android.Resource.Styleable.MvxBinding_MvxLang;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxControl = global::DepthViewer.Android.Resource.Styleable.MvxControl;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxControl_MvxTemplate = global::DepthViewer.Android.Resource.Styleable.MvxControl_MvxTemplate;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxExpandableListView = global::DepthViewer.Android.Resource.Styleable.MvxExpandableListView;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate = global::DepthViewer.Android.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxImageView = global::DepthViewer.Android.Resource.Styleable.MvxImageView;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxImageView_MvxSource = global::DepthViewer.Android.Resource.Styleable.MvxImageView_MvxSource;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView = global::DepthViewer.Android.Resource.Styleable.MvxListView;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::DepthViewer.Android.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
+			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxItemTemplate = global::DepthViewer.Android.Resource.Styleable.MvxListView_MvxItemTemplate;
 		}
 		
 		public partial class Animation
