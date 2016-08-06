@@ -11,3 +11,6 @@ app/DepthViewer/Models/ParseConfig.cs
 
 app/DepthViewer.Core/bin/*
 app/DepthViewer.Core/obj/*
+app/UITests/obj/Debug/*
+app/iOS/obj/*
+app/DepthViewer.X/obj/Debug/*
