@@ -14,3 +14,9 @@ app/DepthViewer.Core/obj/*
 app/UITests/obj/Debug/*
 app/iOS/obj/*
 app/DepthViewer.X/obj/Debug/*
+app/DepthViewer.X/bin/*
+app/Droid/bin/Debug/*
+app/Droid/obj/Debug/*
+app/iOS/bin/*
+app/DepthViewer.X/obj/*
+app/DepthViewer.X/obj/*
