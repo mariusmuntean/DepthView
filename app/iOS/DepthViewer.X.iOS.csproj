@@ -101,6 +101,14 @@
       <HintPath>..\packages\MvvmCross.Core.4.2.2\lib\Xamarin.iOS10\MvvmCross.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MvvmCross.Forms.Presenter.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Forms.Presenter.4.1.4\lib\Xamarin.iOS10\MvvmCross.Forms.Presenter.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvvmCross.Forms.Presenter.iOS, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Forms.Presenter.4.1.4\lib\Xamarin.iOS10\MvvmCross.Forms.Presenter.iOS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MvvmCross.iOS, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Core.4.2.2\lib\Xamarin.iOS10\MvvmCross.iOS.dll</HintPath>
       <Private>True</Private>
@@ -155,16 +163,26 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <InterfaceDefinition Include="Views\FirstView.xib" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DebugTrace.cs" />
+    <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Setup.cs" />
+    <Compile Include="Views\FirstView.cs" />
+    <Compile Include="Views\FirstView.designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DepthViewer.X\DepthViewer.X.csproj">
       <Project>{4342D8AE-2748-4914-990B-AB25BA4B194D}</Project>
       <Name>DepthViewer.X</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppDelegate.cs.txt" />
+    <Content Include="ToDo-MvvmCross\_ iOS UI.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.1.114\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.1.114\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
