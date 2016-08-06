@@ -1,6 +1,6 @@
 using DepthViewer.Core.Contracts;
 
-namespace DepthViewer.Models
+namespace DepthViewer.Android.Models
 {
     public class ParseConfig : IParseConfig
     {
