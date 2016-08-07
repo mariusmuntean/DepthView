@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:DepthViewer.X.Converters;assembly=DepthViewer.X"
+             x:Class="DepthViewer.X.Views.LocalMappingsPage">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:ValueToHumanReadableStringConverter x:Key="ValToHumanReadableStringConv"/>
+      <DataTemplate x:Key="MappingItemTemplate">
+        <ViewCell >
+          <RelativeLayout VerticalOptions="Center">
+            <Image Source="{Binding Path=TeaserPath}"
+                   WidthRequest="250"
+                   BackgroundColor="Fuchsia"
+                   HorizontalOptions="Start"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"
+                   RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+                   VerticalOptions="Center"/>
+            <StackLayout Orientation="Vertical"
+                         BackgroundColor="Green"
+                         x:Name="mappingStats"
+                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                                          Property=Width, 
+                                                          Factor=0.75}">
+              <Label Text="{Binding Path=Measurements.Count, Converter={StaticResource ValToHumanReadableStringConv}}"/>
+              <Label Text="{Binding CreatedAt}"/>
+            </StackLayout>
+          </RelativeLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition></RowDefinition>
+      <RowDefinition></RowDefinition>
+    </Grid.RowDefinitions>
+
+    <Label HorizontalTextAlignment="Center" >Hi!</Label>
+    <RelativeLayout Grid.Row="1">
+      <!-- mappings -->
+      <ListView VerticalOptions="StartAndExpand"
+                BackgroundColor="Aqua"
+                HasUnevenRows="True"
+                ItemsSource="{Binding Mappings}"
+                ItemTemplate="{StaticResource MappingItemTemplate}">
+      </ListView>
+      <!-- add button -->
+      <Button Margin="10"
+              Text="Add"
+              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                            Property=Width, 
+                                            Factor=0.9}"
+              RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                            Property=Height, 
+                                            Factor=0.9}"
+              />
+    </RelativeLayout>
+  </Grid>
+</ContentPage>

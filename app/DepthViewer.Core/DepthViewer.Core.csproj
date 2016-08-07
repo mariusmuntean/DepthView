@@ -43,6 +43,7 @@
     <Compile Include="Contracts\IParseDataService.cs" />
     <Compile Include="Contracts\IPathProvider.cs" />
     <Compile Include="Contracts\ISecureDataStore.cs" />
+    <Compile Include="Converters\ValToHumanReadableStringConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataExchangeService.cs" />
     <Compile Include="Services\LocalMappingService.cs" />

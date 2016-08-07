@@ -1,3 +1,4 @@
+using DepthViewer.Core.ViewModels;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Views;
 
@@ -13,9 +14,9 @@ namespace DepthViewer.X.iOS.Views
         {
             base.ViewDidLoad();
 
-            var set = this.CreateBindingSet<FirstView, Core.ViewModels.FirstViewModel>();
-            set.Bind(Label).To(vm => vm.Hello);
-            set.Bind(TextField).To(vm => vm.Hello);
+            var set = this.CreateBindingSet<FirstView, LocalMappingsViewModel>();
+            set.Bind(Label).To(vm => vm.GetType().FullName);
+            set.Bind(TextField).To(vm => vm.GetType().Assembly.FullName);
             set.Apply();
         }
     }

@@ -33,26 +33,90 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="DepthViewerView.xaml" />
-    <EmbeddedResource Include="Views\FirstPage.xaml">
+    <EmbeddedResource Include="Views\LocalMappingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\DepthViewer.Core\Converters\ValToHumanReadableStringConverter.cs">
+      <Link>Converters\ValToHumanReadableStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Utils\CustomMvxFileDownloadCache.cs">
+      <Link>Utils\CustomMvxFileDownloadCache.cs</Link>
+    </Compile>
     <Compile Include="App.cs" />
+    <Compile Include="Converters\ValueToHumanReadableStringConverter.cs" />
     <Compile Include="DepthViewerView.xaml.cs">
       <DependentUpon>DepthViewerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\FirstViewModel.cs" />
-    <Compile Include="Views\FirstPage.xaml.cs">
-      <DependentUpon>FirstPage.xaml</DependentUpon>
+    <Compile Include="Views\LocalMappingsPage.xaml.cs">
+      <DependentUpon>LocalMappingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MvxViewPresenterBase.cs" />
     <Compile Include="IKillable.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="Utils\ViewLoader.cs" />
+    <Compile Include="Utils\DepthViewerViewLoader.cs" />
+    <Compile Include="..\DepthViewer.Core\ViewModels\FirstViewModel.cs">
+      <Link>ViewModels\FirstViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\ViewModels\LocalMappingsViewModel.cs">
+      <Link>ViewModels\LocalMappingsViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\ViewModels\MappingsOverviewViewModel.cs">
+      <Link>ViewModels\MappingsOverviewViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\ViewModels\MappingViewModel.cs">
+      <Link>ViewModels\MappingViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\ViewModels\NavigationMenuViewModel.cs">
+      <Link>ViewModels\NavigationMenuViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\ViewModels\ParseKeysViewModel.cs">
+      <Link>ViewModels\ParseKeysViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Services\DataExchangeService.cs">
+      <Link>Services\DataExchangeService.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Services\LocalMappingService.cs">
+      <Link>Services\LocalMappingService.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Services\RemoteImageStitcher.cs">
+      <Link>Services\RemoteImageStitcher.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Contracts\IDataExchangeService.cs">
+      <Link>Contracts\IDataExchangeService.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Contracts\IDownloadCache.cs">
+      <Link>Contracts\IDownloadCache.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Contracts\IImageStitcher.cs">
+      <Link>Contracts\IImageStitcher.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Contracts\ILocalMappingServices.cs">
+      <Link>Contracts\ILocalMappingServices.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Contracts\IParseConfig.cs">
+      <Link>Contracts\IParseConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Contracts\IParseDataService.cs">
+      <Link>Contracts\IParseDataService.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Contracts\IPathProvider.cs">
+      <Link>Contracts\IPathProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\DepthViewer.Core\Contracts\ISecureDataStore.cs">
+      <Link>Contracts\ISecureDataStore.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.UserDialogs.5.0.0\lib\portable-win+net45+wp8+win8+wpa81\Acr.UserDialogs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Acr.UserDialogs.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.UserDialogs.5.0.0\lib\portable-win+net45+wp8+win8+wpa81\Acr.UserDialogs.Interface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MvvmCross.Binding, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Binding.4.2.2\lib\portable-net45+win+wpa81+wp80\MvvmCross.Binding.dll</HintPath>
       <Private>True</Private>
@@ -73,6 +137,42 @@
       <HintPath>..\packages\MvvmCross.Platform.4.2.2\lib\portable-net45+win+wpa81+wp80\MvvmCross.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MvvmCross.Plugins.DownloadCache, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.DownloadCache.4.2.2\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.DownloadCache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvvmCross.Plugins.File, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.File.4.2.2\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.File.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvvmCross.Plugins.Json, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.Json.4.2.2\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Splat.1.6.2\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core">
       <HintPath>..\packages\Xamarin.Forms.2.3.1.114\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -87,10 +187,13 @@
     <None Include="packages.config" />
     <None Include="MvxViewPresenterBase.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
+  <Import Project="..\DepthViewer.Shared\DepthViewer.Shared.projitems" Label="Shared" Condition="Exists('..\DepthViewer.Shared\DepthViewer.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.1.114\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.1.114\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
 </Project>

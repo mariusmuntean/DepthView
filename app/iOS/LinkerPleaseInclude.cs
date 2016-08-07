@@ -2,6 +2,7 @@ using System.Collections.Specialized;
 using System.Windows.Input;
 using MvvmCross.iOS.Views;
 using Foundation;
+using MvvmCross.Binding.BindingContext;
 using UIKit;
 
 namespace DepthViewer.X.iOS
@@ -111,13 +112,6 @@ namespace DepthViewer.X.iOS
         public void Include(System.ComponentModel.INotifyPropertyChanged changed)
         {
             changed.PropertyChanged += (sender, e) => { var test = e.PropertyName; };
-        }
-        
-        public void Include(MvxTaskBasedBindingContext context)
-        {
-            context.Dispose();
-            var context2 = new MvxTaskBasedBindingContext();
-            context2.Dispose();
         }
     }
 }

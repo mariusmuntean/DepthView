@@ -21,3 +21,6 @@ app/iOS/bin/*
 app/DepthViewer.X/obj/*
 app/DepthViewer.X/obj/*
 app/Droid/obj/Debug/*
+app/Droid/obj/MyDebug/android/bin/*
+app/Droid/obj/MyDebug/*
+app/Droid/bin/*

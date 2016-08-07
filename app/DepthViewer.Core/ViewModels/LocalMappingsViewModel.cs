@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -181,6 +182,15 @@ namespace DepthViewer.Core.ViewModels
 
         private void RepopulateMappings(List<Mapping> localMappings)
         {
+            // ToDo: remove mew
+            localMappings.Add(new Mapping("ss",
+                                            new List<Measurement>
+                                            {
+                                                new Measurement(22.0d, 23.0d, 222, @"https://upload.wikimedia.org/wikipedia/commons/c/c4/PM5544_with_non-PAL_signals.png")
+                                            },
+                                            DateTime.Now.AddDays(-12),
+                                            DateTime.Today));
+
             Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() =>
             {
                 Mappings.Clear();
