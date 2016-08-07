@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:DepthViewer.X.Converters;assembly=DepthViewer.X"
-             x:Class="DepthViewer.X.Views.LocalMappingsPage">
-  <ContentPage.Resources>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:converters="clr-namespace:DepthViewer.X.Converters;assembly=DepthViewer.X"
+                  x:Class="DepthViewer.X.Views.LocalMappingsPage">
+  <MasterDetailPage.Resources>
     <ResourceDictionary>
       <converters:ValueToHumanReadableStringConverter x:Key="ValToHumanReadableStringConv"/>
       <DataTemplate x:Key="MappingItemTemplate">
@@ -29,32 +29,51 @@
         </ViewCell>
       </DataTemplate>
     </ResourceDictionary>
-  </ContentPage.Resources>
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition></RowDefinition>
-      <RowDefinition></RowDefinition>
-    </Grid.RowDefinitions>
+  </MasterDetailPage.Resources>
 
-    <Label HorizontalTextAlignment="Center" >Hi!</Label>
-    <RelativeLayout Grid.Row="1">
-      <!-- mappings -->
-      <ListView VerticalOptions="StartAndExpand"
-                BackgroundColor="Aqua"
-                HasUnevenRows="True"
-                ItemsSource="{Binding Mappings}"
-                ItemTemplate="{StaticResource MappingItemTemplate}">
-      </ListView>
-      <!-- add button -->
-      <Button Margin="10"
-              Text="Add"
-              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
+  <MasterDetailPage.Detail>
+    <ContentPage >
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label HorizontalTextAlignment="Center" >Hi!</Label>
+        <RelativeLayout x:Name="mappingsLayout"
+                        Grid.Row="1"
+                        BackgroundColor="Red">
+          <!-- mappings -->
+          <ListView HeightRequest="{Binding Source={x:Reference mappingsLayout}, Path=Height}"
+                    BackgroundColor="Aqua"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding Mappings}"
+                    ItemTemplate="{StaticResource MappingItemTemplate}">
+          </ListView>
+          <!-- add button -->
+          <Button Margin="10"
+                  Text="Add"
+                  RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
                                             Property=Width, 
                                             Factor=0.9}"
-              RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+                  RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
                                             Property=Height, 
                                             Factor=0.9}"
               />
-    </RelativeLayout>
-  </Grid>
-</ContentPage>
+        </RelativeLayout>
+      </Grid>
+
+    </ContentPage>
+  </MasterDetailPage.Detail>
+
+  <MasterDetailPage.Master>
+    <ContentPage Title="I R Title"
+                 Icon="icon.png">
+      <StackLayout Orientation="Vertical">
+        <Label>Parse</Label>
+        <Label>Azure</Label>
+      </StackLayout>
+    </ContentPage>
+  </MasterDetailPage.Master>
+
+</MasterDetailPage>
