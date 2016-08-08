@@ -8,9 +8,9 @@ using MvvmCross.Platform;
 namespace DepthViewer.X.Droid
 {
     [Activity(
-        Label = "DepthViewer.X.Droid"
+        Label = "DepthViewer.X"
         , MainLauncher = true
-        , Icon = "@drawable/icon"
+        , Icon = "@drawable/ic_launcher"
         , Theme = "@style/Theme.Splash"
         , NoHistory = true
         , ScreenOrientation = ScreenOrientation.Portrait)]

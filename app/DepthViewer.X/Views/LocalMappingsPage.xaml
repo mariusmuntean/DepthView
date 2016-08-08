@@ -67,8 +67,8 @@
   </MasterDetailPage.Detail>
 
   <MasterDetailPage.Master>
-    <ContentPage Title="I R Title"
-                 Icon="icon.png">
+    <ContentPage Title="I R Title" 
+                 Icon="hamburger.png">
       <StackLayout Orientation="Vertical">
         <Label>Parse</Label>
         <Label>Azure</Label>
