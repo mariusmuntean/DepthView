@@ -11,7 +11,7 @@ using MvvmCross.Platform.Core;
 
 namespace DepthViewer.Core.ViewModels
 {
-    public class LocalMappingsViewModel: MvxViewModel
+    public class LocalMappingsViewModel : MvxViewModel
     {
         private ObservableCollection<Mapping> _mappings = new ObservableCollection<Mapping>();
         private MvxCommand<Mapping> _mappingTappedCommand;
@@ -183,13 +183,8 @@ namespace DepthViewer.Core.ViewModels
         private void RepopulateMappings(List<Mapping> localMappings)
         {
             // ToDo: remove mew
-            localMappings.Add(new Mapping("ss",
-                                            new List<Measurement>
-                                            {
-                                                new Measurement(22.0d, 23.0d, 222, @"https://upload.wikimedia.org/wikipedia/commons/c/c4/PM5544_with_non-PAL_signals.png")
-                                            },
-                                            DateTime.Now.AddDays(-12),
-                                            DateTime.Today));
+            AddDummyData(localMappings);
+            AddDummyData(localMappings);
 
             Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() =>
             {
@@ -199,6 +194,90 @@ namespace DepthViewer.Core.ViewModels
                     Mappings.Add(localMapping);
                 }
             });
+        }
+
+        private static void AddDummyData(List<Mapping> localMappings)
+        {
+            localMappings.Add(new Mapping("ss",
+                new List<Measurement>
+                {
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"https://upload.wikimedia.org/wikipedia/commons/c/c4/PM5544_with_non-PAL_signals.png")
+                },
+                DateTime.Now.AddDays(-12),
+                DateTime.Today));
+
+            localMappings.Add(new Mapping("ss",
+    new List<Measurement>
+    {
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://www.planwallpaper.com/static/images/o-COOL-CAT-facebook.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://www.planwallpaper.com/static/images/o-COOL-CAT-facebook.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://www.planwallpaper.com/static/images/o-COOL-CAT-facebook.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://www.planwallpaper.com/static/images/o-COOL-CAT-facebook.jpg")
+    },
+    DateTime.Now.AddDays(-12),
+    DateTime.Today));
+
+
+            localMappings.Add(new Mapping("ss",
+    new List<Measurement>
+    {
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6437817472683.562ba5812f243.jpg"),
+                     new Measurement(22.0d, 23.0d, 222,
+                        @"https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6437817472683.562ba5812f243.jpg"),
+                      new Measurement(22.0d, 23.0d, 222,
+                        @"https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6437817472683.562ba5812f243.jpg"),
+                       new Measurement(22.0d, 23.0d, 222,
+                        @"https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6437817472683.562ba5812f243.jpg"),
+                        new Measurement(22.0d, 23.0d, 222,
+                        @"https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6437817472683.562ba5812f243.jpg"),
+                         new Measurement(22.0d, 23.0d, 222,
+                        @"https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6437817472683.562ba5812f243.jpg"),
+                          new Measurement(22.0d, 23.0d, 222,
+                        @"https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6437817472683.562ba5812f243.jpg"),
+                           new Measurement(22.0d, 23.0d, 222,
+                        @"https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6437817472683.562ba5812f243.jpg"),
+
+    },
+    DateTime.Now.AddDays(-12),
+    DateTime.Today));
+
+
+            localMappings.Add(new Mapping("ss",
+    new List<Measurement>
+    {
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://img.xcitefun.net/users/2011/05/248717,xcitefun-wide-wallpaper016.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://img.xcitefun.net/users/2011/05/248717,xcitefun-wide-wallpaper016.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://img.xcitefun.net/users/2011/05/248717,xcitefun-wide-wallpaper016.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://img.xcitefun.net/users/2011/05/248717,xcitefun-wide-wallpaper016.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://img.xcitefun.net/users/2011/05/248717,xcitefun-wide-wallpaper016.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://img.xcitefun.net/users/2011/05/248717,xcitefun-wide-wallpaper016.jpg"),
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"http://img.xcitefun.net/users/2011/05/248717,xcitefun-wide-wallpaper016.jpg")
+    },
+    DateTime.Now.AddDays(-12),
+    DateTime.Today));
+
+
+            localMappings.Add(new Mapping("ss",
+    new List<Measurement>
+    {
+                    new Measurement(22.0d, 23.0d, 222,
+                        @"https://upload.wikimedia.org/wikipedia/commons/c/c4/PM5544_with_non-PAL_signals.png")
+    },
+    DateTime.Now.AddDays(-12),
+    DateTime.Today));
         }
 
         #endregion helpers

@@ -7,25 +7,36 @@
     <ResourceDictionary>
       <converters:ValueToHumanReadableStringConverter x:Key="ValToHumanReadableStringConv"/>
       <DataTemplate x:Key="MappingItemTemplate">
-        <ViewCell >
-          <RelativeLayout VerticalOptions="Center">
+        <ViewCell>
+          <Grid BackgroundColor="White"
+                Padding="10,5,10,5"
+                Margin="5">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Image Source="{Binding Path=TeaserPath}"
                    WidthRequest="250"
+                   Margin="5"
+                   Aspect="AspectFit"
                    BackgroundColor="Fuchsia"
                    HorizontalOptions="Start"
-                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"
-                   RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
                    VerticalOptions="Center"/>
-            <StackLayout Orientation="Vertical"
-                         BackgroundColor="Green"
-                         x:Name="mappingStats"
-                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
-                                                          Property=Width, 
-                                                          Factor=0.75}">
-              <Label Text="{Binding Path=Measurements.Count, Converter={StaticResource ValToHumanReadableStringConv}}"/>
-              <Label Text="{Binding CreatedAt}"/>
+            <StackLayout Grid.Column="1"
+                         Orientation="Vertical"
+                         VerticalOptions="Center"
+                         HorizontalOptions="End"
+                         x:Name="mappingStats">
+              <Label Text="{Binding Path=Measurements.Count, Converter={StaticResource ValToHumanReadableStringConv}}"
+                     TextColor="Black"
+                     FontSize="16"
+                     FontAttributes="Bold"/>
+              <Label Text="{Binding CreatedAt}"
+                     FontSize="14"
+                     TextColor="Gray"
+                     FontAttributes="Italic"/>
             </StackLayout>
-          </RelativeLayout>
+          </Grid>
         </ViewCell>
       </DataTemplate>
     </ResourceDictionary>
@@ -44,11 +55,16 @@
                         Grid.Row="1"
                         BackgroundColor="Red">
           <!-- mappings -->
-          <ListView HeightRequest="{Binding Source={x:Reference mappingsLayout}, Path=Height}"
-                    BackgroundColor="Aqua"
+          <ListView x:Name="LstViewMappings"
+                    HeightRequest="{Binding Source={x:Reference mappingsLayout}, Path=Height}"
+                    BackgroundColor="#EFEFEF"
                     HasUnevenRows="True"
+                    SeparatorVisibility="Default"
+                    SeparatorColor="#8C8C8C"
                     ItemsSource="{Binding Mappings}"
-                    ItemTemplate="{StaticResource MappingItemTemplate}">
+                    ItemTemplate="{StaticResource MappingItemTemplate}"
+                    ItemSelected="ListView_OnItemSelected"
+                    ItemTapped="ListView_OnItemTapped">
           </ListView>
           <!-- add button -->
           <Button Margin="10"
@@ -67,7 +83,7 @@
   </MasterDetailPage.Detail>
 
   <MasterDetailPage.Master>
-    <ContentPage Title="I R Title" 
+    <ContentPage Title="I R Title"
                  Icon="hamburger.png">
       <StackLayout Orientation="Vertical">
         <Label>Parse</Label>
