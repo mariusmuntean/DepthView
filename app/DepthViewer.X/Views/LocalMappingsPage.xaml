@@ -45,18 +45,11 @@
   <MasterDetailPage.Detail>
     <ContentPage >
       <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"></RowDefinition>
-          <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <Label HorizontalTextAlignment="Center" >Hi!</Label>
-        <RelativeLayout x:Name="mappingsLayout"
-                        Grid.Row="1"
+        <RelativeLayout x:Name="MappingsLayout"
                         BackgroundColor="Red">
           <!-- mappings -->
           <ListView x:Name="LstViewMappings"
-                    HeightRequest="{Binding Source={x:Reference mappingsLayout}, Path=Height}"
+                    HeightRequest="{Binding Source={x:Reference MappingsLayout}, Path=Height}"
                     BackgroundColor="#EFEFEF"
                     HasUnevenRows="True"
                     SeparatorVisibility="Default"
