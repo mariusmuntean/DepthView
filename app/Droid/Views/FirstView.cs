@@ -17,6 +17,7 @@ namespace DepthViewer.X.Droid.Views
             base.OnCreate(savedInstanceState);
 
             Forms.Init(this, savedInstanceState);
+            ActionBar.SetIcon(Resource.Color.transparent);
 
             var mvxFormsApp = new MvxFormsApp();
             LoadApplication(mvxFormsApp);
