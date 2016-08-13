@@ -30,6 +30,7 @@
              VerticalOptions="Center"/>
     </ContentView>
     <StackLayout Grid.Column="1"
+                 WidthRequest="180"
                  Orientation="Vertical"
                  VerticalOptions="Center"
                  HorizontalOptions="End"
@@ -46,7 +47,7 @@
              FontAttributes="Italic"/>
 
       <!-- download status -->
-      <Grid WidthRequest="180">
+      <Grid IsVisible="{Binding IsSavedLocally, Converter={StaticResource Inverter}}">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto" />
           <ColumnDefinition Width="20"/>
