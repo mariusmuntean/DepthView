@@ -202,10 +202,10 @@ namespace DepthViewer.Core.ViewModels
                 new List<Measurement>
                 {
                     new Measurement(22.0d, 23.0d, 222,
-                        @"https://upload.wikimedia.org/wikipedia/commons/c/c4/PM5544_with_non-PAL_signals.png")
+                        @"https://upload.wikimedia.org/wikipedia/commons/c/c4/PM5544_with_non-PAL_signals.png"),
                 },
                 DateTime.Now.AddDays(-12),
-                DateTime.Today));
+                DateTime.Today) {IsSavedLocally = true});
 
             localMappings.Add(new Mapping("ss",
     new List<Measurement>
@@ -245,7 +245,7 @@ namespace DepthViewer.Core.ViewModels
 
     },
     DateTime.Now.AddDays(-12),
-    DateTime.Today));
+    DateTime.Today) {IsSavedLocally = DateTime.Now.Millisecond % 2 == 0});
 
 
             localMappings.Add(new Mapping("ss",

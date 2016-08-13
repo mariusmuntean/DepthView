@@ -1,42 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:converters="clr-namespace:DepthViewer.X.Converters;assembly=DepthViewer.X"
+                  xmlns:templates="clr-namespace:DepthViewer.X.Views.Templates;assembly=DepthViewer.X"
                   x:Class="DepthViewer.X.Views.LocalMappingsPage">
   <MasterDetailPage.Resources>
     <ResourceDictionary>
-      <converters:ValueToHumanReadableStringConverter x:Key="ValToHumanReadableStringConv"/>
       <DataTemplate x:Key="MappingItemTemplate">
         <ViewCell>
-          <Grid BackgroundColor="White"
-                Padding="10,5,10,5"
-                Margin="5">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto"/>
-              <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image Source="{Binding Path=TeaserPath}"
-                   WidthRequest="250"
-                   Margin="5"
-                   Aspect="AspectFit"
-                   BackgroundColor="Fuchsia"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Center"/>
-            <StackLayout Grid.Column="1"
-                         Orientation="Vertical"
-                         VerticalOptions="Center"
-                         HorizontalOptions="End"
-                         x:Name="mappingStats">
-              <Label Text="{Binding Path=Measurements.Count, Converter={StaticResource ValToHumanReadableStringConv}}"
-                     TextColor="Black"
-                     FontSize="16"
-                     FontAttributes="Bold"/>
-              <Label Text="{Binding CreatedAt}"
-                     FontSize="14"
-                     TextColor="Gray"
-                     FontAttributes="Italic"/>
-            </StackLayout>
-          </Grid>
+          <templates:MappingItemTemplate></templates:MappingItemTemplate>
         </ViewCell>
       </DataTemplate>
     </ResourceDictionary>
@@ -49,6 +20,7 @@
                         BackgroundColor="Red">
           <!-- mappings -->
           <ListView x:Name="LstViewMappings"
+                    CachingStrategy="RecycleElement"
                     HeightRequest="{Binding Source={x:Reference MappingsLayout}, Path=Height}"
                     BackgroundColor="#EFEFEF"
                     HasUnevenRows="True"

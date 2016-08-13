@@ -45,6 +45,8 @@
       <Link>Utils\CustomMvxFileDownloadCache.cs</Link>
     </Compile>
     <Compile Include="App.cs" />
+    <Compile Include="Converters\BooleanInverter.cs" />
+    <Compile Include="Converters\DownloadStatusToMessageConverter.cs" />
     <Compile Include="Converters\ValueToHumanReadableStringConverter.cs" />
     <Compile Include="DepthViewerView.xaml.cs">
       <DependentUpon>DepthViewerView.xaml</DependentUpon>
@@ -106,6 +108,9 @@
     </Compile>
     <Compile Include="..\DepthViewer.Core\Contracts\ISecureDataStore.cs">
       <Link>Contracts\ISecureDataStore.cs</Link>
+    </Compile>
+    <Compile Include="Views\Templates\MappingItemTemplate.xaml.cs">
+      <DependentUpon>MappingItemTemplate.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +192,12 @@
     <None Include="packages.config" />
     <None Include="MvxViewPresenterBase.manifest" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Templates\MappingItemTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="..\DepthViewer.Shared\DepthViewer.Shared.projitems" Label="Shared" Condition="Exists('..\DepthViewer.Shared\DepthViewer.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.1.114\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.1.114\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

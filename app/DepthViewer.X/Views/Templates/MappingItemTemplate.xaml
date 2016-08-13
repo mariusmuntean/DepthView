@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns ="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:DepthViewer.X.Converters;assembly=DepthViewer.X"
+             x:Class="DepthViewer.X.Views.Templates.MappingItemTemplate">
+  <ContentView.Resources>
+    <ResourceDictionary>
+      <converters:ValueToHumanReadableStringConverter x:Key="ValToHumanReadableStringConv"/>
+      <converters:DownloadStatusToMessageConverter x:Key="StatusToMessageConverter" />
+      <converters:BooleanInverter x:Key="Inverter"></converters:BooleanInverter>
+    </ResourceDictionary>
+  </ContentView.Resources>
+
+  <Grid BackgroundColor="White"
+        Padding="10,5,10,5"
+        Margin="5"
+        HeightRequest="230">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- teaser -->
+    <ContentView Margin="5"
+                 WidthRequest="250"
+                 HorizontalOptions="Start"
+                 BackgroundColor="#0A000000">
+      <Image Source="{Binding Path=TeaserPath}"
+             Aspect="AspectFit"
+             VerticalOptions="Center"/>
+    </ContentView>
+    <StackLayout Grid.Column="1"
+                 Orientation="Vertical"
+                 VerticalOptions="Center"
+                 HorizontalOptions="End"
+                 x:Name="mappingStats">
+
+      <!-- count -->
+      <Label Text="{Binding Path=Measurements.Count, Converter={StaticResource ValToHumanReadableStringConv}}"
+             TextColor="Black"
+             FontSize="16"
+             FontAttributes="Bold"/>
+      <Label Text="{Binding CreatedAt}"
+             FontSize="14"
+             TextColor="Gray"
+             FontAttributes="Italic"/>
+
+      <!-- download status -->
+      <Grid WidthRequest="180">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="LblDownloadStatus"
+               Grid.Column="0"
+               VerticalOptions="Center"
+               Text="{Binding IsSavedLocally, Converter={StaticResource StatusToMessageConverter}}"
+               TextColor="Black"
+               FontSize="16"
+               FontAttributes="Bold"/>
+        <Image Grid.Column="1"
+               IsVisible="{Binding IsSavedLocally}"
+               Source="checkCircle.png"
+               Aspect="AspectFit" />
+        <Image Grid.Column="1"
+               IsVisible="{Binding IsSavedLocally, Converter={StaticResource Inverter}}"
+               Source="cloudDownload.png"
+               Aspect="AspectFit" />
+      </Grid>
+
+    </StackLayout>
+  </Grid>
+</ContentView>
