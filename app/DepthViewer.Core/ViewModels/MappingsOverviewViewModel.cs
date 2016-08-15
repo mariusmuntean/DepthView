@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DepthViewer.Core.Contracts;
+using DepthViewer.Core.Utils;
 using DepthViewer.Shared.Models;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
@@ -17,11 +18,27 @@ namespace DepthViewer.Core.ViewModels
         private bool _isRefreshing;
         private MvxCommand _refreshMappingsCommand;
 
+        public MappingsOverviewViewModel()
+        {
+
+            RefreshRemoteMappings();
+        }
         public MappingsOverviewViewModel(MvxCommand<List<Mapping>> okCommand)
         {
             _okCommand = okCommand;
+            RefreshRemoteMappings();
+        }
+
+        private void RefreshRemoteMappings()
+        {
             _remoteMappingService = Mvx.Resolve<IParseDataService>();
             _mappings = new ObservableCollection<Mapping>();
+
+            // ToDo: remove me
+            foreach (var dummyMapping in DummyDataGenerator.GetDummyMappings())
+            {
+                _mappings.Add(dummyMapping);
+            }
 
             FetchRemoteMappings();
         }
@@ -68,7 +85,10 @@ namespace DepthViewer.Core.ViewModels
 
         public ObservableCollection<Mapping> Mappings
         {
-            get { return _mappings; }
+            get
+            {
+                return _mappings;
+            }
             set
             {
                 _mappings = value;
@@ -79,6 +99,7 @@ namespace DepthViewer.Core.ViewModels
         public MvxCommand<List<Mapping>> OkCommand
         {
             get { return _okCommand; }
+            set { _okCommand = value; }
         }
 
         public bool All { get; set; }

@@ -34,6 +34,7 @@
           <!-- add button -->
           <Button Margin="10"
                   Text="Add"
+                  Command="{Binding AddRemoteMappingCommand}"
                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
                                             Property=Width, 
                                             Factor=0.9}"

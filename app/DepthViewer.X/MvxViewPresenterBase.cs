@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using DepthViewer.X.Utils;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Forms.Presenter.Core;
 using MvvmCross.Platform;
@@ -9,14 +10,14 @@ using Xamarin.Forms;
 
 namespace DepthViewer.X
 {
-    public abstract class SenovoMvxViewPresenterBase : MvxFormsPagePresenter
+    public abstract class DepthViewerViewPresenterBase : MvxFormsPagePresenter
     {
-        protected SenovoMvxViewPresenterBase(Application mvxFormsApp)
+        protected DepthViewerViewPresenterBase(Application mvxFormsApp)
         {
             MvxFormsApp = mvxFormsApp;
         }
 
-        protected SenovoMvxViewPresenterBase()
+        protected DepthViewerViewPresenterBase()
         {
         }
 
@@ -49,14 +50,17 @@ namespace DepthViewer.X
             {
                 try
                 {
-#if DEBUG
-                    //if (page.GetType() != typeof (HomeView))
                     NavigationPage.SetHasNavigationBar(page, false);
-#else
 
-                    NavigationPage.SetHasNavigationBar(page, false);
-#endif
-                    await mainPage.PushAsync(page);
+                    if (IsModal(page))
+                    {
+                        await mainPage.Navigation.PushModalAsync(page);
+                    }
+                    else
+                    {
+                        await mainPage.PushAsync(page);
+                    }
+                    
                     _viewStack.Add(page);
                 }
                 catch (Exception e)
@@ -65,6 +69,21 @@ namespace DepthViewer.X
                 }
             }
         }
+
+        private bool IsModal(Page page)
+        {
+            var attr = page.GetType().GetCustomAttributes(typeof(ModalAttribute), false).FirstOrDefault() as ModalAttribute;
+            return attr != null && attr.IsModal;
+        }
+
+        /*
+ * Create the page for the modal ViewModel. 
+ * Create class attribute(yay) for the Page class and evaluate it here, pushing the new page with PushModal
+ * 
+ * var detailPage = new DetailPage ();
+...
+await Navigation.PushModalAsync (detailPage);
+ */
 
         public override async void ChangePresentation(MvxPresentationHint hint)
         {

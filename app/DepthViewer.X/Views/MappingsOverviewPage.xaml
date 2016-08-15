@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns ="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:templates="clr-namespace:DepthViewer.X.Views.Templates;assembly=DepthViewer.X"
+             x:Class="DepthViewer.X.Views.MappingsOverviewPage"
+             BackgroundColor="#5F000000">
+  
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <DataTemplate x:Key="MappingItemTemplate">
+        <ViewCell>
+          <templates:MappingItemTemplate />
+        </ViewCell>
+      </DataTemplate>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
+  <ContentPage.Content>
+    <RelativeLayout>
+      <Grid BackgroundColor="White"
+            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.8}">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- remote mappings -->
+        <ListView CachingStrategy="RecycleElement"
+                  BackgroundColor="#EFEFEF"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="Default"
+                  SeparatorColor="#8C8C8C"
+                  ItemsSource="{Binding Mappings}"
+                  ItemTemplate="{StaticResource MappingItemTemplate}" />
+
+        <!-- buttons -->
+        <Button Grid.Row="1"
+                HorizontalOptions="Start"
+                Margin="15,5"
+                Text="Refresh"/>
+        <Button Grid.Row="1"
+                HorizontalOptions="End"
+                Margin="15,5"
+                Text="Ok"/>
+
+      </Grid>
+    </RelativeLayout>
+  </ContentPage.Content>
+</ContentPage>

@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using DepthViewer.Core.Contracts;
 using DepthViewer.Shared.Models;
 using MvvmCross.Core.ViewModels;
@@ -20,13 +22,21 @@ namespace DepthViewer.Core.ViewModels
         {
             base.InitFromBundle(parameters);
 
-            if (parameters.Data.ContainsKey("Id"))
+            try
             {
-                var id = "";
-                if (parameters.Data.TryGetValue("Id", out id))
+                if (parameters.Data.ContainsKey("Id"))
                 {
-                    _currentMapping = _mappingServices.GetMapping(id).Result;
+                    var id = "";
+                    if (parameters.Data.TryGetValue("Id", out id))
+                    {
+                        _currentMapping = _mappingServices.GetMapping(id).Result;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in MappingViewModel.InitFromBundle(): "+ex);
+                //Close(this);
             }
         }
 
