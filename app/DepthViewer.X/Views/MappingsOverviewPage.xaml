@@ -2,14 +2,17 @@
 <ContentPage xmlns ="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:templates="clr-namespace:DepthViewer.X.Views.Templates;assembly=DepthViewer.X"
+             xmlns:converters="clr-namespace:DepthViewer.X.Converters;assembly=DepthViewer.X"
              x:Class="DepthViewer.X.Views.MappingsOverviewPage"
              BackgroundColor="#5F000000">
   
   <ContentPage.Resources>
     <ResourceDictionary>
+      <converters:CountToBooleanConverter x:Key="CountToBoolConverter"/>
       <DataTemplate x:Key="MappingItemTemplate">
         <ViewCell>
-          <templates:MappingItemTemplate />
+          <templates:MappingItemTemplate MarkForDownloadCommand="{Binding Path=BindingContext.MarkForDownloadCommand, Source={x:Reference lstViewRemoteMapping}}" 
+                                         UnMarkForDownloadCommand="{Binding Path=BindingContext.UnMarkForDownloadCommand, Source={x:Reference lstViewRemoteMapping}}" />
         </ViewCell>
       </DataTemplate>
     </ResourceDictionary>
@@ -23,28 +26,46 @@
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.8}">
         <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
           <RowDefinition Height="*" />
           <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
+        <Label Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="#5F808080"
+               FontAttributes="Italic"
+               FontSize="18"
+               Margin="5"
+               Text="Remote Mappings"/>
         
         <!-- remote mappings -->
-        <ListView CachingStrategy="RecycleElement"
+        <ListView x:Name="lstViewRemoteMapping" Grid.Row="1"
+                  CachingStrategy="RecycleElement"
                   BackgroundColor="#EFEFEF"
                   HasUnevenRows="True"
                   SeparatorVisibility="Default"
                   SeparatorColor="#8C8C8C"
                   ItemsSource="{Binding Mappings}"
                   ItemTemplate="{StaticResource MappingItemTemplate}" />
+        <Label Grid.Row="1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="#5F808080"
+               Text="Nothing here. Click refresh"
+               IsVisible="{Binding Mappings.Count, Converter={StaticResource CountToBoolConverter}}"/>
 
         <!-- buttons -->
-        <Button Grid.Row="1"
+        <Button Grid.Row="2"
                 HorizontalOptions="Start"
                 Margin="15,5"
                 Text="Refresh"/>
-        <Button Grid.Row="1"
+        <Button Grid.Row="2"
                 HorizontalOptions="End"
                 Margin="15,5"
-                Text="Ok"/>
+                Text="Ok"
+                Command="{Binding OkCommand}"/>
 
       </Grid>
     </RelativeLayout>

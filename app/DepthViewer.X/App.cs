@@ -1,4 +1,5 @@
 using DepthViewer.Core.Contracts;
+using DepthViewer.Core.Services;
 using DepthViewer.Core.ViewModels;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Forms.Presenter.Core;
@@ -18,6 +19,7 @@ namespace DepthViewer.X
 
             Mvx.RegisterType<IMvxFormsPageLoader, DepthViewerViewLoader>();
             Mvx.Resolve<IParseDataService>().InitializeParse();
+            Mvx.LazyConstructAndRegisterSingleton<IDataExchangeService>(() => new DataExchangeService());
 
             RegisterAppStart<LocalMappingsViewModel>();
         }

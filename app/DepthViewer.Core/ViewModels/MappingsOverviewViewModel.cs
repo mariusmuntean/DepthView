@@ -17,10 +17,15 @@ namespace DepthViewer.Core.ViewModels
         private IParseDataService _remoteMappingService;
         private bool _isRefreshing;
         private MvxCommand _refreshMappingsCommand;
+        private List<Mapping> _mappingsForDownload;
 
         public MappingsOverviewViewModel()
         {
-
+            _okCommand = new MvxCommand<List<Mapping>>(list =>
+            {
+                Mvx.Resolve<IDataExchangeService>().Payload[Constants.MappingsKey] = _mappingsForDownload;
+                Close(this);
+            });
             RefreshRemoteMappings();
         }
         public MappingsOverviewViewModel(MvxCommand<List<Mapping>> okCommand)
@@ -31,6 +36,7 @@ namespace DepthViewer.Core.ViewModels
 
         private void RefreshRemoteMappings()
         {
+            _mappingsForDownload = new List<Mapping>();
             _remoteMappingService = Mvx.Resolve<IParseDataService>();
             _mappings = new ObservableCollection<Mapping>();
 
@@ -70,7 +76,40 @@ namespace DepthViewer.Core.ViewModels
                 });
                 return _refreshMappingsCommand;
             }
+        }
 
+        private MvxCommand<Mapping> _markForDownloadCommand;
+        public MvxCommand<Mapping> MarkForDownloadCommand
+        {
+            get
+            {
+                _markForDownloadCommand = _markForDownloadCommand ?? new MvxCommand<Mapping>(mapping =>
+                {
+                    if (!_mappingsForDownload.Contains(mapping))
+                    {
+                        _mappingsForDownload.Add(mapping);
+                    }
+                });
+
+                return _markForDownloadCommand;
+            }
+        }
+
+        private MvxCommand<Mapping> _unMarkForDownloadCommand;
+        public MvxCommand<Mapping> UnMarkForDownloadCommand
+        {
+            get
+            {
+                _unMarkForDownloadCommand = _unMarkForDownloadCommand ?? new MvxCommand<Mapping>(mapping =>
+                {
+                    if (_mappingsForDownload.Contains(mapping))
+                    {
+                        _mappingsForDownload.Remove(mapping);
+                    }
+                });
+
+                return _unMarkForDownloadCommand;
+            }
         }
 
         public bool IsRefreshing

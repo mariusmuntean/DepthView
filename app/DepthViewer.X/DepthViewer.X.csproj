@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="App.cs" />
     <Compile Include="Converters\BooleanInverter.cs" />
+    <Compile Include="Converters\CountToBooleanConverter.cs" />
     <Compile Include="Converters\DownloadStatusToMessageConverter.cs" />
     <Compile Include="Converters\ValueToHumanReadableStringConverter.cs" />
     <Compile Include="DepthViewerView.xaml.cs">

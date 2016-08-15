@@ -47,7 +47,7 @@
              FontAttributes="Italic"/>
 
       <!-- download status -->
-      <Grid IsVisible="{Binding IsSavedLocally, Converter={StaticResource Inverter}}">
+      <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto" />
           <ColumnDefinition Width="20"/>
@@ -67,6 +67,22 @@
                IsVisible="{Binding IsSavedLocally, Converter={StaticResource Inverter}}"
                Source="cloudDownload.png"
                Aspect="AspectFit" />
+      </Grid>
+
+      <!-- should download -->
+      <Grid IsVisible="{Binding IsSavedLocally, Converter={StaticResource Inverter}}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0"
+               VerticalOptions="Center"
+               Text="Should download: "
+               TextColor="Black"
+               FontSize="16"
+               FontAttributes="Bold"/>
+        <Switch Grid.Column="1" 
+                Toggled="Switch_OnToggled"/>
       </Grid>
 
     </StackLayout>
