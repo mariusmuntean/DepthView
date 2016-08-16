@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using DepthViewer.X.Utils;
+using DepthViewer.X.Views;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Forms.Presenter.Core;
 using MvvmCross.Platform;
+using MvvmCross.Platform.IoC;
 using Xamarin.Forms;
 
 namespace DepthViewer.X
@@ -54,7 +57,7 @@ namespace DepthViewer.X
 
                     if (IsModal(page))
                     {
-                        await mainPage.Navigation.PushModalAsync(page);
+                        await mainPage.Navigation.PushModalAsync(page, true);
                     }
                     else
                     {
@@ -72,7 +75,19 @@ namespace DepthViewer.X
 
         private bool IsModal(Page page)
         {
-            var attr = page.GetType().GetCustomAttributes(typeof(ModalAttribute), false).FirstOrDefault() as ModalAttribute;
+            return IsModal(page.GetType());
+        }
+
+        private bool IsModal(MvxClosePresentationHint hint)
+        {
+            var pageName = hint.ViewModelToClose.GetType().Name.Replace("ViewModel", "Page");
+            var pageType = typeof(LocalMappingsPage).GetTypeInfo().Assembly.CreatableTypes().FirstOrDefault(t => t.Name.Equals(pageName));
+            return IsModal(pageType);
+        }
+
+        private bool IsModal(Type page)
+        {
+            var attr = page.GetCustomAttributes(typeof(ModalAttribute), false).FirstOrDefault() as ModalAttribute;
             return attr != null && attr.IsModal;
         }
 
@@ -117,7 +132,16 @@ await Navigation.PushModalAsync (detailPage);
                         {
                             _viewStack.Remove(_viewStack.Last());
                         }
-                        await mainPage.PopAsync();
+
+                        // Pop differently if modal
+                        if (IsModal(hint as MvxClosePresentationHint))
+                        {
+                            await mainPage.Navigation.PopModalAsync(true);
+                        }
+                        else
+                        {
+                            await mainPage.PopAsync();
+                        }
                     }
                     catch (Exception ex)
                     {

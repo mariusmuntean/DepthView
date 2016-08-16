@@ -1,6 +1,7 @@
 using DepthViewer.Core.Contracts;
 using DepthViewer.Core.Services;
 using DepthViewer.Core.ViewModels;
+using DepthViewer.X.Utils;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Forms.Presenter.Core;
 using MvvmCross.Platform;

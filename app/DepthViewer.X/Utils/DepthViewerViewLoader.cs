@@ -5,7 +5,7 @@ using MvvmCross.Core.ViewModels;
 using MvvmCross.Forms.Presenter.Core;
 using MvvmCross.Platform.IoC;
 
-namespace DepthViewer.X
+namespace DepthViewer.X.Utils
 {
     public class DepthViewerViewLoader : MvxFormsPageLoader
     {
